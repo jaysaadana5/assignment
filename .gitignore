@@ -1,0 +1,11 @@
+# Generated data files (produced by running the notebook)
+data/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
