@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>Mentors | Social Summer of Code Season 5</title>
+    <meta name="title" content="Mentors | Social Summer of Code Season 5">
+    <meta name="description" content="Meet our amazing mentors who guide and support contributors throughout their open-source journey at SSoC Season 5. Industry experts ready to help you grow.">
+    <meta name="keywords" content="SSoC mentors, open source mentors, coding mentors, tech mentors, programming guidance, career mentorship">
+    <meta name="author" content="Social Summer of Code">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png">
+    <link rel="apple-touch-icon" href="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://socialsummerofcode.com/mentors">
+    <meta property="og:title" content="Mentors | Social Summer of Code Season 5">
+    <meta property="og:description" content="Meet our amazing mentors who guide and support contributors throughout their open-source journey at SSoC Season 5.">
+    <meta property="og:image" content="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mentors | Social Summer of Code Season 5">
+    <meta name="twitter:description" content="Meet our amazing mentors who guide and support contributors throughout their open-source journey at SSoC Season 5.">
+    <meta name="twitter:image" content="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#d35dab">
+    
+    <!-- Fonts and Styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=15">
+    <style>
+        .page-hero {
+            background: linear-gradient(135deg, #fdf2f8 0%, #faf5ff 50%, #f0f9ff 100%);
+            padding: 120px 0 60px;
+            text-align: center;
+        }
+        .page-hero h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 48px;
+            color: #2d1f3d;
+            margin-bottom: 16px;
+        }
+        .page-hero p {
+            font-size: 18px;
+            color: #6b5a7d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .mentors-section {
+            padding: 60px 0;
+            background: #faf5ff;
+            min-height: 400px;
+        }
+        .mentors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .mentor-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(211, 93, 171, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .mentor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 32px rgba(211, 93, 171, 0.15);
+        }
+        .mentor-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 16px;
+            border: 4px solid rgba(211, 93, 171, 0.2);
+        }
+        .mentor-name {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 20px;
+            color: #2d1f3d;
+            margin-bottom: 4px;
+        }
+        .mentor-role {
+            font-size: 14px;
+            color: #d35dab;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        .mentor-company {
+            font-size: 13px;
+            color: #6b5a7d;
+            margin-bottom: 12px;
+        }
+        .mentor-bio {
+            font-size: 14px;
+            color: #6b5a7d;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .mentor-skills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+        .mentor-skill {
+            background: rgba(211, 93, 171, 0.1);
+            color: #d35dab;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        .mentor-social {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+        .mentor-social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(211, 93, 171, 0.1);
+            color: #d35dab;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background 0.3s, color 0.3s;
+        }
+        .mentor-social a:hover {
+            background: #d35dab;
+            color: white;
+        }
+        .coming-soon {
+            text-align: center;
+            padding: 80px 20px;
+        }
+        .coming-soon-icon {
+            width: 120px;
+            height: 120px;
+            background: rgba(211, 93, 171, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+        .coming-soon-icon i {
+            font-size: 48px;
+            color: #d35dab;
+        }
+        .coming-soon h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 32px;
+            color: #2d1f3d;
+            margin-bottom: 12px;
+        }
+        .coming-soon p {
+            font-size: 16px;
+            color: #6b5a7d;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        @media (max-width: 768px) {
+            .page-hero h1 { font-size: 32px; }
+            .mentors-grid { grid-template-columns: 1fr; }
+            
+            /* Mobile navbar */
+            .nav-links, .nav-cta { display: none !important; }
+            .mobile-menu-btn { display: block !important; }
+            
+            .mobile-menu {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 20px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+                display: none;
+                flex-direction: column;
+                gap: 8px;
+                z-index: 999;
+            }
+            
+            .mobile-menu.active {
+                display: flex;
+            }
+            
+            .mobile-menu a {
+                padding: 12px 16px;
+                color: #2d1f3d;
+                text-decoration: none;
+                font-weight: 500;
+                border-radius: 8px;
+            }
+            
+            .mobile-menu a:hover,
+            .mobile-menu a.active {
+                background: rgba(211, 93, 171, 0.1);
+                color: #d35dab;
+            }
+            
+            .mobile-menu .mobile-cta {
+                background: #d35dab;
+                color: white;
+                text-align: center;
+                margin-top: 8px;
+            }
+        }
+        /* Ultra-wide optimization */
+        @media (min-width: 2560px) {
+            .page-hero { padding: 160px 0 80px; }
+            .page-hero h1 { font-size: 64px; }
+            .page-hero p { font-size: 22px; max-width: 800px; }
+            .mentors-section { padding: 80px 0; }
+            .mentors-grid { 
+                max-width: 2000px; 
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+                gap: 36px;
+            }
+            .mentor-card { padding: 36px; }
+            .mentor-avatar { width: 140px; height: 140px; }
+            .mentor-name { font-size: 24px; }
+            .mentor-role { font-size: 16px; }
+            .mentor-bio { font-size: 16px; }
+            .mentor-social a { width: 44px; height: 44px; font-size: 18px; }
+            .coming-soon h2 { font-size: 42px; }
+            .coming-soon p { font-size: 20px; max-width: 500px; }
+            .coming-soon-icon { width: 160px; height: 160px; }
+            .coming-soon-icon i { font-size: 64px; }
+        }
+        @media (min-width: 3200px) {
+            .page-hero { padding: 200px 0 100px; }
+            .page-hero h1 { font-size: 80px; }
+            .page-hero p { font-size: 26px; }
+            .mentors-grid { 
+                max-width: 2400px;
+                grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+                gap: 48px;
+            }
+            .mentor-card { padding: 44px; }
+            .mentor-avatar { width: 160px; height: 160px; }
+            .mentor-name { font-size: 28px; }
+            .mentor-bio { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png" alt="SSoC Logo">
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="mentors.html" class="active">Mentors</a>
+                <a href="team.html">Team</a>
+                <a href="index.html#timeline">Timeline</a>
+                <a href="index.html#faq">FAQ</a>
+            </div>
+            <a href="index.html#register" class="nav-cta">Register Now</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="mentors.html">Mentors</a>
+        <a href="team.html">Team</a>
+        <a href="index.html#timeline">Timeline</a>
+        <a href="index.html#faq">FAQ</a>
+        <a href="index.html#register" class="mobile-cta">Register Now</a>
+    </div>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1><i class="fas fa-users" style="color: #f07e4f; margin-right: 12px;"></i>Our Mentors</h1>
+            <p>Meet our amazing mentors who guide and support contributors throughout their open-source journey at SSoC Season 5.</p>
+        </div>
+    </section>
+
+    <!-- Mentors Section -->
+    <section class="mentors-section">
+        <div class="mentors-grid" id="mentorsGrid">
+            <!-- Mentors will be loaded here -->
+        </div>
+        <div class="coming-soon" id="comingSoon" style="display: none;">
+            <div class="coming-soon-icon">
+                <i class="fas fa-user-astronaut"></i>
+            </div>
+            <h2>Mentors Coming Soon!</h2>
+            <p>We're onboarding incredible mentors for Season 5. Check back soon to meet them!</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-bottom">
+            <div class="container">
+                <p>© 2025 Social Summer of Code. All rights reserved.</p>
+                <p>Made with <i class="fas fa-heart"></i> by the SSoC Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // API Base URL
+        const API_URL = window.location.origin + '/api';
+        
+        // Load mentors from API
+        async function loadMentors() {
+            const grid = document.getElementById('mentorsGrid');
+            const comingSoon = document.getElementById('comingSoon');
+            
+            try {
+                const response = await fetch(`${API_URL}/data`);
+                const data = await response.json();
+                const mentors = data.mentors || [];
+                
+                if (mentors.length === 0) {
+                    grid.style.display = 'none';
+                    comingSoon.style.display = 'block';
+                    return;
+                }
+                
+                grid.style.display = 'grid';
+                comingSoon.style.display = 'none';
+                
+                grid.innerHTML = mentors.map(m => `
+                    <div class="mentor-card" data-testid="mentor-card">
+                        <img src="${m.avatar || 'https://via.placeholder.com/100'}" alt="${m.name}" class="mentor-avatar">
+                        <h3 class="mentor-name">${m.name}</h3>
+                        <div class="mentor-role">${m.role || 'Mentor'}</div>
+                        <div class="mentor-company">${m.company || ''}</div>
+                        <p class="mentor-bio">${m.bio || ''}</p>
+                        <div class="mentor-skills">
+                            ${(m.skills || []).map(skill => `<span class="mentor-skill">${skill}</span>`).join('')}
+                        </div>
+                        <div class="mentor-social">
+                            ${m.github ? `<a href="${m.github}" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>` : ''}
+                            ${m.linkedin ? `<a href="${m.linkedin}" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>` : ''}
+                            ${m.twitter ? `<a href="${m.twitter}" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading mentors from API:', error);
+                grid.style.display = 'none';
+                comingSoon.style.display = 'block';
+            }
+        }
+        
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+            this.querySelector('i').classList.toggle('fa-bars');
+            this.querySelector('i').classList.toggle('fa-times');
+        });
+        
+        // Load on page ready
+        document.addEventListener('DOMContentLoaded', loadMentors);
+    </script>
+</body>
+</html>

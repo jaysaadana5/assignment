@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>SSoC Season 5 · Badge Generator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Generate your personalized Social Summer of Code Season 5 Badge. Choose your role, enter your details, and download a high-quality badge." />
+<link rel="icon" type="image/png" href="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,800;9..144,900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  html, body { margin: 0; padding: 0; background: #f0eee9; font-family: 'Space Grotesk', system-ui, sans-serif; }
+
+  .badge-nav {
+    background: #1E1124;
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .badge-nav a.brand {
+    color: white; text-decoration: none; font-weight: 700; font-size: 18px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .badge-nav a.brand img { width: 32px; height: 32px; border-radius: 8px; }
+  .badge-nav a.back {
+    color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px;
+    display: flex; align-items: center; gap: 6px; transition: color 0.2s;
+  }
+  .badge-nav a.back:hover { color: #E86FBB; }
+
+  .page { min-height: calc(100vh - 64px); display: flex; flex-direction: column; align-items: center; padding: 32px 20px 56px; gap: 22px; }
+
+  .badge-hero { text-align: center; max-width: 600px; }
+  .badge-hero h1 { font-size: 32px; font-weight: 800; color: #1E1124; margin: 0 0 8px; }
+  .badge-hero h1 span { color: #D946A0; }
+  .badge-hero p { color: #6b5b65; font-size: 15px; margin: 0; line-height: 1.5; }
+
+  .stage { width: min(1080px, calc(100vw - 40px)); aspect-ratio: 1 / 1; position: relative; }
+  .stage-inner { position: absolute; top: 0; left: 0; width: 1080px; height: 1080px; transform-origin: top left; }
+
+  .controls {
+    display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: center;
+    background: white; padding: 16px 20px; border-radius: 14px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.06); max-width: 700px; width: 100%;
+  }
+  .control-group { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 160px; }
+  .control-group.full { flex-basis: 100%; }
+  .controls label { font-size: 11px; color: #6b5b65; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; }
+  .controls input, .controls textarea {
+    border: 2px solid #e5e3de; border-radius: 10px; padding: 10px 14px;
+    font: inherit; font-size: 15px; width: 100%; box-sizing: border-box; transition: border-color 0.2s;
+    resize: none; font-family: inherit;
+  }
+  .controls input:focus, .controls textarea:focus { outline: none; border-color: #D946A0; }
+  .gallery-optin {
+    display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px;
+    background: #FFF5FA; border: 1.5px dashed #f0b8d9; border-radius: 10px;
+    width: 100%; box-sizing: border-box; cursor: pointer; transition: background 0.2s;
+  }
+  .gallery-optin:hover { background: #FFEBF5; }
+  .gallery-optin input[type="checkbox"] {
+    width: 18px; height: 18px; accent-color: #D946A0; margin: 2px 0 0 0; flex-shrink: 0;
+    cursor: pointer;
+  }
+  .gallery-optin-text { flex: 1; }
+  .gallery-optin-text strong { display: block; font-size: 14px; color: #1E1124; font-weight: 700; margin-bottom: 2px; }
+  .gallery-optin-text small { font-size: 12px; color: #6b5b65; line-height: 1.4; }
+  .tagline-hint { font-size: 11px; color: #a08a96; margin-top: 4px; text-align: right; letter-spacing: 0; text-transform: none; font-weight: 500; }
+
+  /* ===== SHARE PANEL ===== */
+  .share-panel {
+    max-width: 700px; width: 100%;
+    background: white; border-radius: 16px; padding: 22px 24px;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.08);
+    border: 2px solid #f7d4e8;
+    animation: sharePanelIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes sharePanelIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .share-panel-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+  }
+  .share-panel-header .check-circle {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, #4ade80, #22c55e);
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 16px; flex-shrink: 0;
+    box-shadow: 0 6px 18px rgba(34,197,94,0.35);
+  }
+  .share-panel-header h3 {
+    font-size: 18px; font-weight: 800; color: #1E1124; margin: 0 0 2px;
+  }
+  .share-panel-header p { font-size: 13px; color: #6b5b65; margin: 0; line-height: 1.4; }
+  .share-hint {
+    background: #FFF5FA; border-radius: 10px; padding: 10px 14px;
+    font-size: 12px; color: #7a3f63; line-height: 1.5;
+    margin-bottom: 14px; display: flex; gap: 8px; align-items: flex-start;
+  }
+  .share-hint i { color: #D946A0; margin-top: 2px; flex-shrink: 0; }
+  .share-buttons {
+    display: flex; gap: 10px; flex-wrap: wrap;
+  }
+  .share-btn {
+    flex: 1; min-width: 120px; border: none; cursor: pointer;
+    padding: 12px 16px; border-radius: 12px;
+    font: inherit; font-size: 14px; font-weight: 700;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    text-decoration: none; color: white;
+    transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+  }
+  .share-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
+  .share-btn i { font-size: 17px; }
+  .share-btn.x { background: #000; }
+  .share-btn.x:hover { box-shadow: 0 8px 22px rgba(0,0,0,0.3); }
+  .share-btn.linkedin { background: #0A66C2; }
+  .share-btn.linkedin:hover { box-shadow: 0 8px 22px rgba(10,102,194,0.35); }
+  .share-btn.whatsapp { background: #25D366; }
+  .share-btn.whatsapp:hover { box-shadow: 0 8px 22px rgba(37,211,102,0.35); }
+  .share-btn.copy { background: #1E1124; }
+  .share-btn.copy.copied { background: #22c55e; }
+  .share-btn.copy:hover { box-shadow: 0 8px 22px rgba(30,17,36,0.3); }
+  @media (max-width: 640px) {
+    .share-buttons { flex-direction: column; gap: 8px; }
+    .share-btn { width: 100%; min-width: 0; }
+  }
+  .download-btn {
+    background: linear-gradient(135deg, #E86FBB, #D946A0); color: white; border: none;
+    border-radius: 12px; padding: 12px 24px; font: inherit; font-size: 14px; font-weight: 700;
+    cursor: pointer; display: flex; align-items: center; gap: 8px;
+    box-shadow: 0 4px 16px rgba(217,70,160,0.3); transition: transform 0.2s, box-shadow 0.2s;
+    white-space: nowrap;
+  }
+  .download-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(217,70,160,0.4); }
+  .download-btn i { font-size: 16px; }
+
+  .role-tabs {
+    display: inline-flex; background: white; border-radius: 999px; padding: 5px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+  }
+  .role-tabs button {
+    background: transparent; color: #6b5b65; border: none; border-radius: 999px;
+    padding: 10px 22px; font: inherit; font-weight: 600; cursor: pointer; transition: all .15s;
+  }
+  .role-tabs button.active { background: #1E1124; color: white; }
+  .role-tabs button:not(.active):hover { color: #1E1124; background: #f7f5f1; }
+
+  @keyframes badgeShine {
+    0% { transform: translateX(-150%) skewX(-20deg); }
+    100% { transform: translateX(250%) skewX(-20deg); }
+  }
+  .badge-root { position: relative; overflow: hidden; }
+  .badge-root .shine { position: absolute; inset: 0; pointer-events: none; overflow: hidden; opacity: 0; transition: opacity .3s; z-index: 50; }
+  .badge-root:hover .shine { opacity: 1; }
+  .badge-root .shine::before {
+    content: ""; position: absolute; top: -20%; left: 0; width: 40%; height: 140%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+    animation: badgeShine 1.4s ease-in-out;
+  }
+
+  @media (max-width: 640px) {
+    .badge-hero h1 { font-size: 24px; }
+    .badge-hero p { font-size: 14px; }
+    .controls { padding: 14px; }
+    .control-group { min-width: 140px; }
+    .download-btn { width: 100%; justify-content: center; }
+    .badge-nav { padding: 12px 16px; }
+    .role-tabs button { padding: 10px 14px; font-size: 14px; }
+  }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<nav class="badge-nav">
+  <a href="/" class="brand"><img src="assets/ssoc-logo.png" alt="SSoC" /> SSoC Season 5</a>
+  <a href="/" class="back"><i class="fas fa-arrow-left"></i> Back to Home</a>
+</nav>
+
+<div id="root"></div>
+
+<script type="text/babel">
+  const { useState, useEffect, useRef } = React;
+  const INK = '#1A0E18';
+
+  const ROLES = {
+    contributor: {
+      label: 'Contributor', slug: 'contributor', varName: 'contributor',
+      tabFile: 'contributor.ts', statusText: 'VERIFIED CONTRIBUTOR',
+      pill: 'ACTIVE \u00B7 SEASON 05',
+      accent: '#E86FBB', accentHot: '#D946A0', accentSoft: '#FFD6EE',
+      editorBg: '#1E1124', editorChrome: '#15081B',
+      shadowTint: 'rgba(122, 29, 90, 0.45)',
+      extraField: { key: 'status', value: '"merged \u2713"' },
+    },
+    mentor: {
+      label: 'Mentor', slug: 'mentor', varName: 'mentor',
+      tabFile: 'mentor.ts', statusText: 'VERIFIED MENTOR',
+      pill: 'GUIDING \u00B7 SEASON 05',
+      accent: '#7C6BFF', accentHot: '#5B45F0', accentSoft: '#E4DFFF',
+      editorBg: '#0E0A2A', editorChrome: '#07041A',
+      shadowTint: 'rgba(35, 18, 120, 0.45)',
+      extraField: { key: 'status', value: '"reviewing PRs"' },
+    },
+    admin: {
+      label: 'Project Admin', slug: 'project-admin', varName: 'projectAdmin',
+      tabFile: 'admin.ts', statusText: 'VERIFIED PROJECT ADMIN',
+      pill: 'HOSTING \u00B7 SEASON 05',
+      accent: '#FF9D3D', accentHot: '#EC7A1A', accentSoft: '#FFE7C7',
+      editorBg: '#1F1206', editorChrome: '#140A02',
+      shadowTint: 'rgba(140, 70, 15, 0.45)',
+      extraField: { key: 'status', value: '"shipping \uD83D\uDE80"' },
+    },
+  };
+
+  function VerifiedCheck({ size = 28, color = '#ffffff', bg }) {
+    return (
+      <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'block' }}>
+        <path fill={bg} d="M12 1l2.4 1.8 3-.3 1.2 2.8 2.8 1.2-.3 3L22.8 12l-1.8 2.4.3 3-2.8 1.2-1.2 2.8-3-.3L12 22.8l-2.4-1.8-3 .3-1.2-2.8-2.8-1.2.3-3L1.2 12l1.8-2.4-.3-3 2.8-1.2L6.7 2.5l3 .3L12 1z"/>
+        <path d="M7.5 12.2l3 3 6-6.5" stroke={color} strokeWidth="2.2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    );
+  }
+
+  function Badge({ data, role }) {
+    const theme = ROLES[role];
+    const code = [
+      { n: 1, t: <><span style={{color:'#ff79c6'}}>const</span> <span style={{color:'#8be9fd'}}>{theme.varName}</span> <span style={{color:'#ff79c6'}}>=</span> <span>{'{'}</span></> },
+      { n: 2, t: <>    <span style={{color:'#50fa7b'}}>name</span>: <span style={{color:'#f1fa8c'}}>"{data.name}"</span>,</> },
+      { n: 3, t: <>    <span style={{color:'#50fa7b'}}>github</span>: <span style={{color:'#f1fa8c'}}>"@{data.handle}"</span>,</> },
+      { n: 4, t: <>    <span style={{color:'#50fa7b'}}>program</span>: <span style={{color:'#f1fa8c'}}>"SSoC"</span>,</> },
+      { n: 5, t: <>    <span style={{color:'#50fa7b'}}>season</span>: <span style={{color:'#bd93f9'}}>{parseInt(data.season)}</span>,</> },
+      { n: 6, t: <>    <span style={{color:'#50fa7b'}}>role</span>: <span style={{color:'#f1fa8c'}}>"{theme.label}"</span>,</> },
+      { n: 7, t: <>    <span style={{color:'#50fa7b'}}>{theme.extraField.key}</span>: <span style={{color:'#f1fa8c'}}>{theme.extraField.value}</span>,</> },
+      { n: 8, t: <>{'}'};</> },
+    ];
+
+    return (
+      <div className="badge-root" id="badge-export" style={{
+        width: 1080, height: 1080, position: 'relative',
+        background: `linear-gradient(135deg, ${theme.accentSoft} 0%, ${theme.accent} 100%)`,
+        padding: 80, boxSizing: 'border-box', fontFamily: 'JetBrains Mono, monospace',
+        display: 'flex', flexDirection: 'column',
+      }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 40 }}>
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: 12,
+            background: 'rgba(255,255,255,0.95)', padding: '10px 20px', borderRadius: 999,
+            fontFamily: 'Space Grotesk, sans-serif', fontSize: 18, fontWeight: 700, color: INK,
+          }}>
+            <span style={{ width: 10, height: 10, borderRadius: 999, background: '#22c55e', boxShadow: '0 0 0 4px rgba(34,197,94,0.25)' }} />
+            {theme.pill}
+          </div>
+          <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 16, fontWeight: 600, color: 'white', letterSpacing: '0.2em' }}>
+            socialsummerofcode.com
+          </div>
+        </div>
+
+        <div style={{
+          background: theme.editorBg, borderRadius: 20, overflow: 'hidden',
+          boxShadow: `0 30px 80px ${theme.shadowTint}, 0 0 0 1px rgba(255,255,255,0.1)`,
+          flex: 1, display: 'flex', flexDirection: 'column',
+        }}>
+          <div style={{
+            background: theme.editorChrome, padding: '18px 22px',
+            display: 'flex', alignItems: 'center', gap: 12,
+            borderBottom: '1px solid rgba(255,255,255,0.08)',
+          }}>
+            <span style={{ width: 14, height: 14, borderRadius: 999, background: '#ff5f57' }} />
+            <span style={{ width: 14, height: 14, borderRadius: 999, background: '#febc2e' }} />
+            <span style={{ width: 14, height: 14, borderRadius: 999, background: '#28c840' }} />
+            <div style={{ marginLeft: 16, background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.7)', padding: '6px 14px', borderRadius: 8, fontSize: 15 }}>{theme.tabFile} - ssoc-season-5</div>
+            <div style={{ marginLeft: 'auto', color: 'rgba(255,255,255,0.4)', fontSize: 14 }}>● unsaved</div>
+          </div>
+
+          <div style={{ padding: '36px 32px', fontSize: 26, lineHeight: 1.7, color: '#f8f8f2', flex: 1 }}>
+            {code.map(({ n, t }) => (
+              <div key={n} style={{ display: 'flex', gap: 24, whiteSpace: 'nowrap' }}>
+                <span style={{ color: 'rgba(255,255,255,0.25)', width: 28, flexShrink: 0, textAlign: 'right', userSelect: 'none' }}>{n}</span>
+                <span style={{ flexShrink: 0, whiteSpace: 'pre' }}>{t}</span>
+              </div>
+            ))}
+            <div style={{ marginTop: 14, color: 'rgba(255,255,255,0.35)' }}>
+              <span style={{ display: 'inline-block', width: 12, height: 24, background: theme.accent, verticalAlign: 'middle' }} />
+            </div>
+          </div>
+
+          <div style={{
+            background: theme.accent, color: theme.editorBg, padding: '14px 24px',
+            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+            fontSize: 16, fontWeight: 600,
+          }}>
+            <div style={{ display: 'flex', gap: 22 }}>
+              <span>⎇ main</span><span>● 0 errors</span><span>✓ all tests passing</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <VerifiedCheck size={22} color={theme.accent} bg={theme.editorBg} />
+              {theme.statusText}
+            </div>
+          </div>
+        </div>
+
+        <div style={{
+          marginTop: 32, display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          color: 'white', fontFamily: 'Space Grotesk, sans-serif',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
+            <div style={{ width: 72, height: 72, borderRadius: 16, background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <img src="assets/ssoc-logo.png" width="60" height="60" alt="SSoC" style={{ display: 'block' }} />
+            </div>
+            <div>
+              <div style={{ fontSize: 22, fontWeight: 800 }}>Social Summer of Code</div>
+              <div style={{ fontSize: 16, opacity: 0.9, letterSpacing: '0.18em' }}>INDIA'S LARGEST OPEN SOURCE PROGRAM</div>
+            </div>
+          </div>
+          <div style={{ fontSize: 48, fontWeight: 900, fontFamily: 'Fraunces, serif', fontStyle: 'italic', lineHeight: 1 }}>
+            S{data.season}
+          </div>
+        </div>
+
+        <div className="shine" />
+      </div>
+    );
+  }
+
+  // Canvas-based export — viewport-independent, pixel-perfect on all devices
+  function drawBadgeToCanvas(displayName, displayHandle, role) {
+    const theme = ROLES[role];
+    const W = 1080, H = 1080;
+    const canvas = document.createElement('canvas');
+    canvas.width = W * 2; canvas.height = H * 2;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(2, 2);
+
+    // Background gradient
+    const bgGrad = ctx.createLinearGradient(0, 0, W, H);
+    bgGrad.addColorStop(0, theme.accentSoft);
+    bgGrad.addColorStop(1, theme.accent);
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, W, H);
+
+    // -- TOP ROW --
+    ctx.fillStyle = 'rgba(255,255,255,0.95)';
+    roundRect(ctx, 80, 80, 300, 44, 22); ctx.fill();
+    ctx.fillStyle = '#22c55e';
+    ctx.beginPath(); ctx.arc(100, 102, 5, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = '#1A0E18';
+    ctx.font = '700 16px "Space Grotesk", sans-serif';
+    ctx.fillText(theme.pill, 116, 108);
+    ctx.fillStyle = 'white';
+    ctx.font = '600 15px "Space Grotesk", sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText('socialsummerofcode.com', W - 80, 108);
+    ctx.textAlign = 'left';
+
+    // -- CODE EDITOR --
+    const edX = 80, edY = 150, edW = W - 160, edH = 680;
+    ctx.shadowColor = theme.shadowTint; ctx.shadowBlur = 60; ctx.shadowOffsetY = 20;
+    ctx.fillStyle = theme.editorBg;
+    roundRect(ctx, edX, edY, edW, edH, 20); ctx.fill();
+    ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0;
+
+    // Title bar
+    ctx.fillStyle = theme.editorChrome;
+    roundRectTop(ctx, edX, edY, edW, 50, 20); ctx.fill();
+    const dots = [['#ff5f57',0],['#febc2e',20],['#28c840',40]];
+    dots.forEach(([c, off]) => { ctx.fillStyle = c; ctx.beginPath(); ctx.arc(edX+22+off, edY+25, 6, 0, Math.PI*2); ctx.fill(); });
+    ctx.fillStyle = 'rgba(255,255,255,0.06)';
+    roundRect(ctx, edX+90, edY+13, 280, 28, 8); ctx.fill();
+    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    ctx.font = '500 14px "JetBrains Mono", monospace';
+    ctx.fillText(`${theme.tabFile} - ssoc-season-5`, edX+100, edY+32);
+    ctx.fillStyle = 'rgba(255,255,255,0.4)';
+    ctx.textAlign = 'right'; ctx.fillText('\u25CF unsaved', edX+edW-20, edY+32); ctx.textAlign = 'left';
+
+    // Code lines
+    const codeY = edY + 86, lineH = 42;
+    const codeLines = [
+      [{c:'#ff79c6',t:'const '},{c:'#8be9fd',t:`${theme.varName} `},{c:'#ff79c6',t:'= '},{c:'#f8f8f2',t:'{'}],
+      [{c:'#50fa7b',t:'  name'},{c:'#f8f8f2',t:': '},{c:'#f1fa8c',t:`"${displayName}"`},{c:'#f8f8f2',t:','}],
+      [{c:'#50fa7b',t:'  github'},{c:'#f8f8f2',t:': '},{c:'#f1fa8c',t:`"@${displayHandle}"`},{c:'#f8f8f2',t:','}],
+      [{c:'#50fa7b',t:'  program'},{c:'#f8f8f2',t:': '},{c:'#f1fa8c',t:'"SSoC"'},{c:'#f8f8f2',t:','}],
+      [{c:'#50fa7b',t:'  season'},{c:'#f8f8f2',t:': '},{c:'#bd93f9',t:'5'},{c:'#f8f8f2',t:','}],
+      [{c:'#50fa7b',t:'  role'},{c:'#f8f8f2',t:': '},{c:'#f1fa8c',t:`"${theme.label}"`},{c:'#f8f8f2',t:','}],
+      [{c:'#50fa7b',t:`  ${theme.extraField.key}`},{c:'#f8f8f2',t:': '},{c:'#f1fa8c',t:theme.extraField.value},{c:'#f8f8f2',t:','}],
+      [{c:'#f8f8f2',t:'};'}],
+    ];
+    ctx.font = '500 24px "JetBrains Mono", monospace';
+    codeLines.forEach((tokens, i) => {
+      const y = codeY + i * lineH;
+      ctx.fillStyle = 'rgba(255,255,255,0.25)'; ctx.textAlign = 'right';
+      ctx.fillText(String(i+1), edX+50, y); ctx.textAlign = 'left';
+      let x = edX + 74;
+      tokens.forEach(({c, t}) => { ctx.fillStyle = c; ctx.fillText(t, x, y); x += ctx.measureText(t).width; });
+    });
+    ctx.fillStyle = theme.accent;
+    ctx.fillRect(edX+74, codeY+codeLines.length*lineH+4, 12, 24);
+
+    // Status bar
+    const barY = edY + edH - 40;
+    ctx.fillStyle = theme.accent;
+    roundRectBottom(ctx, edX, barY, edW, 40, 20); ctx.fill();
+    ctx.fillStyle = theme.editorBg;
+    ctx.font = '600 14px "JetBrains Mono", monospace';
+    ctx.fillText('\u2387 main    \u25CF 0 errors    \u2713 all tests passing', edX+20, barY+26);
+    ctx.textAlign = 'right';
+    ctx.fillText(`\u2713 ${theme.statusText}`, edX+edW-20, barY+26);
+    ctx.textAlign = 'left';
+
+    // -- BOTTOM BRANDING --
+    const botY = 870;
+    ctx.fillStyle = 'white'; roundRect(ctx, 80, botY, 72, 72, 16); ctx.fill();
+    ctx.fillStyle = 'white';
+    ctx.font = '800 22px "Space Grotesk", sans-serif';
+    ctx.fillText('Social Summer of Code', 170, botY+30);
+    ctx.font = '600 15px "Space Grotesk", sans-serif';
+    ctx.fillText("INDIA'S LARGEST OPEN SOURCE PROGRAM", 170, botY+54);
+    ctx.textAlign = 'right'; ctx.fillStyle = 'white';
+    ctx.font = 'italic 900 48px "Fraunces", serif';
+    ctx.fillText('S5', W-80, botY+56); ctx.textAlign = 'left';
+
+    return canvas;
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath(); ctx.moveTo(x+r, y); ctx.lineTo(x+w-r, y);
+    ctx.quadraticCurveTo(x+w, y, x+w, y+r); ctx.lineTo(x+w, y+h-r);
+    ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h); ctx.lineTo(x+r, y+h);
+    ctx.quadraticCurveTo(x, y+h, x, y+h-r); ctx.lineTo(x, y+r);
+    ctx.quadraticCurveTo(x, y, x+r, y); ctx.closePath();
+  }
+  function roundRectTop(ctx, x, y, w, h, r) {
+    ctx.beginPath(); ctx.moveTo(x+r, y); ctx.lineTo(x+w-r, y);
+    ctx.quadraticCurveTo(x+w, y, x+w, y+r); ctx.lineTo(x+w, y+h);
+    ctx.lineTo(x, y+h); ctx.lineTo(x, y+r);
+    ctx.quadraticCurveTo(x, y, x+r, y); ctx.closePath();
+  }
+  function roundRectBottom(ctx, x, y, w, h, r) {
+    ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x+w, y);
+    ctx.lineTo(x+w, y+h-r); ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+    ctx.lineTo(x+r, y+h); ctx.quadraticCurveTo(x, y+h, x, y+h-r); ctx.closePath();
+  }
+
+  function App() {
+    const [role, setRole] = useState('contributor');
+    const [name, setName] = useState('');
+    const [handle, setHandle] = useState('');
+    const [tagline, setTagline] = useState('');
+    const [shareToGallery, setShareToGallery] = useState(false);
+    const [toast, setToast] = useState(null);
+    const [showShare, setShowShare] = useState(false);
+    const [copied, setCopied] = useState(false);
+    const stageRef = useRef(null);
+    const innerRef = useRef(null);
+    const shareRef = useRef(null);
+
+    useEffect(() => {
+      const fit = () => {
+        if (!stageRef.current || !innerRef.current) return;
+        const w = stageRef.current.clientWidth;
+        innerRef.current.style.transform = `scale(${w / 1080})`;
+      };
+      fit();
+      window.addEventListener('resize', fit);
+      return () => window.removeEventListener('resize', fit);
+    }, []);
+
+    const BACKEND_URL = window.location.origin;
+
+    const submitToGallery = async () => {
+      if (!shareToGallery) return;
+      if (!name.trim() || !handle.trim()) return;
+      try {
+        const res = await fetch(`${BACKEND_URL}/api/gallery/badges`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: name.trim(),
+            github: handle.trim().replace(/^@/, ''),
+            role,
+            tagline: tagline.trim(),
+          }),
+        });
+        if (!res.ok) throw new Error('Failed');
+        setToast({ type: 'success', msg: 'Your badge is now on the Gallery Wall!' });
+      } catch (e) {
+        setToast({ type: 'error', msg: "Couldn't post to gallery — your download still works." });
+      }
+      setTimeout(() => setToast(null), 4200);
+    };
+
+    const exportPNG = async () => {
+      const displayName = name || 'Your Name';
+      const displayHandle = handle || 'yourhandle';
+
+      // Draw logo onto canvas
+      const canvas = drawBadgeToCanvas(displayName, displayHandle, role);
+      const ctx = canvas.getContext('2d');
+      try {
+        const logoImg = await new Promise((resolve, reject) => {
+          const img = new Image();
+          img.crossOrigin = 'anonymous';
+          img.onload = () => resolve(img);
+          img.onerror = reject;
+          img.src = 'assets/ssoc-logo.png';
+        });
+        ctx.scale(0.5, 0.5); // Undo the 2x scale for drawing
+        ctx.drawImage(logoImg, 172, 1752, 120, 120);
+      } catch(e) {
+        // Logo failed, draw fallback text
+        ctx.scale(0.5, 0.5);
+        ctx.fillStyle = '#E86FBB';
+        ctx.font = '700 48px "Space Grotesk", sans-serif';
+        ctx.fillText('SSoC', 180, 1808);
+      }
+
+      const link = document.createElement('a');
+      link.download = `ssoc-s5-${ROLES[role].slug}-${handle || 'badge'}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+
+      // Fire-and-forget gallery submission after download starts
+      submitToGallery();
+
+      // Reveal share panel and smooth-scroll to it
+      setShowShare(true);
+      setCopied(false);
+      setTimeout(() => {
+        shareRef.current && shareRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 120);
+    };
+
+    const shareText = () => {
+      const roleLabel = ROLES[role].label;
+      const displayHandle = handle.trim() ? `@${handle.trim().replace(/^@/, '')}` : '';
+      const galleryNote = shareToGallery ? '\n🎨 See me on the wall: https://socialsummerofcode.com/gallery.html' : '';
+      return `🚀 I just joined Social Summer of Code Season 5 as a ${roleLabel}! ${displayHandle}\n\nIndia's largest open source program — contributing to real projects, learning from mentors, and shipping code that matters.${galleryNote}\n\n#SSoC #SSoCSeason5 #OpenSource #SocialSummerOfCode\nhttps://socialsummerofcode.com`;
+    };
+
+    const openShare = (platform) => {
+      const text = shareText();
+      const siteUrl = 'https://socialsummerofcode.com';
+      let url;
+      if (platform === 'x') {
+        url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+      } else if (platform === 'linkedin') {
+        // LinkedIn's share-offsite endpoint only takes a URL, so we use a feed-post compose URL
+        url = `https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(text)}`;
+      } else if (platform === 'whatsapp') {
+        url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+      }
+      if (url) window.open(url, '_blank', 'noopener,noreferrer');
+    };
+
+    const copyShareText = async () => {
+      try {
+        await navigator.clipboard.writeText(shareText());
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2200);
+      } catch (e) {
+        // Fallback
+        const ta = document.createElement('textarea');
+        ta.value = shareText(); document.body.appendChild(ta);
+        ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2200);
+      }
+    };
+
+    return (
+      <div className="page">
+        <div className="badge-hero">
+          <h1>Generate Your <span>SSoC Badge</span></h1>
+          <p>Choose your role, enter your details, and download a personalized Season 5 badge to share on social media!</p>
+        </div>
+        <div className="role-tabs" data-testid="role-tabs">
+          {Object.entries(ROLES).map(([key, r]) => (
+            <button key={key} className={role === key ? 'active' : ''} onClick={() => setRole(key)} data-testid={`role-tab-${key}`}>
+              {r.label}
+            </button>
+          ))}
+        </div>
+        <div className="controls" data-testid="badge-controls">
+          <div className="control-group">
+            <label>Your Full Name</label>
+            <input value={name} onChange={e => setName(e.target.value)} placeholder="e.g. Jay Sadana" data-testid="badge-name-input" maxLength={100} />
+          </div>
+          <div className="control-group">
+            <label>GitHub Handle</label>
+            <input value={handle} onChange={e => setHandle(e.target.value)} placeholder="e.g. jaysadana" data-testid="badge-handle-input" maxLength={39} />
+          </div>
+          <div className="control-group full">
+            <label>Tagline (optional, only shown on gallery wall)</label>
+            <textarea
+              value={tagline}
+              onChange={e => setTagline(e.target.value.slice(0, 140))}
+              placeholder="e.g. First PR merged in React Router!"
+              rows={2}
+              maxLength={140}
+              data-testid="badge-tagline-input"
+            />
+            <div className="tagline-hint">{tagline.length}/140</div>
+          </div>
+          <label className="gallery-optin" data-testid="gallery-optin">
+            <input
+              type="checkbox"
+              checked={shareToGallery}
+              onChange={e => setShareToGallery(e.target.checked)}
+              data-testid="gallery-optin-checkbox"
+            />
+            <div className="gallery-optin-text">
+              <strong>✨ Add my badge to the public Gallery Wall</strong>
+              <small>Your name, GitHub handle, role{tagline ? ' and tagline' : ''} will appear on <a href="gallery.html" target="_blank" rel="noopener" style={{ color: '#D946A0', fontWeight: 600 }}>socialsummerofcode.com/gallery.html</a> for everyone to see.</small>
+            </div>
+          </label>
+          <button className="download-btn" onClick={exportPNG} data-testid="badge-download-btn">
+            <i className="fas fa-download"></i> Download Badge
+          </button>
+        </div>
+
+        {showShare && (
+          <div className="share-panel" ref={shareRef} data-testid="share-panel">
+            <div className="share-panel-header">
+              <div className="check-circle"><i className="fas fa-check"></i></div>
+              <div>
+                <h3>Badge downloaded! 🎉 Now share it.</h3>
+                <p>Let the world know you're part of SSoC Season 5.</p>
+              </div>
+            </div>
+            <div className="share-hint">
+              <i className="fas fa-image"></i>
+              <span><strong>Tip:</strong> After clicking Share, attach the downloaded badge image to your post for maximum impact.</span>
+            </div>
+            <div className="share-buttons">
+              <button className="share-btn x" onClick={() => openShare('x')} data-testid="share-x-btn">
+                <i className="fab fa-x-twitter"></i> Share on X
+              </button>
+              <button className="share-btn linkedin" onClick={() => openShare('linkedin')} data-testid="share-linkedin-btn">
+                <i className="fab fa-linkedin-in"></i> Share on LinkedIn
+              </button>
+              <button className="share-btn whatsapp" onClick={() => openShare('whatsapp')} data-testid="share-whatsapp-btn">
+                <i className="fab fa-whatsapp"></i> WhatsApp
+              </button>
+              <button className={`share-btn copy${copied ? ' copied' : ''}`} onClick={copyShareText} data-testid="share-copy-btn">
+                <i className={`fas ${copied ? 'fa-check' : 'fa-copy'}`}></i> {copied ? 'Copied!' : 'Copy Text'}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {toast && (
+          <div
+            data-testid="gallery-toast"
+            style={{
+              position: 'fixed', bottom: 24, left: '50%', transform: 'translateX(-50%)',
+              background: toast.type === 'success' ? '#1E1124' : '#7a2233',
+              color: 'white', padding: '14px 22px', borderRadius: 12,
+              fontSize: 14, fontWeight: 600, boxShadow: '0 16px 48px rgba(0,0,0,0.25)',
+              zIndex: 1000, display: 'flex', alignItems: 'center', gap: 10,
+            }}
+          >
+            <i className={`fas ${toast.type === 'success' ? 'fa-check-circle' : 'fa-circle-exclamation'}`} style={{ color: toast.type === 'success' ? '#4ade80' : '#fca5a5' }} />
+            {toast.msg}
+          </div>
+        )}
+        <div ref={stageRef} className="stage">
+          <div ref={innerRef} className="stage-inner">
+            <Badge role={role} data={{ name: name || 'Your Name', handle: handle || 'yourhandle', season: '05', year: '2026' }} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

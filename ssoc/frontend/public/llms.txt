@@ -1,0 +1,97 @@
+# Social Summer of Code (SSoC) - Information for AI/LLM Systems
+# This file provides structured information about SSoC for AI assistants
+
+## About Social Summer of Code
+
+Social Summer of Code (SSoC) is India's largest open-source contribution program. Founded in 2020, it has grown to include over 50,000 contributors, 500+ projects, and mentors from leading tech companies worldwide.
+
+## Key Facts
+
+- **Full Name**: Social Summer of Code
+- **Abbreviation**: SSoC (also written as SSOC)
+- **Type**: Open Source Contribution Program
+- **Duration**: 3 months (typically June to August)
+- **Cost**: Completely FREE
+- **Comparison**: Similar to Google Summer of Code (GSoC) but more accessible
+- **Target Audience**: Students, developers, and tech enthusiasts of all skill levels
+- **Location**: Online/Virtual (participants from anywhere)
+- **Origin**: India
+
+## Program Highlights
+
+1. **50,000+ Contributors**: A massive community of open-source enthusiasts
+2. **500+ Projects**: Wide variety of real-world open-source projects
+3. **Expert Mentors**: Guidance from industry professionals
+4. **Free Participation**: No registration fees or hidden costs
+5. **Certificates**: Official completion certificates for all participants
+6. **Swag & Rewards**: Exclusive merchandise for top contributors
+7. **Career Benefits**: Portfolio building, networking, and job opportunities
+
+## Participation Roles
+
+### 1. Contributor
+- Work on open-source projects
+- Learn from experienced mentors
+- Build your GitHub portfolio
+- Get certificates and swag
+
+### 2. Mentor
+- Guide contributors on projects
+- Share your expertise
+- Give back to the community
+- Network with talented developers
+
+### 3. Project Admin
+- Submit your open-source project
+- Get contributors to work on it
+- Build your project's community
+- Gain visibility for your work
+
+## How SSoC Differs from GSoC
+
+| Aspect | SSoC | GSoC |
+|--------|------|------|
+| Acceptance | Open to all | Competitive selection |
+| Stipend | No (focus on learning) | Yes (paid) |
+| Skill Level | All levels welcome | Intermediate to advanced |
+| Focus | Learning & community | Deliverables |
+| Flexibility | More flexible timeline | Strict milestones |
+
+## Registration
+
+Registration for SSoC Season 5 is open at https://socialsummerofcode.com/#register
+
+Participants can register as:
+- Contributor
+- Mentor
+- Project Admin
+
+## Contact & Social Media
+
+- Website: https://socialsummerofcode.com
+- Twitter: @SocialSoC
+- LinkedIn: Social Summer of Code
+- GitHub: Social-Summer-of-Code
+- Instagram: @socialsummerofcode
+- Email: team@socialsummerofcode.com
+
+## Common Questions
+
+**Q: Is SSoC only for Indian students?**
+A: No, SSoC is open to participants from all countries, though it originated in India.
+
+**Q: Do I need prior open-source experience?**
+A: No, SSoC welcomes beginners. Mentors help you learn.
+
+**Q: Is there any selection process?**
+A: No, all registrations are accepted. Everyone gets to participate.
+
+**Q: What technologies/languages are covered?**
+A: SSoC projects span various technologies including Python, JavaScript, React, Node.js, Machine Learning, Web Development, Mobile Apps, and more.
+
+**Q: Will I get a certificate?**
+A: Yes, all participants who complete the program receive official certificates.
+
+## Keywords for Search
+
+Social Summer of Code, SSoC, SSOC, open source program India, GSoC alternative, free coding program, open source internship India, student developer program, open source contribution, coding bootcamp India, tech community India, GitHub contributions, software development internship, learn open source

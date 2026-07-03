@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary Meta Tags - Will be updated dynamically -->
+    <title>Page | Social Summer of Code Season 5</title>
+    <meta name="description" content="Social Summer of Code Season 5">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png">
+    <link rel="apple-touch-icon" href="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#d35dab">
+    
+    <!-- Fonts and Styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .page-hero {
+            background: linear-gradient(135deg, #fdf2f8 0%, #faf5ff 50%, #f0f9ff 100%);
+            padding: 120px 0 60px;
+            text-align: center;
+        }
+        .page-hero h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 48px;
+            color: #2d1f3d;
+            margin-bottom: 16px;
+        }
+        .page-hero p {
+            font-size: 18px;
+            color: #6b5a7d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .content-section {
+            padding: 60px 0;
+            background: #fff;
+            min-height: 400px;
+        }
+        .content-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .content-body {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #2d1f3d;
+        }
+        .content-body h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 28px;
+            color: #2d1f3d;
+            margin: 32px 0 16px;
+        }
+        .content-body h3 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 22px;
+            color: #2d1f3d;
+            margin: 24px 0 12px;
+        }
+        .content-body p {
+            margin-bottom: 16px;
+        }
+        .content-body ul, .content-body ol {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+        .content-body li {
+            margin-bottom: 8px;
+        }
+        .content-body a {
+            color: #d35dab;
+            text-decoration: underline;
+        }
+        .content-body a:hover {
+            color: #b84593;
+        }
+        .content-body blockquote {
+            border-left: 4px solid #d35dab;
+            padding-left: 20px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #6b5a7d;
+        }
+        .content-body code {
+            background: #f5f0fa;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .content-body pre {
+            background: #2d1f3d;
+            color: #f5f0fa;
+            padding: 20px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        .content-body pre code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+        .content-meta {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e9e0f0;
+            font-size: 14px;
+            color: #6b5a7d;
+        }
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .loading i {
+            font-size: 48px;
+            color: #d35dab;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .not-found {
+            text-align: center;
+            padding: 80px 20px;
+        }
+        .not-found-icon {
+            width: 120px;
+            height: 120px;
+            background: rgba(211, 93, 171, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+        .not-found-icon i {
+            font-size: 48px;
+            color: #d35dab;
+        }
+        .not-found h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 32px;
+            color: #2d1f3d;
+            margin-bottom: 12px;
+        }
+        .not-found p {
+            font-size: 16px;
+            color: #6b5a7d;
+            margin-bottom: 24px;
+        }
+        .not-found a {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #d35dab;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        @media (max-width: 768px) {
+            .page-hero h1 { font-size: 32px; }
+            .content-body { font-size: 15px; }
+            .content-body h2 { font-size: 24px; }
+            .content-body h3 { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png" alt="SSoC Logo">
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="mentors.html">Mentors</a>
+                <a href="index.html#timeline">Timeline</a>
+                <a href="index.html#faq">FAQ</a>
+            </div>
+            <a href="index.html#register" class="nav-cta">Register Now</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="mentors.html">Mentors</a>
+        <a href="index.html#timeline">Timeline</a>
+        <a href="index.html#faq">FAQ</a>
+        <a href="index.html#register" class="mobile-cta">Register Now</a>
+    </div>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1 id="pageTitle"><i class="fas fa-spinner fa-spin" style="color: #d35dab;"></i></h1>
+            <p id="pageSubtitle">Loading...</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="content-section">
+        <div class="content-container">
+            <div id="contentBody" class="content-body">
+                <div class="loading">
+                    <i class="fas fa-circle-notch fa-spin"></i>
+                    <p style="margin-top: 16px;">Loading content...</p>
+                </div>
+            </div>
+            <div id="contentMeta" class="content-meta" style="display: none;">
+                <p>Last updated: <span id="lastUpdated"></span></p>
+            </div>
+        </div>
+        
+        <!-- Not Found State -->
+        <div class="not-found" id="notFound" style="display: none;">
+            <div class="not-found-icon">
+                <i class="fas fa-file-circle-question"></i>
+            </div>
+            <h2>Page Not Found</h2>
+            <p>The page you're looking for doesn't exist or has been moved.</p>
+            <a href="index.html">Back to Home</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-bottom">
+            <div class="container">
+                <p>© 2025 Social Summer of Code. All rights reserved.</p>
+                <p>Made with <i class="fas fa-heart"></i> by the SSoC Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const API_URL = window.location.origin + '/api';
+        
+        // Get slug from URL parameter
+        function getSlugFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('slug') || params.get('p');
+        }
+        
+        // Load page content
+        async function loadPageContent() {
+            const slug = getSlugFromURL();
+            
+            if (!slug) {
+                showNotFound();
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_URL}/pages/${slug}`);
+                
+                if (!response.ok) {
+                    showNotFound();
+                    return;
+                }
+                
+                const page = await response.json();
+                displayPage(page);
+                
+            } catch (error) {
+                console.error('Error loading page:', error);
+                showNotFound();
+            }
+        }
+        
+        function displayPage(page) {
+            // Update title
+            document.title = `${page.title} | Social Summer of Code Season 5`;
+            document.getElementById('pageTitle').innerHTML = `<i class="fas fa-file-alt" style="color: #d35dab; margin-right: 12px;"></i>${page.title}`;
+            document.getElementById('pageSubtitle').textContent = getCategoryLabel(page.category);
+            
+            // Update content
+            document.getElementById('contentBody').innerHTML = page.content;
+            
+            // Update meta
+            if (page.updatedAt) {
+                document.getElementById('lastUpdated').textContent = new Date(page.updatedAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                document.getElementById('contentMeta').style.display = 'block';
+            }
+        }
+        
+        function getCategoryLabel(category) {
+            const labels = {
+                'legal': 'Legal & Policies',
+                'resource': 'Resources & Documentation',
+                'community': 'Community Guidelines'
+            };
+            return labels[category] || 'Information';
+        }
+        
+        function showNotFound() {
+            document.getElementById('pageTitle').innerHTML = '<i class="fas fa-exclamation-circle" style="color: #d35dab; margin-right: 12px;"></i>Page Not Found';
+            document.getElementById('pageSubtitle').textContent = '';
+            document.querySelector('.content-container').style.display = 'none';
+            document.getElementById('notFound').style.display = 'block';
+        }
+        
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+            this.querySelector('i').classList.toggle('fa-bars');
+            this.querySelector('i').classList.toggle('fa-times');
+        });
+        
+        // Load on page ready
+        document.addEventListener('DOMContentLoaded', loadPageContent);
+    </script>
+</body>
+</html>

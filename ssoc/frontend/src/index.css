@@ -1,0 +1,305 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import Fredoka for playful headings and Inter for body */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+/* SSOC Season 5 Design System - Pink/Magenta Playful Theme */
+@layer base {
+    :root {
+        /* Primary - Vibrant Magenta/Pink from logo */
+        --primary: 307 65% 62%;
+        --primary-foreground: 0 0% 100%;
+        --primary-glow: 307 70% 75%;
+        --primary-dark: 307 60% 50%;
+        
+        /* Secondary - Soft Lavender */
+        --secondary: 280 50% 95%;
+        --secondary-foreground: 307 60% 35%;
+        
+        /* Accent - Coral Orange for CTAs */
+        --accent: 15 85% 60%;
+        --accent-foreground: 0 0% 100%;
+        
+        /* Background - Warm White */
+        --background: 300 20% 99%;
+        --foreground: 260 25% 20%;
+        
+        /* Cards */
+        --card: 0 0% 100%;
+        --card-foreground: 260 25% 20%;
+        
+        /* Popover */
+        --popover: 0 0% 100%;
+        --popover-foreground: 260 25% 20%;
+        
+        /* Muted */
+        --muted: 280 30% 96%;
+        --muted-foreground: 260 15% 50%;
+        
+        /* Border and Input */
+        --border: 280 30% 90%;
+        --input: 280 30% 92%;
+        --ring: 307 65% 62%;
+        
+        /* Destructive */
+        --destructive: 0 72% 51%;
+        --destructive-foreground: 0 0% 100%;
+        
+        /* Success */
+        --success: 142 70% 45%;
+        --success-foreground: 0 0% 100%;
+        
+        /* Warning */
+        --warning: 38 92% 50%;
+        --warning-foreground: 0 0% 100%;
+        
+        /* Charts */
+        --chart-1: 307 65% 62%;
+        --chart-2: 280 50% 60%;
+        --chart-3: 15 85% 60%;
+        --chart-4: 142 70% 45%;
+        --chart-5: 200 70% 50%;
+        
+        /* Radius */
+        --radius: 1rem;
+        
+        /* Custom Gradients */
+        --gradient-hero: linear-gradient(135deg, hsl(307 65% 62% / 0.1) 0%, hsl(280 50% 95%) 50%, hsl(15 85% 60% / 0.1) 100%);
+        --gradient-primary: linear-gradient(135deg, hsl(307 65% 62%), hsl(307 70% 70%));
+        --gradient-accent: linear-gradient(135deg, hsl(15 85% 60%), hsl(30 90% 65%));
+        --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(280 30% 98%));
+        
+        /* Shadows */
+        --shadow-sm: 0 2px 8px hsl(307 65% 62% / 0.08);
+        --shadow-md: 0 4px 16px hsl(307 65% 62% / 0.12);
+        --shadow-lg: 0 8px 32px hsl(307 65% 62% / 0.16);
+        --shadow-glow: 0 0 40px hsl(307 65% 62% / 0.25);
+        
+        /* Animations */
+        --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    
+    .dark {
+        --primary: 307 70% 70%;
+        --primary-foreground: 260 25% 10%;
+        --primary-glow: 307 65% 80%;
+        --primary-dark: 307 60% 55%;
+        
+        --secondary: 280 30% 15%;
+        --secondary-foreground: 307 60% 80%;
+        
+        --accent: 15 85% 65%;
+        --accent-foreground: 260 25% 10%;
+        
+        --background: 260 30% 8%;
+        --foreground: 280 20% 95%;
+        
+        --card: 260 25% 12%;
+        --card-foreground: 280 20% 95%;
+        
+        --popover: 260 25% 12%;
+        --popover-foreground: 280 20% 95%;
+        
+        --muted: 260 20% 18%;
+        --muted-foreground: 280 15% 65%;
+        
+        --border: 260 20% 20%;
+        --input: 260 20% 18%;
+        --ring: 307 70% 70%;
+        
+        --destructive: 0 62% 45%;
+        --destructive-foreground: 0 0% 100%;
+        
+        --gradient-hero: linear-gradient(135deg, hsl(307 70% 70% / 0.15) 0%, hsl(260 30% 12%) 50%, hsl(15 85% 65% / 0.1) 100%);
+        --gradient-primary: linear-gradient(135deg, hsl(307 70% 70%), hsl(307 65% 60%));
+        --gradient-card: linear-gradient(180deg, hsl(260 25% 14%), hsl(260 25% 10%));
+        
+        --shadow-sm: 0 2px 8px hsl(0 0% 0% / 0.3);
+        --shadow-md: 0 4px 16px hsl(0 0% 0% / 0.4);
+        --shadow-lg: 0 8px 32px hsl(0 0% 0% / 0.5);
+        --shadow-glow: 0 0 40px hsl(307 70% 70% / 0.3);
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Fredoka', sans-serif;
+    }
+}
+
+/* Custom Utility Classes */
+@layer utilities {
+    .font-heading {
+        font-family: 'Fredoka', sans-serif;
+    }
+    
+    .font-body {
+        font-family: 'Inter', sans-serif;
+    }
+    
+    .text-gradient-primary {
+        background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .bg-gradient-hero {
+        background: var(--gradient-hero);
+    }
+    
+    .bg-gradient-primary {
+        background: var(--gradient-primary);
+    }
+    
+    .bg-gradient-accent {
+        background: var(--gradient-accent);
+    }
+    
+    .shadow-elegant {
+        box-shadow: var(--shadow-md);
+    }
+    
+    .shadow-glow {
+        box-shadow: var(--shadow-glow);
+    }
+    
+    .animate-float {
+        animation: float 6s ease-in-out infinite;
+    }
+    
+    .animate-float-delayed {
+        animation: float 6s ease-in-out infinite 2s;
+    }
+    
+    .animate-pulse-slow {
+        animation: pulse 4s ease-in-out infinite;
+    }
+    
+    .animate-bounce-slow {
+        animation: bounce-slow 3s ease-in-out infinite;
+    }
+    
+    .animate-wiggle {
+        animation: wiggle 2s ease-in-out infinite;
+    }
+    
+    .glass-effect {
+        backdrop-filter: blur(12px);
+        background: hsl(var(--card) / 0.8);
+        border: 1px solid hsl(var(--border) / 0.5);
+    }
+    
+    .card-hover {
+        transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+    }
+    
+    .card-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes bounce-slow {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes wiggle {
+    0%, 100% {
+        transform: rotate(-3deg);
+    }
+    50% {
+        transform: rotate(3deg);
+    }
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary) / 0.5);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.7);
+}
+
+@layer base {
+    [data-debug-wrapper="true"] {
+        display: contents !important;
+    }
+
+    [data-debug-wrapper="true"] > * {
+        margin-left: inherit;
+        margin-right: inherit;
+        margin-top: inherit;
+        margin-bottom: inherit;
+        padding-left: inherit;
+        padding-right: inherit;
+        padding-top: inherit;
+        padding-bottom: inherit;
+        column-gap: inherit;
+        row-gap: inherit;
+        gap: inherit;
+        border-left-width: inherit;
+        border-right-width: inherit;
+        border-top-width: inherit;
+        border-bottom-width: inherit;
+        border-left-style: inherit;
+        border-right-style: inherit;
+        border-top-style: inherit;
+        border-bottom-style: inherit;
+        border-left-color: inherit;
+        border-right-color: inherit;
+        border-top-color: inherit;
+        border-bottom-color: inherit;
+    }
+}

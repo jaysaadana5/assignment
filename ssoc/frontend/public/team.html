@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>Team - Meet the Organizers | Social Summer of Code Season 5</title>
+    <meta name="title" content="Team - Meet the Organizers | Social Summer of Code Season 5">
+    <meta name="description" content="Connect directly with the people behind SSOC. Ask doubts, get guidance, or receive a free resume review from our organizers.">
+    <meta name="keywords" content="SSOC Team, SSOC Organizers, Social Summer of Code Team, Open Source Mentorship, Free Resume Review">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://socialsummerofcode.com/team">
+    <meta property="og:title" content="Meet the Organizers | Social Summer of Code Season 5">
+    <meta property="og:description" content="Connect directly with the people behind SSOC. Get guidance, mentorship, and free resume reviews.">
+    <meta property="og:image" content="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://socialsummerofcode.com/team">
+    <meta property="twitter:title" content="Meet the Organizers | Social Summer of Code Season 5">
+    <meta property="twitter:description" content="Connect directly with the people behind SSOC. Get guidance, mentorship, and free resume reviews.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png">
+    <link rel="apple-touch-icon" href="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#d35dab">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="styles.css?v=15">
+    
+    <style>
+        /* Team Page Specific Styles */
+        .team-hero {
+            background: linear-gradient(135deg, #fdf2f8 0%, #faf5ff 50%, #f0f9ff 100%);
+            padding: 140px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .team-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(211, 93, 171, 0.05) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(30px, 30px) rotate(180deg); }
+        }
+        
+        .team-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .team-hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(211, 93, 171, 0.1);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+        
+        .team-hero h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 56px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+        
+        .team-hero h1 span {
+            background: linear-gradient(135deg, var(--primary), #9f3e8a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .team-hero p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+        
+        .team-hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--primary), #9f3e8a);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(211, 93, 171, 0.3);
+        }
+        
+        .team-hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(211, 93, 171, 0.4);
+        }
+        
+        /* Organizers Section */
+        .organizers-section {
+            padding: 80px 0;
+            background: var(--bg-primary);
+        }
+        
+        .organizers-section .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 40px;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+        
+        .section-header p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Organizer Cards Grid */
+        .organizers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+        
+        .organizer-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 32px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .organizer-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), #9f3e8a, var(--accent));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .organizer-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(211, 93, 171, 0.15);
+            border-color: rgba(211, 93, 171, 0.3);
+        }
+        
+        .organizer-card:hover::before {
+            opacity: 1;
+        }
+        
+        .organizer-photo {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 4px solid var(--bg-secondary);
+            transition: all 0.3s ease;
+        }
+        
+        .organizer-card:hover .organizer-photo {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+        
+        .organizer-name {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .organizer-role {
+            font-size: 15px;
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+        
+        .organizer-bio {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            min-height: 60px;
+        }
+        
+        .organizer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .organizer-socials a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .organizer-socials a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .organizer-socials a.linkedin:hover { background: #0077b5; }
+        .organizer-socials a.github:hover { background: #333; }
+        .organizer-socials a.twitter:hover { background: #1da1f2; }
+        .organizer-socials a.portfolio:hover { background: var(--accent); }
+        
+        .schedule-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--primary), #9f3e8a);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .schedule-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(211, 93, 171, 0.35);
+        }
+        
+        .schedule-btn i {
+            font-size: 14px;
+        }
+        
+        /* Coming Soon Card */
+        .organizer-card.coming-soon {
+            background: linear-gradient(135deg, rgba(211, 93, 171, 0.05), rgba(159, 62, 138, 0.05));
+            border: 2px dashed var(--border);
+        }
+        
+        .organizer-card.coming-soon:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .coming-soon-icon {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 48px;
+            color: var(--text-muted);
+        }
+        
+        /* Guidance Section */
+        .guidance-section {
+            padding: 80px 0;
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+        }
+        
+        .guidance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .guidance-item {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 28px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        
+        .guidance-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            border-color: rgba(211, 93, 171, 0.2);
+        }
+        
+        .guidance-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(211, 93, 171, 0.1), rgba(159, 62, 138, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+        
+        .guidance-content h4 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 18px;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+        
+        .guidance-content p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        /* Trust Section */
+        .trust-section {
+            padding: 60px 0;
+            background: var(--bg-primary);
+        }
+        
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(16, 185, 129, 0.03));
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 14px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        
+        .trust-badge i {
+            color: #10b981;
+            font-size: 16px;
+        }
+        
+        /* No Organizers State */
+        .no-organizers {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            border: 2px dashed var(--border);
+        }
+        
+        .no-organizers-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(211, 93, 171, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 32px;
+            color: var(--primary);
+        }
+        
+        .no-organizers h3 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 24px;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+        
+        .no-organizers p {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .team-hero {
+                padding: 120px 0 60px;
+            }
+            
+            .team-hero h1 {
+                font-size: 36px;
+            }
+            
+            .team-hero p {
+                font-size: 16px;
+            }
+            
+            .organizers-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header h2 {
+                font-size: 28px;
+            }
+            
+            .guidance-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .trust-badges {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png" alt="SSoC Logo">
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="mentors.html">Mentors</a>
+                <a href="team.html" class="active">Team</a>
+                <a href="index.html#timeline">Timeline</a>
+                <a href="index.html#faq">FAQ</a>
+            </div>
+            <a href="index.html#register" class="nav-cta">Register Now</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="mentors.html">Mentors</a>
+        <a href="team.html" class="active">Team</a>
+        <a href="index.html#timeline">Timeline</a>
+        <a href="index.html#faq">FAQ</a>
+        <a href="index.html#register" class="mobile-cta">Register Now</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="team-hero">
+        <div class="team-hero-content">
+            <div class="team-hero-badge">
+                <i class="fas fa-users"></i>
+                <span>Season 5 Team</span>
+            </div>
+            <h1>Meet the <span>Organizers</span></h1>
+            <p>Connect directly with the people behind SSOC. Ask doubts, get guidance, or receive a free resume review from our experienced team.</p>
+            <a href="#organizers" class="team-hero-cta">
+                <i class="fas fa-calendar-check"></i>
+                Schedule a Free Call
+            </a>
+        </div>
+    </section>
+
+    <!-- Organizers Section -->
+    <section class="organizers-section" id="organizers">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Organizers</h2>
+                <p>Get mentorship and guidance directly from the SSOC organizing team</p>
+            </div>
+            
+            <div class="organizers-grid" id="organizersGrid">
+                <!-- Organizers will be loaded here -->
+                <div class="no-organizers" id="noOrganizers">
+                    <div class="no-organizers-icon">
+                        <i class="fas fa-user-clock"></i>
+                    </div>
+                    <h3>Coming Soon</h3>
+                    <p>Our organizing team will be announced shortly. Stay tuned!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guidance Section -->
+    <section class="guidance-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Can You Discuss?</h2>
+                <p>Our organizers are here to help you succeed in your open-source journey</p>
+            </div>
+            
+            <div class="guidance-grid">
+                <div class="guidance-item" data-testid="guidance-opensource">
+                    <div class="guidance-icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <div class="guidance-content">
+                        <h4>Project & Open Source Guidance</h4>
+                        <p>Get help choosing the right project and making meaningful contributions</p>
+                    </div>
+                </div>
+                
+                <div class="guidance-item" data-testid="guidance-roadmap">
+                    <div class="guidance-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <div class="guidance-content">
+                        <h4>Contribution Roadmap</h4>
+                        <p>Plan your SSOC journey with a personalized contribution strategy</p>
+                    </div>
+                </div>
+                
+                <div class="guidance-item" data-testid="guidance-career">
+                    <div class="guidance-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="guidance-content">
+                        <h4>Career & Internship Advice</h4>
+                        <p>Leverage your SSOC experience for career opportunities</p>
+                    </div>
+                </div>
+                
+                <div class="guidance-item" data-testid="guidance-resume">
+                    <div class="guidance-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="guidance-content">
+                        <h4>Free Resume Review</h4>
+                        <p>Get expert feedback on your resume - exclusive for SSOC participants</p>
+                    </div>
+                </div>
+                
+                <div class="guidance-item" data-testid="guidance-doubts">
+                    <div class="guidance-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <div class="guidance-content">
+                        <h4>General Tech Doubts</h4>
+                        <p>Ask any tech or non-tech questions you have about the program</p>
+                    </div>
+                </div>
+                
+                <div class="guidance-item" data-testid="guidance-network">
+                    <div class="guidance-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="guidance-content">
+                        <h4>Networking Tips</h4>
+                        <p>Learn how to build connections in the open-source community</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="trust-section">
+        <div class="container">
+            <div class="trust-badges">
+                <div class="trust-badge" data-testid="trust-free">
+                    <i class="fas fa-check-circle"></i>
+                    <span>100% Free for SSOC Participants</span>
+                </div>
+                <div class="trust-badge" data-testid="trust-slots">
+                    <i class="fas fa-clock"></i>
+                    <span>Limited Slots Per Organizer</span>
+                </div>
+                <div class="trust-badge" data-testid="trust-direct">
+                    <i class="fas fa-star"></i>
+                    <span>Direct Mentorship from SSOC Team</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-newsletter">
+            <div class="container">
+                <h3>Stay Updated</h3>
+                <p>Get the latest updates about SSOC Season 5</p>
+            </div>
+        </div>
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <a href="index.html" class="footer-logo">
+                            <img src="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png" alt="SSoC Logo">
+                        </a>
+                        <p>India's largest open source program connecting students, mentors, and organizations.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-github"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-links">
+                        <h4>Program</h4>
+                        <a href="index.html#about">About</a>
+                        <a href="index.html#timeline">Timeline</a>
+                        <a href="index.html#register">Register</a>
+                        <a href="index.html#faq">FAQ</a>
+                    </div>
+                    <div class="footer-links">
+                        <h4>Resources</h4>
+                        <a href="projects.html">Projects</a>
+                        <a href="mentors.html">Mentors</a>
+                        <a href="team.html">Team</a>
+                    </div>
+                    <div class="footer-links">
+                        <h4>Legal</h4>
+                        <a href="page.html?slug=privacy-policy">Privacy Policy</a>
+                        <a href="page.html?slug=terms-of-service">Terms of Service</a>
+                        <a href="page.html?slug=code-of-conduct">Code of Conduct</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>© 2025 Social Summer of Code. All rights reserved.</p>
+                <p>Made with <i class="fas fa-heart"></i> by the SSoC Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const API_URL = window.location.origin + '/api';
+        
+        // Load organizers from API
+        async function loadOrganizers() {
+            const grid = document.getElementById('organizersGrid');
+            const noOrganizers = document.getElementById('noOrganizers');
+            
+            try {
+                const response = await fetch(`${API_URL}/organizers`);
+                const organizers = await response.json();
+                
+                // Filter active organizers
+                const activeOrganizers = organizers.filter(o => o.isActive !== false);
+                
+                if (activeOrganizers.length === 0) {
+                    noOrganizers.style.display = 'block';
+                    return;
+                }
+                
+                noOrganizers.style.display = 'none';
+                
+                // Render organizer cards
+                const cardsHtml = activeOrganizers.map(org => `
+                    <div class="organizer-card" data-testid="organizer-card">
+                        <img src="${org.photo || 'https://via.placeholder.com/140?text=' + encodeURIComponent(org.name.charAt(0))}" 
+                             alt="${org.name}" 
+                             class="organizer-photo"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/140?text=${encodeURIComponent(org.name.charAt(0))}'">
+                        <h3 class="organizer-name">${org.name}</h3>
+                        <p class="organizer-role">${org.role}</p>
+                        <p class="organizer-bio">${org.bio || ''}</p>
+                        <div class="organizer-socials">
+                            ${org.linkedin ? `<a href="${org.linkedin}" target="_blank" rel="noopener" class="linkedin" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>` : ''}
+                            ${org.github ? `<a href="${org.github}" target="_blank" rel="noopener" class="github" title="GitHub"><i class="fab fa-github"></i></a>` : ''}
+                            ${org.twitter ? `<a href="${org.twitter}" target="_blank" rel="noopener" class="twitter" title="Twitter"><i class="fab fa-twitter"></i></a>` : ''}
+                            ${org.portfolio ? `<a href="${org.portfolio}" target="_blank" rel="noopener" class="portfolio" title="Portfolio"><i class="fas fa-globe"></i></a>` : ''}
+                        </div>
+                        ${org.topmateLink ? `
+                        <a href="${org.topmateLink}" target="_blank" rel="noopener" class="schedule-btn">
+                            <i class="fas fa-calendar-check"></i>
+                            Schedule Free Call
+                        </a>
+                        ` : ''}
+                    </div>
+                `).join('');
+                
+                // Add coming soon card
+                const comingSoonCard = `
+                    <div class="organizer-card coming-soon">
+                        <div class="coming-soon-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <h3 class="organizer-name">More Coming Soon</h3>
+                        <p class="organizer-role">Future Organizer</p>
+                        <p class="organizer-bio">We're expanding our team! More organizers will be announced soon.</p>
+                    </div>
+                `;
+                
+                grid.innerHTML = cardsHtml + comingSoonCard;
+                
+            } catch (error) {
+                console.error('Error loading organizers:', error);
+                noOrganizers.style.display = 'block';
+            }
+        }
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+            this.querySelector('i').classList.toggle('fa-bars');
+            this.querySelector('i').classList.toggle('fa-times');
+        });
+        
+        // Load on page ready
+        document.addEventListener('DOMContentLoaded', loadOrganizers);
+    </script>
+</body>
+</html>

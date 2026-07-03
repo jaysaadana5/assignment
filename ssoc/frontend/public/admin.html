@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Social Summer of Code</title>
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png">
+    <link rel="apple-touch-icon" href="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#d35dab">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-card">
+            <img src="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png" alt="SSoC Logo" class="login-logo">
+            <h1>Admin Dashboard</h1>
+            <p>Enter your credentials to manage SSoC website</p>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="adminEmail">Email</label>
+                    <input type="email" id="adminEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" placeholder="Enter password" required>
+                </div>
+                <p class="error-msg" id="loginError">Invalid credentials. Please try again.</p>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login to Dashboard
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard" id="dashboard">
+        <!-- Sidebar Overlay (for mobile) -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-logo">
+                <img src="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png" alt="SSoC">
+                <span>SSoC Admin</span>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="#" class="active" data-panel="hero"><i class="fas fa-home"></i> Hero Section</a></li>
+                <li><a href="#" data-panel="timeline"><i class="fas fa-calendar"></i> Timeline</a></li>
+                <li><a href="#" data-panel="stats"><i class="fas fa-chart-bar"></i> Statistics</a></li>
+                <li><a href="#" data-panel="links"><i class="fas fa-link"></i> Apply Links</a></li>
+                <li><a href="#" data-panel="formbuilder"><i class="fas fa-wpforms"></i> Form Builder</a></li>
+                <li><a href="#" data-panel="projects"><i class="fas fa-folder-open"></i> Projects</a></li>
+                <li><a href="#" data-panel="mentors"><i class="fas fa-user-tie"></i> Mentors</a></li>
+                <li><a href="#" data-panel="organizers"><i class="fas fa-users-cog"></i> Organizers</a></li>
+                <li><a href="#" data-panel="advocates"><i class="fas fa-graduation-cap"></i> Campus Advocates</a></li>
+                <li><a href="#" data-panel="advocate-apps"><i class="fas fa-file-alt"></i> Advocate Applications</a></li>
+                <li><a href="#" data-panel="leaderboard"><i class="fas fa-trophy"></i> Leaderboard</a></li>
+                <li><a href="#" data-panel="testimonials"><i class="fas fa-comments"></i> Testimonials</a></li>
+                <li><a href="#" data-panel="sponsors"><i class="fas fa-handshake"></i> Sponsors</a></li>
+                <li><a href="#" data-panel="referral-links"><i class="fas fa-link"></i> Referral Links</a></li>
+                <li><a href="#" data-panel="faq"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                <li><a href="#" data-panel="registrations"><i class="fas fa-users"></i> Registrations</a></li>
+                <li><a href="#" data-panel="onboarding" data-testid="nav-onboarding"><i class="fas fa-clipboard-check"></i> Onboarding</a></li>
+                <li><a href="#" data-panel="raids" data-testid="nav-raids"><i class="fas fa-bolt"></i> Raids</a></li>
+                <li><a href="#" data-panel="footer"><i class="fas fa-shoe-prints"></i> Footer</a></li>
+                <li><a href="#" data-panel="pages"><i class="fas fa-file-alt"></i> Content Pages</a></li>
+            </ul>
+            <button class="logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-header">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 id="pageTitle">Hero Section</h1>
+                <a href="index.html" target="_blank" class="preview-btn">
+                    <i class="fas fa-external-link-alt"></i>
+                    Preview Site
+                </a>
+            </div>
+
+            <!-- Hero Panel -->
+            <div class="panel active" id="heroPanel">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-heading"></i>
+                        <h3>Hero Content</h3>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-inline">
+                            <label>Badge Text</label>
+                            <input type="text" id="heroBadge" value="Season 5 • Applications Open">
+                        </div>
+                        <div class="form-group-inline">
+                            <label>Duration Text</label>
+                            <input type="text" id="heroDuration" value="2 months of coding, learning, and fun!">
+                        </div>
+                    </div>
+                    <div class="form-group-inline">
+                        <label>Hero Description</label>
+                        <textarea id="heroDescription">Join India's largest open-source program! Learn, contribute, and grow with mentors and organizations from around the world.</textarea>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-chart-simple"></i>
+                        <h3>Hero Stats (Quick Stats)</h3>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-inline">
+                            <label>Contributors</label>
+                            <input type="text" id="heroContributors" value="50K+">
+                        </div>
+                        <div class="form-group-inline">
+                            <label>Projects</label>
+                            <input type="text" id="heroProjects" value="500+">
+                        </div>
+                        <div class="form-group-inline">
+                            <label>Pull Requests</label>
+                            <input type="text" id="heroPRs" value="20K+">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="save-btn" onclick="saveHeroSection()">
+                    <i class="fas fa-save"></i>
+                    Save Changes
+                </button>
+            </div>
+
+            <!-- Timeline Panel -->
+            <div class="panel" id="timelinePanel">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h3>Timeline Dates</h3>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-inline">
+                            <label>Registration Starts</label>
+                            <input type="text" id="timelineRegStart" value="1st April 2026">
+                        </div>
+                        <div class="form-group-inline">
+                            <label>Registration Ends</label>
+                            <input type="text" id="timelineRegEnd" value="30th May 2026">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-inline">
+                            <label>Coding Phase Starts</label>
+                            <input type="text" id="timelineCodingStart" value="1st June 2026">
+                        </div>
+                        <div class="form-group-inline">
+                            <label>Coding Phase Ends</label>
+                            <input type="text" id="timelineCodingEnd" value="1st August 2026">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-inline">
+                            <label>Results Date</label>
+                            <input type="text" id="timelineResult" value="15th August 2026">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="save-btn" onclick="saveTimeline()">
+                    <i class="fas fa-save"></i>
+                    Save Changes
+                </button>
+            </div>
+
+            <!-- Stats Panel -->
+            <div class="panel" id="statsPanel">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar"></i>
+                        <h3>Past Seasons Statistics</h3>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-inline">
+                            <label>Contributors</label>
+                            <input type="number" id="statContributors" value="50000">
+                        </div>
+                        <div class="form-group-inline">
+                            <label>Pull Requests</label>
+                            <input type="number" id="statPRs" value="20000">
+                        </div>
+                        <div class="form-group-inline">
+                            <label>Projects</label>
+                            <input type="number" id="statProjects" value="500">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-inline">
+                            <label>Countries</label>
+                            <input type="number" id="statCountries" value="10">
+                        </div>
+                        <div class="form-group-inline">
+                            <label>Organizations</label>
+                            <input type="number" id="statOrgs" value="200">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-info-circle"></i>
+                        <h3>About Section</h3>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-inline">
+                            <label>Program Duration (months)</label>
+                            <input type="number" id="aboutMonths" value="2">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="save-btn" onclick="saveStats()">
+                    <i class="fas fa-save"></i>
+                    Save Changes
+                </button>
+            </div>
+
+            <!-- Apply Links Panel -->
+            <div class="panel" id="linksPanel">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-toggle-on"></i>
+                        <h3>Registration Form Status</h3>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
+                        Control which registration forms are open for responses. When a form is closed, users will see a "Registration Closed" message.
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px; background: var(--bg-secondary); border-radius: 12px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <i class="fas fa-code" style="color: var(--primary); font-size: 20px;"></i>
+                                <div>
+                                    <strong style="color: var(--text-primary);">Contributor Form</strong>
+                                    <p style="font-size: 12px; color: var(--text-muted); margin: 0;">Accept new contributor registrations</p>
+                                </div>
+                            </div>
+                            <label class="toggle-switch" data-testid="toggle-contributor">
+                                <input type="checkbox" id="formStatusContributor" checked onchange="saveFormStatus()">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px; background: var(--bg-secondary); border-radius: 12px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <i class="fas fa-chalkboard-teacher" style="color: var(--accent); font-size: 20px;"></i>
+                                <div>
+                                    <strong style="color: var(--text-primary);">Mentor Form</strong>
+                                    <p style="font-size: 12px; color: var(--text-muted); margin: 0;">Accept new mentor applications</p>
+                                </div>
+                            </div>
+                            <label class="toggle-switch" data-testid="toggle-mentor">
+                                <input type="checkbox" id="formStatusMentor" checked onchange="saveFormStatus()">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px; background: var(--bg-secondary); border-radius: 12px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <i class="fas fa-briefcase" style="color: var(--success); font-size: 20px;"></i>
+                                <div>
+                                    <strong style="color: var(--text-primary);">Project Admin Form</strong>
+                                    <p style="font-size: 12px; color: var(--text-muted); margin: 0;">Accept new project submissions</p>
+                                </div>
+                            </div>
+                            <label class="toggle-switch" data-testid="toggle-project-admin">
+                                <input type="checkbox" id="formStatusProjectAdmin" checked onchange="saveFormStatus()">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 24px;">
+                    <div class="card-header">
+                        <i class="fas fa-link"></i>
+                        <h3>External Form Links</h3>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
+                        Add external form links (Google Forms, Typeform, etc.) for each registration type. 
+                        When users click "Apply as..." buttons, they will be redirected to these links.
+                    </p>
+                    <div class="form-group-inline">
+                        <label><i class="fas fa-code" style="color: var(--primary); margin-right: 8px;"></i>Apply as Contributor Link</label>
+                        <input type="url" id="contributorLink" placeholder="https://forms.google.com/your-contributor-form">
+                    </div>
+                    <div class="form-group-inline">
+                        <label><i class="fas fa-users" style="color: var(--accent); margin-right: 8px;"></i>Apply as Mentor Link</label>
+                        <input type="url" id="mentorLink" placeholder="https://forms.google.com/your-mentor-form">
+                    </div>
+                    <div class="form-group-inline">
+                        <label><i class="fas fa-briefcase" style="color: var(--success); margin-right: 8px;"></i>Apply as Project Admin Link</label>
+                        <input type="url" id="projectAdminLink" placeholder="https://forms.google.com/your-project-admin-form">
+                    </div>
+                    <div style="background: rgba(211, 93, 171, 0.05); padding: 16px; border-radius: 8px; margin-top: 16px;">
+                        <p style="font-size: 13px; color: var(--text-secondary); margin: 0;">
+                            <i class="fas fa-info-circle" style="color: var(--primary); margin-right: 8px;"></i>
+                            <strong>Note:</strong> If a link is empty, clicking the button will show the built-in registration form instead.
+                        </p>
+                    </div>
+                </div>
+
+                <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                    <button class="save-btn" onclick="saveLinks()">
+                        <i class="fas fa-save"></i>
+                        Save Links
+                    </button>
+                    <button class="save-btn" onclick="clearAllLinks()" style="background:#ef4444;">
+                        <i class="fas fa-times"></i>
+                        Clear All Links (Use In-House Forms)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Form Builder Panel -->
+            <div class="panel" id="formbuilderPanel">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-wpforms"></i>
+                        <h3>Registration Form Builder</h3>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
+                        Customize registration form fields for each role. Select a role to edit its specific form.
+                    </p>
+                    
+                    <!-- Role Selection Tabs -->
+                    <div class="role-tabs" style="display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;">
+                        <button class="role-tab active" data-role="contributor" onclick="switchFormRole('contributor')" style="padding: 12px 20px; border: 2px solid var(--primary); background: var(--primary); color: white; border-radius: 10px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
+                            <i class="fas fa-code"></i> Contributor
+                        </button>
+                        <button class="role-tab" data-role="mentor" onclick="switchFormRole('mentor')" style="padding: 12px 20px; border: 2px solid var(--border); background: white; color: var(--text-secondary); border-radius: 10px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
+                            <i class="fas fa-chalkboard-teacher"></i> Mentor
+                        </button>
+                        <button class="role-tab" data-role="projectadmin" onclick="switchFormRole('projectadmin')" style="padding: 12px 20px; border: 2px solid var(--border); background: white; color: var(--text-secondary); border-radius: 10px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
+                            <i class="fas fa-briefcase"></i> Project Admin
+                        </button>
+                    </div>
+                    
+                    <div id="currentRoleIndicator" style="background: rgba(211, 93, 171, 0.1); padding: 12px 16px; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-user-edit" style="color: var(--primary);"></i>
+                        <span style="font-size: 14px; color: var(--text-primary);">Currently editing: <strong id="currentRoleName">Contributor</strong> form</span>
+                    </div>
+                    
+                    <!-- Default Fields (Non-removable) -->
+                    <div class="form-section">
+                        <h4 style="font-size: 14px; color: var(--text-secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-lock" style="color: var(--text-muted);"></i> Default Fields (Always Required)
+                        </h4>
+                        <div class="default-fields">
+                            <div class="field-item default">
+                                <i class="fas fa-user"></i>
+                                <span>Full Name</span>
+                                <span class="field-badge">Required</span>
+                            </div>
+                            <div class="field-item default">
+                                <i class="fas fa-envelope"></i>
+                                <span>Email Address</span>
+                                <span class="field-badge">Required</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Custom Fields -->
+                    <div class="form-section" style="margin-top: 24px;">
+                        <h4 style="font-size: 14px; color: var(--text-secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-edit" style="color: var(--primary);"></i> Custom Fields for <span id="customFieldsRoleLabel">Contributor</span>
+                        </h4>
+                        <div class="custom-fields-list" id="customFieldsList">
+                            <!-- Custom fields will be loaded here -->
+                        </div>
+                        <button class="add-btn" onclick="addCustomField()" style="margin-top: 16px;">
+                            <i class="fas fa-plus"></i>
+                            Add Custom Field
+                        </button>
+                    </div>
+                    
+                    <!-- Field Type Legend -->
+                    <div style="background: rgba(211, 93, 171, 0.05); padding: 16px; border-radius: 8px; margin-top: 24px;">
+                        <p style="font-size: 13px; color: var(--text-secondary); margin: 0 0 8px 0; font-weight: 600;">
+                            <i class="fas fa-info-circle" style="color: var(--primary); margin-right: 8px;"></i>Available Field Types:
+                        </p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 12px; font-size: 12px; color: var(--text-muted);">
+                            <span><i class="fas fa-font"></i> Text</span>
+                            <span><i class="fas fa-envelope"></i> Email</span>
+                            <span><i class="fas fa-link"></i> URL</span>
+                            <span><i class="fas fa-phone"></i> Phone</span>
+                            <span><i class="fas fa-hashtag"></i> Number</span>
+                            <span><i class="fas fa-align-left"></i> Textarea</span>
+                            <span><i class="fas fa-list"></i> Dropdown</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Preview Card -->
+                <div class="card" style="margin-top: 24px;">
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <i class="fas fa-eye"></i>
+                            <h3>Live Preview</h3>
+                        </div>
+                        <button class="add-btn" onclick="refreshFormPreview()" style="background: var(--accent);">
+                            <i class="fas fa-sync-alt"></i> Refresh Preview
+                        </button>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
+                        Preview of the <strong id="previewRoleName">Contributor</strong> registration form:
+                    </p>
+                    
+                    <!-- Preview Container -->
+                    <div id="formPreviewContainer" style="background: linear-gradient(135deg, #fdf2f8 0%, #faf5ff 50%, #f0f9ff 100%); padding: 32px; border-radius: 16px; max-width: 500px; margin: 0 auto;">
+                        <div style="text-align: center; margin-bottom: 24px;">
+                            <h3 id="previewFormTitle" style="font-family: 'Fredoka', sans-serif; font-size: 24px; color: #2d1f3d; margin-bottom: 8px;">Apply as Contributor</h3>
+                            <p style="font-size: 14px; color: #6b5a7d;">Fill in the details to register</p>
+                        </div>
+                        <div id="formPreviewFields" style="display: flex; flex-direction: column; gap: 16px;">
+                            <!-- Form fields will be rendered here -->
+                        </div>
+                        <button style="width: 100%; margin-top: 24px; padding: 14px; background: linear-gradient(135deg, #d35dab, #9f3e8a); color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; font-size: 16px;">
+                            <i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Submit Registration
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects Panel -->
+            <div class="panel" id="projectsPanel">
+                <div class="card">
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <i class="fas fa-folder-open"></i>
+                            <h3>Manage Projects</h3>
+                        </div>
+                        <button class="download-btn" onclick="downloadProjectsCSV()">
+                            <i class="fas fa-download"></i> Download CSV
+                        </button>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
+                        Add projects participating in SSoC Season 5. These will appear on the <a href="projects.html" target="_blank">Projects page</a>.
+                    </p>
+                    <div class="testimonial-list" id="projectsList">
+                        <!-- Projects will be loaded here -->
+                    </div>
+                    <button class="add-btn" onclick="openProjectModal()">
+                        <i class="fas fa-plus"></i>
+                        Add New Project
+                    </button>
+                </div>
+            </div>
+
+            <!-- Project Modal (Add / Edit) -->
+            <div class="proj-modal-overlay" id="projectModal" data-testid="project-modal" onclick="if(event.target===this)closeProjectModal()">
+                <div class="proj-modal-card">
+                    <div class="proj-modal-head">
+                        <h3 id="projectModalTitle">Add New Project</h3>
+                        <button class="proj-modal-close" onclick="closeProjectModal()" data-testid="project-modal-close" aria-label="Close">&times;</button>
+                    </div>
+                    <form id="projectForm" class="proj-modal-body" onsubmit="event.preventDefault(); saveProjectFromModal();">
+                        <input type="hidden" id="pf_id" />
+                        <div class="proj-modal-row">
+                            <label>Project name <span class="req">*</span></label>
+                            <input type="text" id="pf_name" data-testid="pf-name" required maxlength="120" placeholder="e.g., Awesome Open Source" />
+                        </div>
+                        <div class="proj-modal-row">
+                            <label>Organization</label>
+                            <input type="text" id="pf_organization" data-testid="pf-organization" maxlength="120" placeholder="e.g., Open Source Foundation" />
+                        </div>
+                        <div class="proj-modal-row">
+                            <label>Description <span class="req">*</span></label>
+                            <textarea id="pf_description" data-testid="pf-description" required rows="4" maxlength="1000" placeholder="What is this project about?"></textarea>
+                        </div>
+                        <div class="proj-modal-row">
+                            <label>Tags <span class="hint">(comma separated)</span></label>
+                            <input type="text" id="pf_tags" data-testid="pf-tags" placeholder="React, Python, Web" />
+                        </div>
+                        <div class="proj-modal-grid">
+                            <div class="proj-modal-row">
+                                <label>GitHub URL</label>
+                                <input type="url" id="pf_github" data-testid="pf-github" placeholder="https://github.com/org/repo" />
+                            </div>
+                            <div class="proj-modal-row">
+                                <label>Website (optional)</label>
+                                <input type="url" id="pf_website" data-testid="pf-website" placeholder="https://example.com" />
+                            </div>
+                        </div>
+                        <div class="proj-modal-error" id="pf_error" data-testid="pf-error"></div>
+                        <div class="proj-modal-actions">
+                            <button type="button" class="proj-btn-ghost" onclick="closeProjectModal()" data-testid="project-modal-cancel">Cancel</button>
+                            <button type="submit" class="proj-btn-primary" id="pf_submit" data-testid="project-modal-save">
+                                <i class="fas fa-save"></i> Save Project
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <style>
+                .proj-modal-overlay {
+                    position: fixed; inset: 0; background: rgba(30, 17, 36, 0.55);
+                    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+                    z-index: 2000; display: flex; align-items: center; justify-content: center;
+                    padding: 24px; opacity: 0; pointer-events: none;
+                    transition: opacity 0.2s ease;
+                }
+                .proj-modal-overlay.active { opacity: 1; pointer-events: auto; }
+                .proj-modal-card {
+                    background: var(--bg-card); width: min(640px, 100%); max-height: calc(100vh - 56px);
+                    border-radius: 18px; overflow: auto;
+                    box-shadow: 0 24px 60px rgba(0,0,0,0.25);
+                    transform: translateY(16px) scale(0.98); transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+                }
+                .proj-modal-overlay.active .proj-modal-card { transform: translateY(0) scale(1); }
+                .proj-modal-head {
+                    display: flex; align-items: center; justify-content: space-between;
+                    padding: 20px 24px; border-bottom: 1px solid #eee;
+                    position: sticky; top: 0; background: var(--bg-card); z-index: 1;
+                }
+                .proj-modal-head h3 { margin: 0; font-family: 'Fredoka', sans-serif; font-size: 20px; color: var(--text-primary); }
+                .proj-modal-close {
+                    background: #f3f0f7; color: var(--text-primary); border: none;
+                    width: 34px; height: 34px; border-radius: 10px; font-size: 22px; line-height: 1;
+                    cursor: pointer; transition: all 0.15s;
+                }
+                .proj-modal-close:hover { background: var(--primary); color: white; }
+                .proj-modal-body { padding: 22px 24px 24px; }
+                .proj-modal-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+                .proj-modal-row label {
+                    font-size: 13px; font-weight: 600; color: var(--text-secondary);
+                    letter-spacing: 0.01em;
+                }
+                .proj-modal-row label .req { color: #ef4444; margin-left: 2px; }
+                .proj-modal-row label .hint { color: var(--text-muted); font-weight: 400; font-size: 12px; }
+                .proj-modal-row input, .proj-modal-row textarea {
+                    width: 100%; padding: 10px 14px; border-radius: 10px;
+                    border: 1.5px solid #eadcef; background: var(--bg-primary);
+                    color: var(--text-primary); font-family: inherit; font-size: 14px;
+                    transition: border-color 0.15s, box-shadow 0.15s; resize: vertical;
+                }
+                .proj-modal-row input:focus, .proj-modal-row textarea:focus {
+                    outline: none; border-color: var(--primary);
+                    box-shadow: 0 0 0 3px rgba(211, 93, 171, 0.15);
+                }
+                .proj-modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+                .proj-modal-error {
+                    display: none; background: #fef2f2; border: 1px solid #fecaca;
+                    color: #b91c1c; padding: 10px 14px; border-radius: 10px;
+                    font-size: 13px; margin-bottom: 12px;
+                }
+                .proj-modal-error.show { display: block; }
+                .proj-modal-actions {
+                    display: flex; justify-content: flex-end; gap: 10px; margin-top: 6px;
+                    padding-top: 16px; border-top: 1px solid #f1ecf5;
+                }
+                .proj-btn-ghost, .proj-btn-primary {
+                    padding: 10px 20px; border-radius: 10px; font-weight: 600; font-size: 14px;
+                    border: none; cursor: pointer; transition: all 0.15s;
+                    display: inline-flex; align-items: center; gap: 8px; font-family: inherit;
+                }
+                .proj-btn-ghost { background: #f3f0f7; color: var(--text-secondary); }
+                .proj-btn-ghost:hover { background: #e9e2f0; color: var(--text-primary); }
+                .proj-btn-primary { background: linear-gradient(135deg, var(--primary-light), var(--primary)); color: white; }
+                .proj-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(211, 93, 171, 0.35); }
+                .proj-btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+                @media (max-width: 640px) {
+                    .proj-modal-grid { grid-template-columns: 1fr; }
+                    .proj-modal-card { border-radius: 14px; }
+                }
+            </style>
+
+            <!-- Mentors Panel -->
+            <div class="panel" id="mentorsPanel">
+                <div class="card">
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <i class="fas fa-user-tie"></i>
+                            <h3>Manage Mentors</h3>
+                        </div>
+                        <button class="download-btn" onclick="downloadMentorsCSV()">
+                            <i class="fas fa-download"></i> Download CSV
+                        </button>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
+                        Add mentors for SSoC Season 5. These will appear on the <a href="mentors.html" target="_blank">Mentors page</a>.
+                    </p>
+                    <div class="testimonial-list" id="mentorsList">
+                        <!-- Mentors will be loaded here -->
+                    </div>
+                    <button class="add-btn" onclick="addMentor()">
+                        <i class="fas fa-plus"></i>
+                        Add New Mentor
+                    </button>
+                </div>
+            </div>
+
+            <!-- Organizers Panel -->
+            <div class="panel" id="organizersPanel">
+                <div class="card">
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <i class="fas fa-users-cog"></i>
+                            <h3>Manage Team Organizers</h3>
+                        </div>
+                        <a href="team.html" target="_blank" class="add-btn" style="background: var(--accent);">
+                            <i class="fas fa-external-link-alt"></i> View Team Page
+                        </a>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">
+                        Add organizers who will appear on the Team page. Participants can schedule free calls with them via Topmate.
+                    </p>
+                    <div class="organizers-list" id="organizersList">
+                        <!-- Organizers will be loaded here -->
+                    </div>
+                    <button class="add-btn" onclick="addOrganizer()" style="margin-top: 16px;">
+                        <i class="fas fa-plus"></i>
+                        Add New Organizer
+                    </button>
+                </div>
+            </div>
+
+            <!-- Campus Advocates Panel -->
+            <div class="panel" id="advocatesPanel">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3>Manage Campus Advocates</h3>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
+                        Campus Advocates represent SSoC at their colleges/universities. Add advocates who help spread awareness and build the community on campus.
+                    </p>
+                    <div class="advocates-list" id="advocatesList">
+                        <!-- Advocates will be loaded here -->
+                    </div>
+                    <button class="add-btn" onclick="addAdvocate()" style="margin-top: 16px;" data-testid="add-advocate-btn">
+                        <i class="fas fa-plus"></i>
+                        Add New Campus Advocate
+                    </button>
+                </div>
+            </div>
+
+            <!-- Advocate Applications Panel -->
+            <div class="panel" id="advocate-appsPanel">
+                <div class="card">
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <i class="fas fa-file-alt"></i>
+                            <h3>Campus Advocate Applications</h3>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <select id="appStatusFilter" onchange="filterApplications()" style="padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-secondary); color: var(--text-primary);">
+                                <option value="all">All Applications</option>
+                                <option value="pending">Pending</option>
+                                <option value="approved">Approved</option>
+                                <option value="rejected">Rejected</option>
+                            </select>
+                            <span id="appCount" style="font-size: 13px; color: var(--text-muted); padding: 6px 12px; background: var(--bg-secondary); border-radius: 20px;"></span>
+                            <button class="download-btn" onclick="downloadApplicationsCSV()">
+                                <i class="fas fa-download"></i> Download CSV
+                            </button>
+                            <button class="add-btn" onclick="republishAllAdvocates()" style="background:linear-gradient(135deg,#22c55e,#16a34a);" data-testid="republish-all-btn">
+                                <i class="fas fa-sync-alt"></i> Republish All to Advocates
+                            </button>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
+                        Review applications from students who want to become Campus Advocates. Approve promising candidates and add them to the advocates list.
+                    </p>
+                    <div class="applications-list" id="applicationsList">
+                        <!-- Applications will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Leaderboard Panel -->
+            <div class="panel" id="leaderboardPanel">
+                <div class="card" style="margin-bottom: 24px;">
+                    <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+                        <div style="display:flex;align-items:center;gap:12px;">
+                            <i class="fas fa-trophy" style="color:#f5d060;"></i>
+                            <h3>Advocate Tasks</h3>
+                        </div>
+                        <div style="display:flex;gap:8px;">
+                            <a href="/leaderboard.html" target="_blank" class="add-btn" style="background:linear-gradient(135deg,#8b5cf6,#d35dab);text-decoration:none;">
+                                <i class="fas fa-external-link-alt"></i> View Public Leaderboard
+                            </a>
+                            <button class="add-btn" onclick="openTaskModal()" data-testid="add-task-btn">
+                                <i class="fas fa-plus"></i> Add Task
+                            </button>
+                        </div>
+                    </div>
+                    <p style="color:var(--text-secondary);font-size:14px;margin-bottom:20px;">
+                        Create tasks with point values. Mark which advocates completed each task to build the leaderboard.
+                    </p>
+                    <div id="tasksList" data-testid="tasks-list">
+                        <!-- Tasks loaded here -->
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+                        <div style="display:flex;align-items:center;gap:12px;">
+                            <i class="fas fa-clipboard-check" style="color:#22c55e;"></i>
+                            <h3>Scoring Grid</h3>
+                        </div>
+                        <span id="scoringInfo" style="font-size:13px;color:var(--text-muted);"></span>
+                    </div>
+                    <p style="color:var(--text-secondary);font-size:14px;margin-bottom:20px;">
+                        Check the boxes to mark tasks as completed by each advocate. Scores update automatically.
+                    </p>
+                    <div style="overflow-x:auto;">
+                        <table id="scoringGrid" data-testid="scoring-grid" style="width:100%;border-collapse:collapse;font-size:14px;">
+                            <thead id="scoringGridHead"></thead>
+                            <tbody id="scoringGridBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Task Modal -->
+            <div class="modal" id="taskModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;">
+                <div style="background:#fff;border-radius:16px;padding:32px;max-width:480px;width:90%;margin:auto;position:relative;">
+                    <h3 id="taskModalTitle" style="font-family:'Fredoka',sans-serif;margin-bottom:20px;">Add Task</h3>
+                    <div style="margin-bottom:16px;">
+                        <label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--text-secondary);">Task Name *</label>
+                        <input type="text" id="taskName" placeholder="e.g. Host a campus workshop" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:14px;" data-testid="task-name-input">
+                    </div>
+                    <div style="margin-bottom:16px;">
+                        <label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--text-secondary);">Description</label>
+                        <textarea id="taskDesc" rows="2" placeholder="Brief description of the task" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:14px;resize:vertical;" data-testid="task-desc-input"></textarea>
+                    </div>
+                    <div style="margin-bottom:24px;">
+                        <label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--text-secondary);">Points *</label>
+                        <input type="number" id="taskPoints" value="10" min="1" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:14px;" data-testid="task-points-input">
+                    </div>
+                    <div style="display:flex;gap:12px;justify-content:flex-end;">
+                        <button onclick="closeTaskModal()" style="padding:10px 20px;border-radius:8px;border:1px solid var(--border);background:#fff;cursor:pointer;font-size:14px;">Cancel</button>
+                        <button onclick="saveTask()" style="padding:10px 20px;border-radius:8px;border:none;background:linear-gradient(135deg,#d35dab,#8b5cf6);color:#fff;cursor:pointer;font-size:14px;font-weight:600;" data-testid="save-task-btn">Save Task</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Testimonials Panel -->
+            <div class="panel" id="testimonialsPanel">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-comments"></i>
+                        <h3>Manage Testimonials</h3>
+                    </div>
+                    <div class="testimonial-list" id="testimonialList">
+                        <!-- Testimonials will be loaded here -->
+                    </div>
+                    <button class="add-btn" onclick="addTestimonial()" style="margin-top: 16px;">
+                        <i class="fas fa-plus"></i>
+                        Add New Testimonial
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sponsors Panel -->
+            <div class="panel" id="sponsorsPanel">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-handshake"></i>
+                        <h3>Manage Sponsors</h3>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
+                        Add sponsors and partners with their logos and website links. Organize them by category (Platinum, Gold, Silver, Bronze, Community).
+                    </p>
+                    
+                    <!-- Category Filter -->
+                    <div style="display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap;">
+                        <button class="category-filter active" onclick="filterSponsors('all')" data-category="all">All</button>
+                        <button class="category-filter" onclick="filterSponsors('platinum')" data-category="platinum" style="border-color: #a855f7;">Platinum</button>
+                        <button class="category-filter" onclick="filterSponsors('gold')" data-category="gold" style="border-color: #f59e0b;">Gold</button>
+                        <button class="category-filter" onclick="filterSponsors('silver')" data-category="silver" style="border-color: #94a3b8;">Silver</button>
+                        <button class="category-filter" onclick="filterSponsors('bronze')" data-category="bronze" style="border-color: #d97706;">Bronze</button>
+                        <button class="category-filter" onclick="filterSponsors('community')" data-category="community" style="border-color: #22c55e;">Community</button>
+                    </div>
+                    
+                    <div class="sponsors-list" id="sponsorsList">
+                        <!-- Sponsors will be loaded here -->
+                    </div>
+                    <button class="add-btn" onclick="addSponsor()" style="margin-top: 16px;" data-testid="add-sponsor-btn">
+                        <i class="fas fa-plus"></i>
+                        Add New Sponsor
+                    </button>
+                </div>
+            </div>
+
+            <!-- Referral Links Panel -->
+            <div class="panel" id="referral-linksPanel">
+                <div class="card">
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <i class="fas fa-link"></i>
+                            <h3>Referral Links</h3>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button onclick="generateAdvocateReferralLink()" class="add-btn" style="background: linear-gradient(135deg, #8b5cf6, #d35dab);">
+                                <i class="fas fa-graduation-cap"></i>
+                                Generate for Advocate
+                            </button>
+                            <button onclick="createCustomReferralLink()" class="add-btn">
+                                <i class="fas fa-plus"></i>
+                                Create Custom Link
+                            </button>
+                            <button onclick="downloadAdvocateLinksExcel()" class="add-btn" style="background: linear-gradient(135deg, #22c55e, #16a34a);">
+                                <i class="fas fa-file-excel"></i>
+                                Download Advocate Links
+                            </button>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 14px;">
+                        Generate unique referral links for campus advocates or custom campaigns. Track clicks and registrations from each link.
+                    </p>
+                    
+                    <!-- Stats Summary -->
+                    <div id="referralStats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-bottom: 24px;">
+                        <div style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(211, 93, 171, 0.1)); padding: 16px; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 24px; font-weight: 700; color: #8b5cf6;" id="totalLinksCount">0</div>
+                            <div style="font-size: 13px; color: var(--text-muted);">Total Links</div>
+                        </div>
+                        <div style="background: rgba(34, 197, 94, 0.1); padding: 16px; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 24px; font-weight: 700; color: #22c55e;" id="totalClicksCount">0</div>
+                            <div style="font-size: 13px; color: var(--text-muted);">Total Clicks</div>
+                        </div>
+                        <div style="background: rgba(245, 158, 11, 0.1); padding: 16px; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 24px; font-weight: 700; color: #f59e0b;" id="totalRegsCount">0</div>
+                            <div style="font-size: 13px; color: var(--text-muted);">Total Registrations</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Filter -->
+                    <div style="margin-bottom: 16px;">
+                        <button class="category-filter active" onclick="filterReferralLinks('all')" data-ref-filter="all">All</button>
+                        <button class="category-filter" onclick="filterReferralLinks('advocate')" data-ref-filter="advocate" style="border-color: #8b5cf6;">Advocate Links</button>
+                        <button class="category-filter" onclick="filterReferralLinks('custom')" data-ref-filter="custom" style="border-color: #22c55e;">Custom Links</button>
+                    </div>
+                    
+                    <div id="referralLinksList">
+                        <!-- Referral links will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Panel -->
+            <div class="panel" id="faqPanel">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-question-circle"></i>
+                        <h3>Manage FAQ</h3>
+                    </div>
+                    <div id="faqList">
+                        <!-- FAQ items will be loaded here -->
+                    </div>
+                    <button class="add-btn" onclick="addFAQ()">
+                        <i class="fas fa-plus"></i>
+                        Add New FAQ
+                    </button>
+                </div>
+            </div>
+
+            <!-- Registrations Panel -->
+            <div class="panel" id="registrationsPanel">
+                <div class="card">
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <i class="fas fa-users"></i>
+                            <h3>All Registrations</h3>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <label for="roleFilter" style="font-size: 14px; color: var(--text-secondary);">Filter by Role:</label>
+                                <select id="roleFilter" onchange="filterRegistrations()" style="padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-secondary); color: var(--text-primary); font-size: 14px; cursor: pointer;" data-testid="role-filter">
+                                    <option value="all">All Roles</option>
+                                    <option value="contributor">Contributor</option>
+                                    <option value="mentor">Mentor</option>
+                                    <option value="project-admin">Project Admin</option>
+                                </select>
+                            </div>
+                            <span id="registrationCount" style="font-size: 13px; color: var(--text-muted); padding: 6px 12px; background: var(--bg-secondary); border-radius: 20px;"></span>
+                            <button class="download-btn" onclick="downloadRegistrationsCSV()" data-testid="download-registrations-btn">
+                                <i class="fas fa-download"></i> Download CSV
+                            </button>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 16px;">
+                        <i class="fas fa-info-circle" style="margin-right: 6px;"></i>
+                        Showing all form responses. Scroll horizontally to see all fields.
+                    </p>
+                    <div class="table-container" style="overflow-x: auto;">
+                        <table id="registrationsTable" style="min-width: 100%;">
+                            <thead id="registrationsHead">
+                                <!-- Headers will be generated dynamically -->
+                            </thead>
+                            <tbody id="registrationsBody">
+                                <!-- Registrations will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Onboarding Panel -->
+            <div class="panel" id="onboardingPanel">
+                <div class="card">
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <i class="fas fa-clipboard-check"></i>
+                            <h3>Contributor Onboarding</h3>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                            <span id="onboardingCount" style="font-size: 13px; color: var(--text-muted); padding: 6px 12px; background: var(--bg-secondary); border-radius: 20px;"></span>
+                            <button class="download-btn" onclick="downloadOnboardingCSV()" data-testid="download-onboarding-btn">
+                                <i class="fas fa-download"></i> Download CSV
+                            </button>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 8px;">
+                        <i class="fas fa-info-circle" style="margin-right: 6px;"></i>
+                        Hidden onboarding form &mdash; share this private URL with contributors:
+                        <a href="/onboarding.html" target="_blank" style="color: var(--primary); font-weight: 600; margin-left: 4px;" data-testid="onboarding-public-link">/onboarding.html</a>
+                    </p>
+                    <div class="table-container" style="overflow-x: auto;">
+                        <table id="onboardingTable" style="min-width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:left;">Submitted</th>
+                                    <th style="text-align:left;">Name</th>
+                                    <th style="text-align:left;">Email</th>
+                                    <th style="text-align:left;">Contact</th>
+                                    <th style="text-align:center;">Badge</th>
+                                    <th style="text-align:center;">Product Hunt</th>
+                                    <th style="text-align:center;">Discord</th>
+                                    <th style="text-align:left;">Notes</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="onboardingBody" data-testid="onboarding-table-body">
+                                <!-- Submissions loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Raids Panel -->
+            <div class="panel" id="raidsPanel">
+                <div class="card">
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <i class="fas fa-bolt"></i>
+                            <h3>Raids &amp; Tasks</h3>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                            <span id="raidsCount" style="font-size: 13px; color: var(--text-muted); padding: 6px 12px; background: var(--bg-secondary); border-radius: 20px;"></span>
+                            <button class="download-btn" onclick="downloadRaidCompletionsCSV()" data-testid="download-raid-completions-btn">
+                                <i class="fas fa-download"></i> Completions CSV
+                            </button>
+                            <button class="add-btn" onclick="openRaidModal()" data-testid="add-raid-btn" style="padding: 8px 16px;">
+                                <i class="fas fa-plus"></i> Add Raid
+                            </button>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 12px;">
+                        <i class="fas fa-info-circle" style="margin-right: 6px;"></i>
+                        Hidden contributor raids page &mdash; share this private URL:
+                        <a href="/raids.html" target="_blank" style="color: var(--primary); font-weight: 600; margin-left: 4px;" data-testid="raids-public-link">/raids.html</a>
+                    </p>
+                    <div id="raidsList" data-testid="raids-admin-list" style="display: flex; flex-direction: column; gap: 12px;">
+                        <!-- Raids loaded dynamically -->
+                    </div>
+                    <div style="margin-top: 28px;">
+                        <h4 style="font-family: 'Fredoka', sans-serif; color: var(--text-primary); margin: 0 0 12px; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-receipt"></i> All Completion Submissions
+                        </h4>
+                        <div class="raid-filter-row" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; align-items: center;">
+                            <select id="completionRaidFilter" data-testid="completion-raid-filter"
+                                onchange="renderRaidCompletions()"
+                                style="padding:9px 14px; border-radius:10px; border:1.5px solid #eadcef; background:var(--bg-primary); color:var(--text-primary); font-family:inherit; font-size:14px; cursor:pointer; min-width:240px;">
+                                <option value="">All raids</option>
+                            </select>
+                            <select id="completionStatusFilter" data-testid="completion-status-filter"
+                                onchange="renderRaidCompletions()"
+                                style="padding:9px 14px; border-radius:10px; border:1.5px solid #eadcef; background:var(--bg-primary); color:var(--text-primary); font-family:inherit; font-size:14px; cursor:pointer;">
+                                <option value="all">All status</option>
+                                <option value="valid">Valid only</option>
+                                <option value="disqualified">Disqualified only</option>
+                            </select>
+                            <input type="search" id="completionSearch" data-testid="completion-search"
+                                oninput="renderRaidCompletions()"
+                                placeholder="Search name, email, or proof URL..."
+                                style="padding:9px 14px; border-radius:10px; border:1.5px solid #eadcef; background:var(--bg-primary); color:var(--text-primary); font-family:inherit; font-size:14px; flex:1; min-width:220px;" />
+                            <span id="completionResultCount" data-testid="completion-result-count" style="font-size:12.5px; color:var(--text-muted); padding:6px 12px; background:var(--bg-secondary); border-radius:20px; white-space:nowrap;"></span>
+                        </div>
+                        <div class="table-container" style="overflow-x: auto;">
+                            <table id="raidCompletionsTable" style="min-width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:left;">Submitted</th>
+                                        <th style="text-align:left;">Raid</th>
+                                        <th style="text-align:left;">Name</th>
+                                        <th style="text-align:left;">Email</th>
+                                        <th style="text-align:left;">Proof</th>
+                                        <th style="text-align:right;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="raidCompletionsBody" data-testid="raid-completions-body">
+                                    <!-- loaded dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Raid Add/Edit Modal -->
+            <div class="proj-modal-overlay" id="raidModal" data-testid="raid-modal" onclick="if(event.target===this)closeRaidModal()">
+                <div class="proj-modal-card">
+                    <div class="proj-modal-head">
+                        <h3 id="raidModalTitle">Add New Raid</h3>
+                        <button class="proj-modal-close" onclick="closeRaidModal()" data-testid="raid-modal-close" aria-label="Close">&times;</button>
+                    </div>
+                    <form id="raidForm" class="proj-modal-body" onsubmit="event.preventDefault(); saveRaidFromModal();">
+                        <input type="hidden" id="rf_id" />
+                        <div class="proj-modal-row">
+                            <label>Raid title <span class="req">*</span></label>
+                            <input type="text" id="rf_title" data-testid="rf-title" required maxlength="200" placeholder="e.g., Upvote SSoC on Product Hunt" />
+                        </div>
+                        <div class="proj-modal-row">
+                            <label>Description</label>
+                            <textarea id="rf_description" data-testid="rf-description" rows="3" maxlength="2000" placeholder="What contributors need to do, step by step..."></textarea>
+                        </div>
+                        <div class="proj-modal-row">
+                            <label>Link to task <span class="hint">(where contributors do it)</span></label>
+                            <input type="url" id="rf_link" data-testid="rf-link" placeholder="https://producthunt.com/posts/ssoc" />
+                        </div>
+                        <div class="proj-modal-grid">
+                            <div class="proj-modal-row">
+                                <label>Deadline <span class="hint">(optional)</span></label>
+                                <input type="date" id="rf_deadline" data-testid="rf-deadline" />
+                            </div>
+                            <div class="proj-modal-row">
+                                <label>Points / reward</label>
+                                <input type="number" id="rf_points" data-testid="rf-points" min="0" max="10000" value="10" />
+                            </div>
+                        </div>
+                        <div class="proj-modal-row">
+                            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                                <input type="checkbox" id="rf_active" data-testid="rf-active" checked style="width:18px;height:18px;accent-color:var(--primary);cursor:pointer;" />
+                                <span>Active &mdash; visible to contributors on /raids.html</span>
+                            </label>
+                        </div>
+                        <div class="proj-modal-row">
+                            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                                <input type="checkbox" id="rf_daily" data-testid="rf-daily" style="width:18px;height:18px;accent-color:var(--primary);cursor:pointer;" />
+                                <span><strong>Daily task</strong> &mdash; contributors can complete this <em>once per day</em> (great for ongoing engagement). Leave unchecked for one-time raids.</span>
+                            </label>
+                        </div>
+                        <div class="proj-modal-error" id="rf_error" data-testid="rf-error"></div>
+                        <div class="proj-modal-actions">
+                            <button type="button" class="proj-btn-ghost" onclick="closeRaidModal()" data-testid="raid-modal-cancel">Cancel</button>
+                            <button type="submit" class="proj-btn-primary" id="rf_submit" data-testid="raid-modal-save">
+                                <i class="fas fa-save"></i> Save Raid
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Footer Panel -->
+            <div class="panel" id="footerPanel">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-shoe-prints"></i>
+                        <h3>Footer Settings</h3>
+                    </div>
+                    <div class="form-group-inline">
+                        <label>Brand Description</label>
+                        <textarea id="footerBrandDescription" rows="3">India's largest open source program connecting students, mentors, and organizations to build amazing things together.</textarea>
+                    </div>
+                    <div class="form-group-inline">
+                        <label>Copyright Text</label>
+                        <input type="text" id="footerCopyrightText" value="© 2025 Social Summer of Code. All rights reserved.">
+                    </div>
+                    <button class="save-btn" onclick="saveFooterSettings()">
+                        <i class="fas fa-save"></i>
+                        Save Settings
+                    </button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fab fa-github"></i>
+                        <h3>Social Media Links</h3>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-inline">
+                            <label><i class="fab fa-github"></i> GitHub</label>
+                            <input type="url" id="socialGithub" placeholder="https://github.com/your-org">
+                        </div>
+                        <div class="form-group-inline">
+                            <label><i class="fab fa-twitter"></i> Twitter</label>
+                            <input type="url" id="socialTwitter" placeholder="https://twitter.com/your-handle">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-inline">
+                            <label><i class="fab fa-linkedin"></i> LinkedIn</label>
+                            <input type="url" id="socialLinkedin" placeholder="https://linkedin.com/company/your-org">
+                        </div>
+                        <div class="form-group-inline">
+                            <label><i class="fab fa-instagram"></i> Instagram</label>
+                            <input type="url" id="socialInstagram" placeholder="https://instagram.com/your-handle">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-inline">
+                            <label><i class="fab fa-discord"></i> Discord</label>
+                            <input type="url" id="socialDiscord" placeholder="https://discord.gg/your-server">
+                        </div>
+                        <div class="form-group-inline">
+                            <label><i class="fab fa-youtube"></i> YouTube</label>
+                            <input type="url" id="socialYoutube" placeholder="https://youtube.com/@your-channel">
+                        </div>
+                    </div>
+                    <button class="save-btn" onclick="saveSocialLinks()">
+                        <i class="fas fa-save"></i>
+                        Save Social Links
+                    </button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <i class="fas fa-link"></i>
+                            <h3>Community Links</h3>
+                        </div>
+                        <button class="add-btn" onclick="addCommunityLink()">
+                            <i class="fas fa-plus"></i> Add Link
+                        </button>
+                    </div>
+                    <div id="communityLinksList">
+                        <!-- Community links will be loaded here -->
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <i class="fas fa-book"></i>
+                            <h3>Resource Links</h3>
+                        </div>
+                        <button class="add-btn" onclick="addResourceLink()">
+                            <i class="fas fa-plus"></i> Add Link
+                        </button>
+                    </div>
+                    <div id="resourceLinksList">
+                        <!-- Resource links will be loaded here -->
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <i class="fas fa-gavel"></i>
+                            <h3>Legal Links</h3>
+                        </div>
+                        <button class="add-btn" onclick="addLegalLink()">
+                            <i class="fas fa-plus"></i> Add Link
+                        </button>
+                    </div>
+                    <div id="legalLinksList">
+                        <!-- Legal links will be loaded here -->
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-eye"></i>
+                        <h3>Live Footer Preview</h3>
+                    </div>
+                    <div class="footer-preview-container" id="footerPreview" data-testid="footer-live-preview">
+                        <div class="fp-grid">
+                            <div class="fp-col fp-brand">
+                                <h4 style="font-size: 16px; margin-bottom: 8px;">SSoC</h4>
+                                <p id="fpBrandDesc">Loading...</p>
+                                <div class="fp-socials" id="fpSocials"></div>
+                            </div>
+                            <div class="fp-col" id="fpCommunity"><h4>Community</h4></div>
+                            <div class="fp-col" id="fpResources"><h4>Resources</h4></div>
+                            <div class="fp-col" id="fpLegal"><h4>Legal</h4></div>
+                        </div>
+                        <div class="fp-bottom">
+                            <span id="fpCopyright">Loading...</span>
+                            <span>Preview only</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Pages Panel -->
+            <div class="panel" id="pagesPanel">
+                <div class="card">
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <i class="fas fa-file-alt"></i>
+                            <h3>Manage Content Pages</h3>
+                        </div>
+                        <button class="add-btn" onclick="openPageEditor()">
+                            <i class="fas fa-plus"></i> Create New Page
+                        </button>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">
+                        Create and manage content pages like Documentation, Code of Conduct, Privacy Policy, etc. These pages will be accessible from footer links.
+                    </p>
+                    <div id="pagesList">
+                        <!-- Content pages will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Page Editor Modal -->
+                <div class="card" id="pageEditorCard" style="display: none;">
+                    <div class="card-header">
+                        <i class="fas fa-edit"></i>
+                        <h3 id="pageEditorTitle">Create New Page</h3>
+                    </div>
+                    <div class="form-group-inline">
+                        <label>Page Title *</label>
+                        <input type="text" id="contentPageTitle" placeholder="e.g., Code of Conduct">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-inline">
+                            <label>URL Slug *</label>
+                            <input type="text" id="pageSlug" placeholder="e.g., code-of-conduct">
+                            <small style="color: var(--text-muted); font-size: 12px;">URL-friendly identifier (lowercase, no spaces, use hyphens)</small>
+                        </div>
+                        <div class="form-group-inline">
+                            <label>Category</label>
+                            <select id="pageCategory">
+                                <option value="legal">Legal & Policies</option>
+                                <option value="resource">Resources & Documentation</option>
+                                <option value="community">Community Guidelines</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group-inline">
+                        <label>Page Content * (HTML supported)</label>
+                        <textarea id="pageContent" rows="15" placeholder="Enter your page content here. You can use HTML tags like <h2>, <p>, <ul>, <li>, <a>, <blockquote>, etc."></textarea>
+                    </div>
+                    <div class="form-group-inline">
+                        <label style="display: flex; align-items: center; gap: 8px;">
+                            <input type="checkbox" id="pagePublished" checked style="width: auto;">
+                            Publish this page
+                        </label>
+                    </div>
+                    <div style="display: flex; gap: 12px; margin-top: 20px;">
+                        <button class="save-btn" onclick="savePage()">
+                            <i class="fas fa-save"></i> Save Page
+                        </button>
+                        <button class="save-btn" style="background: var(--text-muted);" onclick="cancelPageEditor()">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                        <button class="save-btn" style="background: var(--accent); margin-left: auto;" onclick="previewPage()">
+                            <i class="fas fa-eye"></i> Preview
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quick Templates -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-magic"></i>
+                        <h3>Quick Templates</h3>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 16px;">
+                        Start with a pre-built template to save time:
+                    </p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                        <button class="add-btn" onclick="useTemplate('code-of-conduct')" style="background: rgba(211, 93, 171, 0.1); color: var(--primary); border: 1px dashed var(--primary);">
+                            <i class="fas fa-handshake"></i> Code of Conduct
+                        </button>
+                        <button class="add-btn" onclick="useTemplate('privacy-policy')" style="background: rgba(211, 93, 171, 0.1); color: var(--primary); border: 1px dashed var(--primary);">
+                            <i class="fas fa-shield-alt"></i> Privacy Policy
+                        </button>
+                        <button class="add-btn" onclick="useTemplate('terms-of-service')" style="background: rgba(211, 93, 171, 0.1); color: var(--primary); border: 1px dashed var(--primary);">
+                            <i class="fas fa-file-contract"></i> Terms of Service
+                        </button>
+                        <button class="add-btn" onclick="useTemplate('documentation')" style="background: rgba(211, 93, 171, 0.1); color: var(--primary); border: 1px dashed var(--primary);">
+                            <i class="fas fa-book"></i> Documentation
+                        </button>
+                        <button class="add-btn" onclick="useTemplate('faq-page')" style="background: rgba(211, 93, 171, 0.1); color: var(--primary); border: 1px dashed var(--primary);">
+                            <i class="fas fa-question-circle"></i> FAQ Page
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast success" id="toast">
+        <div class="toast-icon"><i class="fas fa-check-circle"></i></div>
+        <div class="toast-content">
+            <span class="toast-title">Success!</span>
+            <span class="toast-message" id="toastMessage">Changes saved successfully.</span>
+        </div>
+    </div>
+
+    <script src="admin-app.js?v=19"></script>
+</body>
+</html>

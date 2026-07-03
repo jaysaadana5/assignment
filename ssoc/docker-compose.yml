@@ -1,0 +1,35 @@
+# One-command local stack for the SSOC site: MongoDB + the FastAPI backend
+# (which also serves the static frontend). After `docker compose up`, open
+# http://localhost:8000 for the site and http://localhost:8000/api/... for the API.
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+    environment:
+      MONGO_URL: mongodb://mongo:27017
+      DB_NAME: ssoc
+      SERVE_STATIC: "true"
+      STATIC_DIR: /app/frontend/public
+    ports:
+      - "8000:8000"
+
+volumes:
+  mongo_data:

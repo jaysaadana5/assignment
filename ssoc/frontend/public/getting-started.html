@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Getting Started Guide · Your First Open Source Contribution · SSoC Season 5</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="A friendly, step-by-step guide for first-time open source contributors. Learn Git, GitHub, how to fork, commit, and raise your first Pull Request, built for SSoC Season 5 newcomers." />
+<meta name="keywords" content="open source for beginners, git tutorial, github tutorial, first pull request, how to contribute to open source, SSoC guide, beginner contributor" />
+<link rel="icon" type="image/png" href="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,800;9..144,900&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #f0eee9; font-family: 'Space Grotesk', system-ui, sans-serif; color: #1E1124; scroll-behavior: smooth; }
+
+  /* Top Nav */
+  .gs-nav {
+    background: #1E1124; padding: 16px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 50;
+  }
+  .gs-nav a.brand {
+    color: white; text-decoration: none; font-weight: 700; font-size: 18px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .gs-nav a.brand img { width: 32px; height: 32px; border-radius: 8px; }
+  .gs-nav .nav-right { display: flex; align-items: center; gap: 18px; }
+  .gs-nav a.back {
+    color: rgba(255,255,255,0.75); text-decoration: none; font-size: 14px;
+    display: flex; align-items: center; gap: 6px; transition: color 0.2s;
+  }
+  .gs-nav a.back:hover { color: #E86FBB; }
+  .gs-nav a.create-cta {
+    background: linear-gradient(135deg, #E86FBB, #D946A0); color: white;
+    text-decoration: none; padding: 10px 18px; border-radius: 999px;
+    font-size: 14px; font-weight: 700;
+    box-shadow: 0 4px 16px rgba(217,70,160,0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .gs-nav a.create-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(217,70,160,0.45); }
+
+  /* Hero */
+  .hero {
+    text-align: center; padding: 72px 20px 40px; max-width: 880px; margin: 0 auto;
+  }
+  .hero .eyebrow {
+    display: inline-block; background: rgba(217,70,160,0.12); color: #D946A0;
+    font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 999px;
+    letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-size: clamp(36px, 6vw, 60px); font-weight: 900; margin: 0 0 18px;
+    line-height: 1.05; letter-spacing: -0.02em;
+    font-family: 'Fraunces', 'Space Grotesk', serif;
+  }
+  .hero h1 span { color: #D946A0; font-style: italic; }
+  .hero p { color: #6b5b65; font-size: 18px; line-height: 1.65; margin: 0 auto 28px; max-width: 680px; }
+  .hero .hero-meta {
+    display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+  }
+  .hero .meta-pill {
+    background: white; border-radius: 999px; padding: 8px 16px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    font-size: 13px; font-weight: 600; color: #1E1124;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .hero .meta-pill i { color: #D946A0; }
+
+  /* Layout: sidebar TOC + content */
+  .wrap {
+    max-width: 1180px; margin: 24px auto 80px; padding: 0 24px;
+    display: grid; grid-template-columns: 240px 1fr; gap: 48px;
+  }
+  .toc {
+    position: sticky; top: 88px; align-self: start;
+    background: white; border-radius: 16px; padding: 22px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+  }
+  .toc h4 {
+    margin: 0 0 14px; font-size: 12px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: #6b5b65; font-weight: 700;
+  }
+  .toc a {
+    display: block; color: #1E1124; text-decoration: none; padding: 8px 12px;
+    border-radius: 8px; font-size: 14px; font-weight: 500;
+    transition: all 0.15s; border-left: 2px solid transparent;
+  }
+  .toc a:hover { background: #f7f5f1; color: #D946A0; }
+  .toc a.active { background: rgba(217,70,160,0.08); color: #D946A0; border-left-color: #D946A0; }
+
+  .content { min-width: 0; }
+
+  /* Step cards */
+  .step {
+    background: white; border-radius: 18px; padding: 36px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.05);
+    margin-bottom: 28px; scroll-margin-top: 88px;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .step:hover { transform: translateY(-2px); box-shadow: 0 14px 38px rgba(0,0,0,0.08); }
+  .step-head { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+  .step-num {
+    flex-shrink: 0;
+    width: 48px; height: 48px; border-radius: 14px;
+    background: linear-gradient(135deg, #E86FBB, #D946A0); color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fraunces', serif; font-size: 22px; font-weight: 900;
+    box-shadow: 0 6px 18px rgba(217,70,160,0.35);
+  }
+  .step h2 {
+    font-family: 'Fraunces', serif; font-size: clamp(24px, 3vw, 30px);
+    font-weight: 900; margin: 0; line-height: 1.15; letter-spacing: -0.01em;
+  }
+  .step .lead { color: #6b5b65; font-size: 16px; line-height: 1.7; margin: 0 0 18px; }
+  .step h3 {
+    font-family: 'Fraunces', serif; font-size: 19px; font-weight: 800;
+    margin: 24px 0 10px; color: #1E1124;
+  }
+  .step ul, .step ol { padding-left: 22px; margin: 8px 0 16px; line-height: 1.7; color: #2d2032; }
+  .step li { margin-bottom: 6px; }
+  .step a.inline-link { color: #D946A0; font-weight: 600; text-decoration: none; border-bottom: 1px dashed rgba(217,70,160,0.4); }
+  .step a.inline-link:hover { border-bottom-style: solid; }
+
+  /* Code block */
+  pre.code {
+    background: #1E1124; color: #f8f8f2; border-radius: 12px;
+    padding: 18px 20px; font-family: 'JetBrains Mono', monospace;
+    font-size: 13.5px; line-height: 1.7; overflow-x: auto;
+    margin: 14px 0; position: relative;
+    box-shadow: 0 6px 20px rgba(30,17,36,0.2);
+  }
+  pre.code .c-comment { color: #6c7086; font-style: italic; }
+  pre.code .c-cmd { color: #50fa7b; }
+  pre.code .c-arg { color: #f1fa8c; }
+  pre.code .c-pink { color: #ff79c6; }
+  pre.code .c-cyan { color: #8be9fd; }
+
+  .copy-btn {
+    position: absolute; top: 10px; right: 10px;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.7); border-radius: 8px;
+    padding: 5px 10px; font-size: 11px; font-weight: 600; cursor: pointer;
+    font-family: 'Space Grotesk', sans-serif; transition: all 0.15s;
+  }
+  .copy-btn:hover { background: rgba(232,111,187,0.2); color: white; border-color: rgba(232,111,187,0.4); }
+  .copy-btn.copied { background: #50fa7b; color: #1E1124; border-color: #50fa7b; }
+
+  /* Tip box */
+  .tip {
+    border-left: 4px solid #D946A0; background: rgba(217,70,160,0.06);
+    border-radius: 10px; padding: 14px 18px; margin: 16px 0;
+    color: #2d2032; font-size: 14.5px; line-height: 1.65;
+  }
+  .tip strong { color: #D946A0; }
+  .tip i { color: #D946A0; margin-right: 6px; }
+  .tip.warn { border-color: #FF9D3D; background: rgba(255,157,61,0.08); }
+  .tip.warn strong, .tip.warn i { color: #b56b1f; }
+
+  /* Resource cards */
+  .res-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px; margin: 18px 0 8px;
+  }
+  .res {
+    background: #faf7f2; border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 12px; padding: 16px; text-decoration: none; color: #1E1124;
+    transition: all 0.2s; display: block;
+  }
+  .res:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(0,0,0,0.08); border-color: #D946A0; }
+  .res .res-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .res .res-head i { color: #D946A0; font-size: 18px; }
+  .res .res-head h4 { margin: 0; font-size: 15px; font-weight: 700; font-family: 'Fraunces', serif; }
+  .res p { margin: 4px 0 0; font-size: 13px; color: #6b5b65; line-height: 1.5; }
+
+  /* Final CTA */
+  .final-cta {
+    background: linear-gradient(135deg, #1E1124, #3a1f48);
+    color: white; border-radius: 22px; padding: 48px 40px; text-align: center;
+    margin-top: 32px; position: relative; overflow: hidden;
+  }
+  .final-cta::before {
+    content: ''; position: absolute; top: -40%; right: -10%;
+    width: 320px; height: 320px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(217,70,160,0.35), transparent 70%);
+  }
+  .final-cta h2 {
+    font-family: 'Fraunces', serif; font-size: clamp(26px, 4vw, 36px);
+    font-weight: 900; margin: 0 0 12px; position: relative;
+  }
+  .final-cta p { color: rgba(255,255,255,0.75); font-size: 16px; margin: 0 auto 24px; max-width: 540px; line-height: 1.6; position: relative; }
+  .final-cta .cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; }
+  .final-cta a {
+    text-decoration: none; padding: 14px 26px; border-radius: 999px;
+    font-weight: 700; font-size: 15px; display: inline-flex; align-items: center; gap: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .final-cta a.primary {
+    background: linear-gradient(135deg, #E86FBB, #D946A0); color: white;
+    box-shadow: 0 6px 20px rgba(217,70,160,0.45);
+  }
+  .final-cta a.primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(217,70,160,0.55); }
+  .final-cta a.ghost {
+    background: rgba(255,255,255,0.08); color: white;
+    border: 1px solid rgba(255,255,255,0.18);
+  }
+  .final-cta a.ghost:hover { background: rgba(255,255,255,0.14); transform: translateY(-2px); }
+
+  footer.credit {
+    text-align: center; padding: 32px 20px 60px; color: #6b5b65; font-size: 13px;
+  }
+  footer.credit a { color: #D946A0; text-decoration: none; font-weight: 600; }
+
+  /* Responsive */
+  @media (max-width: 920px) {
+    .wrap { grid-template-columns: 1fr; gap: 24px; }
+    .toc { position: static; }
+  }
+  @media (max-width: 640px) {
+    .gs-nav { padding: 12px 16px; }
+    .gs-nav .nav-right a.back { display: none; }
+    .hero { padding: 48px 20px 24px; }
+    .step { padding: 26px 22px; }
+    .final-cta { padding: 36px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="gs-nav" data-testid="gs-navbar">
+  <a href="/" class="brand" data-testid="gs-nav-brand">
+    <img src="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png" alt="SSoC" />
+    SSoC Season 5
+  </a>
+  <div class="nav-right">
+    <a href="/" class="back" data-testid="gs-nav-home"><i class="fas fa-arrow-left"></i> Home</a>
+    <a href="/#register" class="create-cta" data-testid="gs-nav-register">Register Now</a>
+  </div>
+</nav>
+
+<section class="hero" data-testid="gs-hero">
+  <span class="eyebrow"><i class="fas fa-rocket"></i> &nbsp;Beginner Friendly Guide</span>
+  <h1>Your first <span>open source</span> contribution starts here.</h1>
+  <p>Never used Git before? Confused by forks, branches, and pull requests? This guide walks you from <em>zero</em> to your first merged PR, written for SSoC Season 5 newcomers, no prior experience needed.</p>
+  <div class="hero-meta">
+    <span class="meta-pill"><i class="fas fa-clock"></i> ~25 min read</span>
+    <span class="meta-pill"><i class="fas fa-graduation-cap"></i> Beginner level</span>
+    <span class="meta-pill"><i class="fas fa-code-branch"></i> 6 steps to your first PR</span>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <aside class="toc" data-testid="gs-toc">
+    <h4>On this page</h4>
+    <a href="#what-is-os" data-testid="toc-what-is-os">What is open source?</a>
+    <a href="#step-1" data-testid="toc-step-1">1. Install Git</a>
+    <a href="#step-2" data-testid="toc-step-2">2. Set up GitHub</a>
+    <a href="#step-3" data-testid="toc-step-3">3. Learn Git basics</a>
+    <a href="#step-4" data-testid="toc-step-4">4. Find a good first issue</a>
+    <a href="#step-5" data-testid="toc-step-5">5. Fork, branch & commit</a>
+    <a href="#step-6" data-testid="toc-step-6">6. Open your first PR</a>
+    <a href="#cheatsheet" data-testid="toc-cheatsheet">Git cheatsheet</a>
+    <a href="#etiquette" data-testid="toc-etiquette">Etiquette & pitfalls</a>
+    <a href="#resources" data-testid="toc-resources">Free resources</a>
+  </aside>
+
+  <main class="content" data-testid="gs-content">
+
+    <!-- What is OS -->
+    <article class="step" id="what-is-os" data-testid="section-what-is-os">
+      <div class="step-head">
+        <div class="step-num"><i class="fas fa-globe"></i></div>
+        <h2>What is open source, really?</h2>
+      </div>
+      <p class="lead">Open source software is code that anyone can read, use, modify, and improve. Projects like Linux, VS Code, React, and Python were all built collaboratively by thousands of contributors around the world, many of whom started exactly where you are right now.</p>
+      <p class="lead">When you contribute to open source, you're not just writing code. You're learning to read large codebases, communicate with engineers, follow conventions, and ship work that real people depend on. <strong>That's why recruiters love it.</strong></p>
+      <div class="tip">
+        <i class="fas fa-lightbulb"></i><strong>What SSoC adds on top:</strong> mentors who guide you, curated beginner-friendly projects, a real timeline, swag, certificates, and a leaderboard to keep you motivated. You don't have to figure out where to start, we've done that part for you.
+      </div>
+    </article>
+
+    <!-- Step 1 -->
+    <article class="step" id="step-1" data-testid="section-step-1">
+      <div class="step-head">
+        <div class="step-num">1</div>
+        <h2>Install Git on your computer</h2>
+      </div>
+      <p class="lead">Git is the version-control tool that powers open source. Think of it as a "save game" system for code, every change is tracked, reversible, and shareable.</p>
+
+      <h3>Windows</h3>
+      <ol>
+        <li>Go to <a class="inline-link" href="https://git-scm.com/download/win" target="_blank" rel="noopener">git-scm.com/download/win</a> and download the installer.</li>
+        <li>Run the installer with default settings (just keep clicking <em>Next</em>).</li>
+        <li>Open <strong>Git Bash</strong> from your Start menu when done.</li>
+      </ol>
+
+      <h3>macOS</h3>
+      <p>Open Terminal and run:</p>
+      <pre class="code"><button class="copy-btn" data-testid="copy-mac-git">Copy</button><span class="c-comment"># Easiest way, installs Apple's command line tools (includes git)</span>
+<span class="c-cmd">xcode-select</span> <span class="c-arg">--install</span></pre>
+
+      <h3>Linux (Ubuntu/Debian)</h3>
+      <pre class="code"><button class="copy-btn" data-testid="copy-linux-git">Copy</button><span class="c-cmd">sudo apt update</span> &amp;&amp; <span class="c-cmd">sudo apt install</span> <span class="c-arg">git</span> <span class="c-arg">-y</span></pre>
+
+      <h3>Verify it worked</h3>
+      <pre class="code"><button class="copy-btn" data-testid="copy-verify-git">Copy</button><span class="c-cmd">git</span> <span class="c-arg">--version</span>
+<span class="c-comment"># Expected output: git version 2.x.x</span></pre>
+
+      <div class="tip warn">
+        <i class="fas fa-triangle-exclamation"></i><strong>Stuck?</strong> If your terminal says "command not found", restart it after installation. On Windows, always use <em>Git Bash</em> for these commands, not PowerShell or cmd.
+      </div>
+    </article>
+
+    <!-- Step 2 -->
+    <article class="step" id="step-2" data-testid="section-step-2">
+      <div class="step-head">
+        <div class="step-num">2</div>
+        <h2>Create your GitHub account</h2>
+      </div>
+      <p class="lead">GitHub is where the world's open-source code lives. Your GitHub profile is your developer resume, make it count.</p>
+      <ol>
+        <li>Sign up at <a class="inline-link" href="https://github.com/join" target="_blank" rel="noopener">github.com/join</a>. Pick a clean, professional username, recruiters will see it.</li>
+        <li>Add a real photo, your real name, and a short bio. Empty profiles look like spam accounts.</li>
+        <li>Verify your email, GitHub blocks PRs from unverified accounts.</li>
+        <li>Connect Git on your computer to GitHub by setting your identity:</li>
+      </ol>
+      <pre class="code"><button class="copy-btn" data-testid="copy-git-config">Copy</button><span class="c-cmd">git config</span> <span class="c-arg">--global user.name</span> <span class="c-pink">"Your Name"</span>
+<span class="c-cmd">git config</span> <span class="c-arg">--global user.email</span> <span class="c-pink">"you@example.com"</span>
+<span class="c-comment"># Use the SAME email you signed up to GitHub with</span></pre>
+
+      <h3>Set up SSH (recommended, do this once)</h3>
+      <p>SSH lets you push code without typing your password every time.</p>
+      <pre class="code"><button class="copy-btn" data-testid="copy-ssh">Copy</button><span class="c-comment"># 1. Generate a new SSH key</span>
+<span class="c-cmd">ssh-keygen</span> <span class="c-arg">-t ed25519</span> <span class="c-arg">-C</span> <span class="c-pink">"you@example.com"</span>
+
+<span class="c-comment"># 2. Copy the public key (Linux/Mac)</span>
+<span class="c-cmd">cat</span> <span class="c-arg">~/.ssh/id_ed25519.pub</span></pre>
+      <p>Then go to <a class="inline-link" href="https://github.com/settings/keys" target="_blank" rel="noopener">GitHub → Settings → SSH and GPG keys</a> and paste the key.</p>
+
+      <div class="tip">
+        <i class="fas fa-graduation-cap"></i><strong>Student perk:</strong> Apply for the <a class="inline-link" href="https://education.github.com/pack" target="_blank" rel="noopener">GitHub Student Developer Pack</a> with your college email, you get free Copilot, free domains, and tons of dev tools.
+      </div>
+    </article>
+
+    <!-- Step 3 -->
+    <article class="step" id="step-3" data-testid="section-step-3">
+      <div class="step-head">
+        <div class="step-num">3</div>
+        <h2>Learn the 7 Git commands you'll actually use</h2>
+      </div>
+      <p class="lead">You don't need to memorize all of Git. 95% of contributing to open source uses just these seven commands. Master these and you're set.</p>
+
+      <pre class="code"><button class="copy-btn" data-testid="copy-git-7">Copy</button><span class="c-comment"># 1. Clone, download a project to your computer</span>
+<span class="c-cmd">git clone</span> <span class="c-arg">git@github.com:user/project.git</span>
+
+<span class="c-comment"># 2. Status, see what files you've changed</span>
+<span class="c-cmd">git status</span>
+
+<span class="c-comment"># 3. Branch, start working on a new feature without breaking main</span>
+<span class="c-cmd">git checkout</span> <span class="c-arg">-b fix/typo-in-readme</span>
+
+<span class="c-comment"># 4. Add, stage changes you want to save</span>
+<span class="c-cmd">git add</span> <span class="c-arg">README.md</span>
+<span class="c-comment"># or stage everything you changed:</span>
+<span class="c-cmd">git add</span> <span class="c-arg">.</span>
+
+<span class="c-comment"># 5. Commit, save a snapshot with a clear message</span>
+<span class="c-cmd">git commit</span> <span class="c-arg">-m</span> <span class="c-pink">"docs: fix typo in installation section"</span>
+
+<span class="c-comment"># 6. Push, upload your branch to GitHub</span>
+<span class="c-cmd">git push</span> <span class="c-arg">origin fix/typo-in-readme</span>
+
+<span class="c-comment"># 7. Pull, get the latest changes from the remote</span>
+<span class="c-cmd">git pull</span> <span class="c-arg">origin main</span></pre>
+
+      <div class="tip">
+        <i class="fas fa-lightbulb"></i><strong>Mental model:</strong> Edit files → <code>add</code> them → <code>commit</code> creates a save point → <code>push</code> uploads it. That's the whole loop.
+      </div>
+    </article>
+
+    <!-- Step 4 -->
+    <article class="step" id="step-4" data-testid="section-step-4">
+      <div class="step-head">
+        <div class="step-num">4</div>
+        <h2>Find a "good first issue"</h2>
+      </div>
+      <p class="lead">Don't randomly clone a giant repo and try to fix something hard. Maintainers literally tag beginner-friendly tasks for you.</p>
+      <ul>
+        <li>On any GitHub repo, click <strong>Issues</strong> → filter by labels like <code>good first issue</code>, <code>help wanted</code>, <code>beginner-friendly</code>, or <code>documentation</code>.</li>
+        <li>Read the issue carefully. Comment something like: <em>"Hi! I'd like to work on this. Can I be assigned?"</em> Wait for confirmation before starting.</li>
+        <li>For SSoC participants, <a class="inline-link" href="/projects.html" data-testid="link-ssoc-projects">browse curated SSoC Season 5 projects</a>, every project lists its beginner tasks and a mentor you can reach out to.</li>
+      </ul>
+
+      <h3>What makes a great first contribution?</h3>
+      <ul>
+        <li><strong>Documentation fixes</strong>, typos, broken links, missing examples. Easy wins.</li>
+        <li><strong>Small bugs</strong>, something behaves differently than the README says.</li>
+        <li><strong>Tests</strong>, adding tests for existing functions teaches you the codebase fast.</li>
+      </ul>
+
+      <div class="tip warn">
+        <i class="fas fa-triangle-exclamation"></i><strong>Avoid:</strong> issues already assigned to someone else, issues with no recent activity from maintainers, or "rewrite the whole module" issues. Start small. Win small.
+      </div>
+    </article>
+
+    <!-- Step 5 -->
+    <article class="step" id="step-5" data-testid="section-step-5">
+      <div class="step-head">
+        <div class="step-num">5</div>
+        <h2>Fork, branch, and commit your fix</h2>
+      </div>
+      <p class="lead">A <em>fork</em> is your personal copy of someone else's project. You make changes on your fork, then ask the original maintainer to pull them in.</p>
+      <ol>
+        <li>Click the <strong>Fork</strong> button on the project's GitHub page (top-right). This creates <code>github.com/YOU/project</code>.</li>
+        <li>Clone <em>your</em> fork (not the original):</li>
+      </ol>
+      <pre class="code"><button class="copy-btn" data-testid="copy-fork-flow">Copy</button><span class="c-cmd">git clone</span> <span class="c-arg">git@github.com:YOU/project.git</span>
+<span class="c-cmd">cd</span> <span class="c-arg">project</span>
+
+<span class="c-comment"># Add the original project as "upstream" so you can sync later</span>
+<span class="c-cmd">git remote add</span> <span class="c-arg">upstream git@github.com:original-owner/project.git</span>
+
+<span class="c-comment"># Always create a new branch, never work on main directly</span>
+<span class="c-cmd">git checkout</span> <span class="c-arg">-b fix/issue-42-broken-link</span>
+
+<span class="c-comment"># ... make your changes in your editor ...</span>
+
+<span class="c-cmd">git add</span> <span class="c-arg">.</span>
+<span class="c-cmd">git commit</span> <span class="c-arg">-m</span> <span class="c-pink">"docs: fix broken link in setup guide (#42)"</span>
+<span class="c-cmd">git push</span> <span class="c-arg">origin fix/issue-42-broken-link</span></pre>
+
+      <h3>Writing commit messages that don't get rejected</h3>
+      <ul>
+        <li><strong>Bad:</strong> <code>"updated stuff"</code>, <code>"final fix pls merge"</code>, <code>"asdfasdf"</code></li>
+        <li><strong>Good:</strong> <code>"fix: handle empty input in login form"</code></li>
+        <li><strong>Great:</strong> Short title (≤ 50 chars), then a blank line, then 1–2 sentences explaining <em>why</em>.</li>
+      </ul>
+    </article>
+
+    <!-- Step 6 -->
+    <article class="step" id="step-6" data-testid="section-step-6">
+      <div class="step-head">
+        <div class="step-num">6</div>
+        <h2>Open your first Pull Request</h2>
+      </div>
+      <p class="lead">A Pull Request (PR) is the formal request for the maintainer to merge your changes. This is the moment you officially become an open source contributor.</p>
+      <ol>
+        <li>After pushing, GitHub shows a yellow banner saying <em>"Compare &amp; pull request"</em>. Click it.</li>
+        <li>Set the base repo to the <strong>original project</strong>, not your fork.</li>
+        <li>Write a clear title and description. Reference the issue: <code>Closes #42</code> auto-links it.</li>
+        <li>Submit. A bot (or maintainer) will run tests and review.</li>
+        <li><strong>Be patient.</strong> Maintainers are volunteers. If there's no reply in 7+ days, post one polite follow-up comment.</li>
+        <li>If they request changes, just commit again on the same branch and push, the PR updates automatically.</li>
+      </ol>
+
+      <h3>A PR description that gets merged</h3>
+      <pre class="code"><button class="copy-btn" data-testid="copy-pr-template">Copy</button><span class="c-pink">## What this does</span>
+Fixes the broken installation link in README.md
+that pointed to an old domain.
+
+<span class="c-pink">## Why</span>
+Closes #42. Users were getting 404s when trying
+to follow the setup guide.
+
+<span class="c-pink">## Testing</span>
+- Verified the new link opens correctly
+- Ran <span class="c-cyan">npm test</span> locally, all 28 tests pass
+
+<span class="c-pink">## Screenshots</span>
+(attach before/after if it's a UI change)</pre>
+
+      <div class="tip">
+        <i class="fas fa-trophy"></i><strong>Once merged:</strong> grab your <a class="inline-link" href="/badge.html" data-testid="link-badge">SSoC Contributor Badge</a>, share it on LinkedIn, and add the project to your resume. You're officially an open source contributor.
+      </div>
+    </article>
+
+    <!-- Cheatsheet -->
+    <article class="step" id="cheatsheet" data-testid="section-cheatsheet">
+      <div class="step-head">
+        <div class="step-num"><i class="fas fa-terminal"></i></div>
+        <h2>The full Git cheatsheet</h2>
+      </div>
+      <p class="lead">Bookmark this. You'll use it for the next decade.</p>
+      <pre class="code"><button class="copy-btn" data-testid="copy-cheatsheet">Copy</button><span class="c-comment"># --- Setup (once) ---</span>
+<span class="c-cmd">git config</span> <span class="c-arg">--global user.name</span> <span class="c-pink">"Your Name"</span>
+<span class="c-cmd">git config</span> <span class="c-arg">--global user.email</span> <span class="c-pink">"you@example.com"</span>
+
+<span class="c-comment"># --- Daily workflow ---</span>
+<span class="c-cmd">git status</span>                             <span class="c-comment"># what's changed?</span>
+<span class="c-cmd">git diff</span>                               <span class="c-comment"># see the actual changes</span>
+<span class="c-cmd">git add</span> <span class="c-arg">file.js</span>                       <span class="c-comment"># stage one file</span>
+<span class="c-cmd">git add</span> <span class="c-arg">.</span>                              <span class="c-comment"># stage everything</span>
+<span class="c-cmd">git commit</span> <span class="c-arg">-m</span> <span class="c-pink">"feat: add login button"</span>
+<span class="c-cmd">git log</span> <span class="c-arg">--oneline</span>                     <span class="c-comment"># history of commits</span>
+
+<span class="c-comment"># --- Branches ---</span>
+<span class="c-cmd">git branch</span>                             <span class="c-comment"># list branches</span>
+<span class="c-cmd">git checkout</span> <span class="c-arg">-b feature/dark-mode</span>     <span class="c-comment"># create + switch</span>
+<span class="c-cmd">git checkout</span> <span class="c-arg">main</span>                     <span class="c-comment"># switch back</span>
+<span class="c-cmd">git merge</span> <span class="c-arg">feature/dark-mode</span>           <span class="c-comment"># merge into current</span>
+
+<span class="c-comment"># --- Sync with the original (upstream) ---</span>
+<span class="c-cmd">git fetch</span> <span class="c-arg">upstream</span>
+<span class="c-cmd">git merge</span> <span class="c-arg">upstream/main</span>
+
+<span class="c-comment"># --- Undo (carefully!) ---</span>
+<span class="c-cmd">git restore</span> <span class="c-arg">file.js</span>                  <span class="c-comment"># discard local changes</span>
+<span class="c-cmd">git reset</span> <span class="c-arg">HEAD~1</span>                      <span class="c-comment"># undo last commit (keep changes)</span>
+<span class="c-cmd">git revert</span> <span class="c-arg">&lt;commit-hash&gt;</span>              <span class="c-comment"># safely undo a pushed commit</span>
+
+<span class="c-comment"># --- Remote ---</span>
+<span class="c-cmd">git push</span> <span class="c-arg">origin my-branch</span>
+<span class="c-cmd">git pull</span> <span class="c-arg">origin main</span>
+<span class="c-cmd">git remote -v</span>                          <span class="c-comment"># list remotes</span></pre>
+    </article>
+
+    <!-- Etiquette -->
+    <article class="step" id="etiquette" data-testid="section-etiquette">
+      <div class="step-head">
+        <div class="step-num"><i class="fas fa-handshake"></i></div>
+        <h2>Etiquette &amp; common pitfalls</h2>
+      </div>
+      <p class="lead">Open source is a community. How you communicate matters as much as the code.</p>
+      <h3>Do</h3>
+      <ul>
+        <li>Read the project's <code>CONTRIBUTING.md</code> and <code>README.md</code> <em>before</em> opening an issue.</li>
+        <li>Comment on an issue and wait to be assigned before working on it.</li>
+        <li>Keep PRs small and focused. One issue = one PR.</li>
+        <li>Be polite, patient, and grateful. Maintainers do this in their free time.</li>
+        <li>If your PR is closed, ask <em>why</em> politely, every "no" is a free lesson.</li>
+      </ul>
+      <h3>Don't</h3>
+      <ul>
+        <li>Don't open empty or duplicate issues. Search existing issues first.</li>
+        <li>Don't spam <em>"any update?"</em> comments. Wait at least a week.</li>
+        <li>Don't submit PRs that fix typos in README just to farm contributions, many SSoC projects explicitly reject these.</li>
+        <li>Don't push directly to <code>main</code>. Always branch.</li>
+        <li>Don't share your SSH private key, <code>.env</code> files, or API tokens, ever.</li>
+      </ul>
+    </article>
+
+    <!-- Resources -->
+    <article class="step" id="resources" data-testid="section-resources">
+      <div class="step-head">
+        <div class="step-num"><i class="fas fa-book-open"></i></div>
+        <h2>Free resources to go deeper</h2>
+      </div>
+      <p class="lead">Curated, actually-good, all free. Pick one and finish it.</p>
+      <div class="res-grid">
+        <a class="res" href="https://docs.github.com/en/get-started" target="_blank" rel="noopener" data-testid="res-gh-hello">
+          <div class="res-head"><i class="fab fa-github"></i><h4>GitHub Hello World</h4></div>
+          <p>Official 10-min walkthrough. The fastest way to make your first commit.</p>
+        </a>
+        <a class="res" href="https://learngitbranching.js.org/" target="_blank" rel="noopener" data-testid="res-learn-branching">
+          <div class="res-head"><i class="fas fa-code-branch"></i><h4>Learn Git Branching</h4></div>
+          <p>Interactive visual sandbox, learn branches, merges, and rebases by playing.</p>
+        </a>
+        <a class="res" href="https://opensource.guide/how-to-contribute/" target="_blank" rel="noopener" data-testid="res-os-guide">
+          <div class="res-head"><i class="fas fa-heart"></i><h4>Open Source Guide</h4></div>
+          <p>GitHub's official handbook on contributing, read this once, end-to-end.</p>
+        </a>
+        <a class="res" href="https://github.com/firstcontributions/first-contributions" target="_blank" rel="noopener" data-testid="res-first-contrib">
+          <div class="res-head"><i class="fas fa-seedling"></i><h4>First Contributions</h4></div>
+          <p>A repo whose entire purpose is to give you a real first PR. Do this today.</p>
+        </a>
+        <a class="res" href="https://goodfirstissue.dev/" target="_blank" rel="noopener" data-testid="res-good-first">
+          <div class="res-head"><i class="fas fa-star"></i><h4>goodfirstissue.dev</h4></div>
+          <p>Search engine for beginner-friendly issues across thousands of OSS projects.</p>
+        </a>
+        <a class="res" href="https://www.conventionalcommits.org/" target="_blank" rel="noopener" data-testid="res-conv-commits">
+          <div class="res-head"><i class="fas fa-pen-fancy"></i><h4>Conventional Commits</h4></div>
+          <p>The commit-message format used by 90% of modern OSS projects. Learn it once.</p>
+        </a>
+      </div>
+    </article>
+
+    <!-- Final CTA -->
+    <section class="final-cta" data-testid="gs-final-cta">
+      <h2>Ready to ship your first PR?</h2>
+      <p>You've got the tools. SSoC Season 5 has the projects, the mentors, and a community cheering for you. There's no better time to start.</p>
+      <div class="cta-row">
+        <a href="/#register" class="primary" data-testid="gs-cta-register"><i class="fas fa-rocket"></i> Register for SSoC</a>
+        <a href="/projects.html" class="ghost" data-testid="gs-cta-projects"><i class="fas fa-folder-open"></i> Browse Projects</a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="credit">
+  Built with <i class="fas fa-heart" style="color:#D946A0;"></i> for first-time contributors. <a href="/">Back to home</a>
+</footer>
+
+<script>
+  // Copy buttons
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const pre = btn.parentElement;
+      // Get only the text content excluding the button itself
+      const text = Array.from(pre.childNodes)
+        .filter(n => n.nodeType === 3 || (n.nodeType === 1 && n.tagName !== 'BUTTON'))
+        .map(n => n.textContent)
+        .join('');
+      navigator.clipboard.writeText(text.trim()).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1600);
+      }).catch(() => {
+        btn.textContent = 'Failed';
+        setTimeout(() => { btn.textContent = 'Copy'; }, 1600);
+      });
+    });
+  });
+
+  // TOC active link on scroll
+  const tocLinks = document.querySelectorAll('.toc a');
+  const sections = Array.from(tocLinks).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const setActive = () => {
+    const y = window.scrollY + 140;
+    let active = sections[0];
+    for (const s of sections) { if (s.offsetTop <= y) active = s; }
+    tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + active.id));
+  };
+  window.addEventListener('scroll', setActive, { passive: true });
+  setActive();
+</script>
+
+</body>
+</html>
