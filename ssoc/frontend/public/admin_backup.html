@@ -1,0 +1,2600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Social Summer of Code</title>
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://customer-assets.emergentagent.com/job_social-code-season/artifacts/p5nf69mu_Untitled%20design.png">
+    <link rel="apple-touch-icon" href="https://customer-assets.emergentagent.com/job_social-code-season/artifacts/p5nf69mu_Untitled%20design.png">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#d35dab">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #d35dab;
+            --primary-light: #e88fd0;
+            --primary-dark: #b84593;
+            --accent: #f07e4f;
+            --success: #22c55e;
+            --warning: #eab308;
+            --bg-primary: #fcfaff;
+            --bg-secondary: #faf5ff;
+            --bg-card: #ffffff;
+            --text-primary: #2d1f3d;
+            --text-secondary: #6b5a7d;
+            --text-muted: #9a8aad;
+            --border: #e9e0f0;
+            --shadow-sm: 0 2px 8px rgba(211, 93, 171, 0.08);
+            --shadow-md: 0 4px 16px rgba(211, 93, 171, 0.12);
+            --shadow-lg: 0 8px 32px rgba(211, 93, 171, 0.16);
+            --radius: 12px;
+            --radius-lg: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        /* Login Screen */
+        .login-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: var(--bg-card);
+            padding: 48px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .login-logo {
+            width: 80px;
+            margin-bottom: 24px;
+        }
+
+        .login-card h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .login-card p {
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: var(--radius);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .error-msg {
+            color: #ef4444;
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: none;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .login-screen.hidden {
+            display: none;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 260px;
+            background: var(--text-primary);
+            color: white;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .sidebar-logo img {
+            height: 36px;
+            filter: brightness(0) invert(1);
+        }
+
+        .sidebar-logo span {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 4px;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            border-radius: var(--radius);
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .sidebar-nav a i {
+            width: 20px;
+        }
+
+        .logout-btn {
+            position: absolute;
+            bottom: 24px;
+            left: 24px;
+            right: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 260px;
+            padding: 32px;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 32px;
+        }
+
+        .page-header h1 {
+            font-size: 28px;
+            color: var(--text-primary);
+        }
+
+        .page-header .preview-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .page-header .preview-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Section Panels */
+        .panel {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-header i {
+            width: 40px;
+            height: 40px;
+            background: rgba(211, 93, 171, 0.1);
+            color: var(--primary);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .card-header h3 {
+            font-size: 18px;
+            color: var(--text-primary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .form-group-inline {
+            margin-bottom: 16px;
+        }
+
+        .form-group-inline label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--text-secondary);
+        }
+
+        .form-group-inline input,
+        .form-group-inline textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group-inline input:focus,
+        .form-group-inline textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group-inline textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .save-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .save-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .save-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Testimonial Cards */
+        .testimonial-list {
+            display: grid;
+            gap: 16px;
+        }
+
+        .testimonial-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            align-items: flex-start;
+        }
+
+        .testimonial-item img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .testimonial-item-content {
+            flex: 1;
+        }
+
+        .testimonial-item-content h4 {
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .testimonial-item-content p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .testimonial-item-content .quote {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .testimonial-item-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .testimonial-item-actions button {
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .edit-btn {
+            background: rgba(211, 93, 171, 0.1);
+            color: var(--primary);
+            border: none;
+        }
+
+        .delete-btn {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: none;
+        }
+
+        .add-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--bg-secondary);
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            color: var(--text-secondary);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 16px;
+        }
+
+        .add-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Registrations Table */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
+        }
+
+        td {
+            font-size: 14px;
+        }
+
+        .role-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .role-badge.contributor {
+            background: rgba(211, 93, 171, 0.1);
+            color: var(--primary);
+        }
+
+        .role-badge.mentor {
+            background: rgba(240, 126, 79, 0.1);
+            color: var(--accent);
+        }
+
+        .role-badge.project-admin {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--success);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 48px 24px;
+            color: var(--text-muted);
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        /* Download Button */
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(34, 197, 94, 0.4);
+        }
+
+        .download-btn i {
+            font-size: 14px;
+        }
+
+        /* Form Builder Styles */
+        .field-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            margin-bottom: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .field-item.default {
+            background: rgba(107, 90, 125, 0.05);
+            border: 1px dashed var(--border);
+        }
+
+        .field-item i:first-child {
+            color: var(--primary);
+            width: 20px;
+            text-align: center;
+        }
+
+        .field-item span:first-of-type {
+            flex: 1;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .field-badge {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .field-badge {
+            background: rgba(211, 93, 171, 0.1);
+            color: var(--primary);
+        }
+
+        .field-item .field-type {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: rgba(107, 90, 125, 0.1);
+            color: var(--text-secondary);
+        }
+
+        .field-item .field-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .field-item .field-actions button {
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .field-item .field-actions .edit-btn {
+            background: rgba(211, 93, 171, 0.1);
+            color: var(--primary);
+        }
+
+        .field-item .field-actions .edit-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .field-item .field-actions .delete-btn {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+
+        .field-item .field-actions .delete-btn:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        .custom-fields-list:empty::after {
+            content: 'No custom fields added yet. Click "Add Custom Field" to create one.';
+            display: block;
+            text-align: center;
+            padding: 24px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            padding: 16px 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateY(120%);
+            transition: transform 0.3s;
+            z-index: 1000;
+        }
+
+        .toast.active {
+            transform: translateY(0);
+        }
+
+        .toast.success .toast-icon {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--success);
+        }
+
+        .toast-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toast-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .toast-message {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                z-index: 100;
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 99;
+            }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .mobile-menu-btn {
+                display: flex !important;
+            }
+
+            .page-header {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .page-header h1 {
+                font-size: 22px;
+                order: 2;
+                width: 100%;
+            }
+
+            .preview-btn {
+                order: 3;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 16px;
+            }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 18px;
+            cursor: pointer;
+            order: 1;
+        }
+
+        .mobile-menu-btn:hover {
+            background: var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-card">
+            <img src="https://customer-assets.emergentagent.com/job_social-code-season/artifacts/p5nf69mu_Untitled%20design.png" alt="SSoC Logo" class="login-logo">
+            <h1>Admin Dashboard</h1>
+            <p>Enter your credentials to manage SSoC website</p>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="adminEmail">Email</label>
+                    <input type="email" id="adminEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" placeholder="Enter password" required>
+                </div>
+                <p class="error-msg" id="loginError">Invalid credentials. Please try again.</p>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login to Dashboard
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard" id="dashboard">
+        <!-- Sidebar Overlay (for mobile) -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-logo">
+                <img src="https://customer-assets.emergentagent.com/job_social-code-season/artifacts/p5nf69mu_Untitled%20design.png" alt="SSoC">
+                <span>SSoC Admin</span>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="#" class="active" data-panel="hero"><i class="fas fa-home"></i> Hero Section</a></li>
+                <li><a href="#" data-panel="timeline"><i class="fas fa-calendar"></i> Timeline</a></li>
+                <li><a href="#" data-panel="stats"><i class="fas fa-chart-bar"></i> Statistics</a></li>
+                <li><a href="#" data-panel="links"><i class="fas fa-link"></i> Apply Links</a></li>
+                <li><a href="#" data-panel="formbuilder"><i class="fas fa-wpforms"></i> Form Builder</a></li>
+                <li><a href="#" data-panel="projects"><i class="fas fa-folder-open"></i> Projects</a></li>
+                <li><a href="#" data-panel="mentors"><i class="fas fa-user-tie"></i> Mentors</a></li>
+                <li><a href="#" data-panel="testimonials"><i class="fas fa-comments"></i> Testimonials</a></li>
+                <li><a href="#" data-panel="faq"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                <li><a href="#" data-panel="registrations"><i class="fas fa-users"></i> Registrations</a></li>
+            </ul>
+            <button class="logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-header">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 id="pageTitle">Hero Section</h1>
+                <a href="index.html" target="_blank" class="preview-btn">
+                    <i class="fas fa-external-link-alt"></i>
+                    Preview Site
+                </a>
+            </div>
+
+            <!-- Hero Panel -->
+            <div class="panel active" id="heroPanel">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-heading"></i>
+                        <h3>Hero Content</h3>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-inline">
+                            <label>Badge Text</label>
+                            <input type="text" id="heroBadge" value="Season 5 • Applications Open">
+                        </div>
+                        <div class="form-group-inline">
+                            <label>Duration Text</label>
+                            <input type="text" id="heroDuration" value="2 months of coding, learning, and fun!">
+                        </div>
+                    </div>
+                    <div class="form-group-inline">
+                        <label>Hero Description</label>
+                        <textarea id="heroDescription">Join India's largest open-source program! Learn, contribute, and grow with mentors and organizations from around the world.</textarea>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-chart-simple"></i>
+                        <h3>Hero Stats (Quick Stats)</h3>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-inline">
+                            <label>Contributors</label>
+                            <input type="text" id="heroContributors" value="50K+">
+                        </div>
+                        <div class="form-group-inline">
+                            <label>Projects</label>
+                            <input type="text" id="heroProjects" value="500+">
+                        </div>
+                        <div class="form-group-inline">
+                            <label>Pull Requests</label>
+                            <input type="text" id="heroPRs" value="20K+">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="save-btn" onclick="saveHeroSection()">
+                    <i class="fas fa-save"></i>
+                    Save Changes
+                </button>
+            </div>
+
+            <!-- Timeline Panel -->
+            <div class="panel" id="timelinePanel">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h3>Timeline Dates</h3>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-inline">
+                            <label>Registration Starts</label>
+                            <input type="text" id="timelineRegStart" value="1st April 2026">
+                        </div>
+                        <div class="form-group-inline">
+                            <label>Registration Ends</label>
+                            <input type="text" id="timelineRegEnd" value="30th May 2026">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-inline">
+                            <label>Coding Phase Starts</label>
+                            <input type="text" id="timelineCodingStart" value="1st June 2026">
+                        </div>
+                        <div class="form-group-inline">
+                            <label>Coding Phase Ends</label>
+                            <input type="text" id="timelineCodingEnd" value="1st August 2026">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-inline">
+                            <label>Results Date</label>
+                            <input type="text" id="timelineResult" value="15th August 2026">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="save-btn" onclick="saveTimeline()">
+                    <i class="fas fa-save"></i>
+                    Save Changes
+                </button>
+            </div>
+
+            <!-- Stats Panel -->
+            <div class="panel" id="statsPanel">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar"></i>
+                        <h3>Past Seasons Statistics</h3>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-inline">
+                            <label>Contributors</label>
+                            <input type="number" id="statContributors" value="50000">
+                        </div>
+                        <div class="form-group-inline">
+                            <label>Pull Requests</label>
+                            <input type="number" id="statPRs" value="20000">
+                        </div>
+                        <div class="form-group-inline">
+                            <label>Projects</label>
+                            <input type="number" id="statProjects" value="500">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-inline">
+                            <label>Countries</label>
+                            <input type="number" id="statCountries" value="10">
+                        </div>
+                        <div class="form-group-inline">
+                            <label>Organizations</label>
+                            <input type="number" id="statOrgs" value="200">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-info-circle"></i>
+                        <h3>About Section</h3>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group-inline">
+                            <label>Program Duration (months)</label>
+                            <input type="number" id="aboutMonths" value="2">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="save-btn" onclick="saveStats()">
+                    <i class="fas fa-save"></i>
+                    Save Changes
+                </button>
+            </div>
+
+            <!-- Apply Links Panel -->
+            <div class="panel" id="linksPanel">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-link"></i>
+                        <h3>Registration Form Links</h3>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
+                        Add external form links (Google Forms, Typeform, etc.) for each registration type. 
+                        When users click "Apply as..." buttons, they will be redirected to these links.
+                    </p>
+                    <div class="form-group-inline">
+                        <label><i class="fas fa-code" style="color: var(--primary); margin-right: 8px;"></i>Apply as Contributor Link</label>
+                        <input type="url" id="contributorLink" placeholder="https://forms.google.com/your-contributor-form">
+                    </div>
+                    <div class="form-group-inline">
+                        <label><i class="fas fa-users" style="color: var(--accent); margin-right: 8px;"></i>Apply as Mentor Link</label>
+                        <input type="url" id="mentorLink" placeholder="https://forms.google.com/your-mentor-form">
+                    </div>
+                    <div class="form-group-inline">
+                        <label><i class="fas fa-briefcase" style="color: var(--success); margin-right: 8px;"></i>Apply as Project Admin Link</label>
+                        <input type="url" id="projectAdminLink" placeholder="https://forms.google.com/your-project-admin-form">
+                    </div>
+                    <div style="background: rgba(211, 93, 171, 0.05); padding: 16px; border-radius: 8px; margin-top: 16px;">
+                        <p style="font-size: 13px; color: var(--text-secondary); margin: 0;">
+                            <i class="fas fa-info-circle" style="color: var(--primary); margin-right: 8px;"></i>
+                            <strong>Note:</strong> If a link is empty, clicking the button will show the built-in registration form instead.
+                        </p>
+                    </div>
+                </div>
+
+                <button class="save-btn" onclick="saveLinks()">
+                    <i class="fas fa-save"></i>
+                    Save Links
+                </button>
+            </div>
+
+            <!-- Form Builder Panel -->
+            <div class="panel" id="formbuilderPanel">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-wpforms"></i>
+                        <h3>Registration Form Builder</h3>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
+                        Customize the built-in registration form fields. These fields will appear when external links are not set.
+                    </p>
+                    
+                    <!-- Default Fields (Non-removable) -->
+                    <div class="form-section">
+                        <h4 style="font-size: 14px; color: var(--text-secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-lock" style="color: var(--text-muted);"></i> Default Fields (Always Required)
+                        </h4>
+                        <div class="default-fields">
+                            <div class="field-item default">
+                                <i class="fas fa-user"></i>
+                                <span>Full Name</span>
+                                <span class="field-badge">Required</span>
+                            </div>
+                            <div class="field-item default">
+                                <i class="fas fa-envelope"></i>
+                                <span>Email Address</span>
+                                <span class="field-badge">Required</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Custom Fields -->
+                    <div class="form-section" style="margin-top: 24px;">
+                        <h4 style="font-size: 14px; color: var(--text-secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-edit" style="color: var(--primary);"></i> Custom Fields
+                        </h4>
+                        <div class="custom-fields-list" id="customFieldsList">
+                            <!-- Custom fields will be loaded here -->
+                        </div>
+                        <button class="add-btn" onclick="addCustomField()" style="margin-top: 16px;">
+                            <i class="fas fa-plus"></i>
+                            Add Custom Field
+                        </button>
+                    </div>
+                    
+                    <!-- Field Type Legend -->
+                    <div style="background: rgba(211, 93, 171, 0.05); padding: 16px; border-radius: 8px; margin-top: 24px;">
+                        <p style="font-size: 13px; color: var(--text-secondary); margin: 0 0 8px 0; font-weight: 600;">
+                            <i class="fas fa-info-circle" style="color: var(--primary); margin-right: 8px;"></i>Available Field Types:
+                        </p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 12px; font-size: 12px; color: var(--text-muted);">
+                            <span><i class="fas fa-font"></i> Text</span>
+                            <span><i class="fas fa-envelope"></i> Email</span>
+                            <span><i class="fas fa-link"></i> URL</span>
+                            <span><i class="fas fa-phone"></i> Phone</span>
+                            <span><i class="fas fa-hashtag"></i> Number</span>
+                            <span><i class="fas fa-align-left"></i> Textarea</span>
+                            <span><i class="fas fa-list"></i> Dropdown</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects Panel -->
+            <div class="panel" id="projectsPanel">
+                <div class="card">
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <i class="fas fa-folder-open"></i>
+                            <h3>Manage Projects</h3>
+                        </div>
+                        <button class="download-btn" onclick="downloadProjectsCSV()">
+                            <i class="fas fa-download"></i> Download CSV
+                        </button>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
+                        Add projects participating in SSoC Season 5. These will appear on the <a href="projects.html" target="_blank">Projects page</a>.
+                    </p>
+                    <div class="testimonial-list" id="projectsList">
+                        <!-- Projects will be loaded here -->
+                    </div>
+                    <button class="add-btn" onclick="addProject()">
+                        <i class="fas fa-plus"></i>
+                        Add New Project
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mentors Panel -->
+            <div class="panel" id="mentorsPanel">
+                <div class="card">
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <i class="fas fa-user-tie"></i>
+                            <h3>Manage Mentors</h3>
+                        </div>
+                        <button class="download-btn" onclick="downloadMentorsCSV()">
+                            <i class="fas fa-download"></i> Download CSV
+                        </button>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
+                        Add mentors for SSoC Season 5. These will appear on the <a href="mentors.html" target="_blank">Mentors page</a>.
+                    </p>
+                    <div class="testimonial-list" id="mentorsList">
+                        <!-- Mentors will be loaded here -->
+                    </div>
+                    <button class="add-btn" onclick="addMentor()">
+                        <i class="fas fa-plus"></i>
+                        Add New Mentor
+                    </button>
+                </div>
+            </div>
+
+            <!-- Testimonials Panel -->
+            <div class="panel" id="testimonialsPanel">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-comments"></i>
+                        <h3>Manage Testimonials</h3>
+                    </div>
+                    <div class="testimonial-list" id="testimonialList">
+                        <!-- Testimonials will be loaded here -->
+                    </div>
+                    <button class="add-btn" onclick="addTestimonial()">
+                        <i class="fas fa-plus"></i>
+                        Add New Testimonial
+                    </button>
+                </div>
+            </div>
+
+            <!-- FAQ Panel -->
+            <div class="panel" id="faqPanel">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-question-circle"></i>
+                        <h3>Manage FAQ</h3>
+                    </div>
+                    <div id="faqList">
+                        <!-- FAQ items will be loaded here -->
+                    </div>
+                    <button class="add-btn" onclick="addFAQ()">
+                        <i class="fas fa-plus"></i>
+                        Add New FAQ
+                    </button>
+                </div>
+            </div>
+
+            <!-- Registrations Panel -->
+            <div class="panel" id="registrationsPanel">
+                <div class="card">
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <i class="fas fa-users"></i>
+                            <h3>All Registrations</h3>
+                        </div>
+                        <button class="download-btn" onclick="downloadRegistrationsCSV()">
+                            <i class="fas fa-download"></i> Download CSV
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table id="registrationsTable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>GitHub</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="registrationsBody">
+                                <!-- Registrations will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast success" id="toast">
+        <div class="toast-icon"><i class="fas fa-check-circle"></i></div>
+        <div class="toast-content">
+            <span class="toast-title">Success!</span>
+            <span class="toast-message" id="toastMessage">Changes saved successfully.</span>
+        </div>
+    </div>
+
+    <script>
+        // ===== ADMIN CREDENTIALS =====
+        // Your login credentials
+        const ADMIN_EMAIL = 'jaysaadana@gmail.com';
+        const ADMIN_PASSWORD = 'sadanajai12@';
+
+        // ===== DOM ELEMENTS =====
+        const loginScreen = document.getElementById('loginScreen');
+        const dashboard = document.getElementById('dashboard');
+        const loginForm = document.getElementById('loginForm');
+        const loginError = document.getElementById('loginError');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+        const pageTitle = document.getElementById('pageTitle');
+
+        // ===== CHECK LOGIN STATUS =====
+        function checkAuth() {
+            const isLoggedIn = sessionStorage.getItem('ssoc_admin_logged_in');
+            if (isLoggedIn === 'true') {
+                loginScreen.classList.add('hidden');
+                dashboard.classList.add('active');
+                loadAllData();
+            }
+        }
+
+        // ===== LOGIN =====
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('adminEmail').value;
+            const password = document.getElementById('adminPassword').value;
+
+            if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+                sessionStorage.setItem('ssoc_admin_logged_in', 'true');
+                loginScreen.classList.add('hidden');
+                dashboard.classList.add('active');
+                loginError.style.display = 'none';
+                loadAllData();
+            } else {
+                loginError.style.display = 'block';
+            }
+        });
+
+        // ===== LOGOUT =====
+        logoutBtn.addEventListener('click', () => {
+            sessionStorage.removeItem('ssoc_admin_logged_in');
+            location.reload();
+        });
+
+        // ===== NAVIGATION =====
+        document.querySelectorAll('.sidebar-nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const panelId = link.getAttribute('data-panel');
+                
+                // Update active states
+                document.querySelectorAll('.sidebar-nav a').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Show panel
+                document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+                document.getElementById(panelId + 'Panel').classList.add('active');
+                
+                // Update title
+                const titles = {
+                    'hero': 'Hero Section',
+                    'timeline': 'Timeline',
+                    'stats': 'Statistics',
+                    'links': 'Apply Links',
+                    'formbuilder': 'Form Builder',
+                    'projects': 'Projects',
+                    'mentors': 'Mentors',
+                    'testimonials': 'Testimonials',
+                    'faq': 'FAQ',
+                    'registrations': 'Registrations'
+                };
+                pageTitle.textContent = titles[panelId];
+            });
+        });
+
+        // ===== API BASE URL =====
+        const API_URL = window.location.origin + '/api';
+
+        // ===== LOAD ALL DATA =====
+        async function loadAllData() {
+            try {
+                await Promise.all([
+                    loadSiteData(),
+                    loadLinks(),
+                    loadCustomFields(),
+                    loadProjects(),
+                    loadMentors(),
+                    loadTestimonials(),
+                    loadFAQs(),
+                    loadRegistrations()
+                ]);
+            } catch (error) {
+                console.error('Error loading data:', error);
+            }
+        }
+
+        // ===== SITE DATA =====
+        async function loadSiteData() {
+            try {
+                const response = await fetch(`${API_URL}/site-data`);
+                const siteData = await response.json();
+                
+                // Hero
+                if (siteData.heroBadge) document.getElementById('heroBadge').value = siteData.heroBadge;
+                if (siteData.heroDuration) document.getElementById('heroDuration').value = siteData.heroDuration;
+                if (siteData.heroDescription) document.getElementById('heroDescription').value = siteData.heroDescription;
+                if (siteData.heroContributors) document.getElementById('heroContributors').value = siteData.heroContributors;
+                if (siteData.heroProjects) document.getElementById('heroProjects').value = siteData.heroProjects;
+                if (siteData.heroPRs) document.getElementById('heroPRs').value = siteData.heroPRs;
+                
+                // Timeline
+                if (siteData.timelineRegStart) document.getElementById('timelineRegStart').value = siteData.timelineRegStart;
+                if (siteData.timelineRegEnd) document.getElementById('timelineRegEnd').value = siteData.timelineRegEnd;
+                if (siteData.timelineCodingStart) document.getElementById('timelineCodingStart').value = siteData.timelineCodingStart;
+                if (siteData.timelineCodingEnd) document.getElementById('timelineCodingEnd').value = siteData.timelineCodingEnd;
+                if (siteData.timelineResult) document.getElementById('timelineResult').value = siteData.timelineResult;
+                
+                // Stats
+                if (siteData.statContributors) document.getElementById('statContributors').value = siteData.statContributors;
+                if (siteData.statPRs) document.getElementById('statPRs').value = siteData.statPRs;
+                if (siteData.statProjects) document.getElementById('statProjects').value = siteData.statProjects;
+                if (siteData.statCountries) document.getElementById('statCountries').value = siteData.statCountries;
+                if (siteData.statOrgs) document.getElementById('statOrgs').value = siteData.statOrgs;
+                if (siteData.aboutMonths) document.getElementById('aboutMonths').value = siteData.aboutMonths;
+            } catch (error) {
+                console.error('Error loading site data:', error);
+            }
+        }
+
+        async function saveHeroSection() {
+            try {
+                const response = await fetch(`${API_URL}/site-data`);
+                const siteData = await response.json() || {};
+                
+                siteData.heroBadge = document.getElementById('heroBadge').value;
+                siteData.heroDuration = document.getElementById('heroDuration').value;
+                siteData.heroDescription = document.getElementById('heroDescription').value;
+                siteData.heroContributors = document.getElementById('heroContributors').value;
+                siteData.heroProjects = document.getElementById('heroProjects').value;
+                siteData.heroPRs = document.getElementById('heroPRs').value;
+                
+                await fetch(`${API_URL}/site-data`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(siteData)
+                });
+                showToast('Hero section saved successfully!');
+            } catch (error) {
+                console.error('Error saving hero:', error);
+                showToast('Error saving hero section');
+            }
+        }
+
+        async function saveTimeline() {
+            try {
+                const response = await fetch(`${API_URL}/site-data`);
+                const siteData = await response.json() || {};
+                
+                siteData.timelineRegStart = document.getElementById('timelineRegStart').value;
+                siteData.timelineRegEnd = document.getElementById('timelineRegEnd').value;
+                siteData.timelineCodingStart = document.getElementById('timelineCodingStart').value;
+                siteData.timelineCodingEnd = document.getElementById('timelineCodingEnd').value;
+                siteData.timelineResult = document.getElementById('timelineResult').value;
+                
+                await fetch(`${API_URL}/site-data`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(siteData)
+                });
+                showToast('Timeline saved successfully!');
+            } catch (error) {
+                console.error('Error saving timeline:', error);
+                showToast('Error saving timeline');
+            }
+        }
+
+        async function saveStats() {
+            try {
+                const response = await fetch(`${API_URL}/site-data`);
+                const siteData = await response.json() || {};
+                
+                siteData.statContributors = document.getElementById('statContributors').value;
+                siteData.statPRs = document.getElementById('statPRs').value;
+                siteData.statProjects = document.getElementById('statProjects').value;
+                siteData.statCountries = document.getElementById('statCountries').value;
+                siteData.statOrgs = document.getElementById('statOrgs').value;
+                siteData.aboutMonths = document.getElementById('aboutMonths').value;
+                
+                await fetch(`${API_URL}/site-data`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(siteData)
+                });
+                showToast('Statistics saved successfully!');
+            } catch (error) {
+                console.error('Error saving stats:', error);
+                showToast('Error saving statistics');
+            }
+        }
+
+        // ===== APPLY LINKS =====
+        async function loadLinks() {
+            try {
+                const response = await fetch(`${API_URL}/apply-links`);
+                const links = await response.json();
+                
+                if (links.contributorLink) document.getElementById('contributorLink').value = links.contributorLink;
+                if (links.mentorLink) document.getElementById('mentorLink').value = links.mentorLink;
+                if (links.projectAdminLink) document.getElementById('projectAdminLink').value = links.projectAdminLink;
+            } catch (error) {
+                console.error('Error loading links:', error);
+            }
+        }
+
+        async function saveLinks() {
+            try {
+                const links = {
+                    contributorLink: document.getElementById('contributorLink').value,
+                    mentorLink: document.getElementById('mentorLink').value,
+                    projectAdminLink: document.getElementById('projectAdminLink').value
+                };
+                
+                await fetch(`${API_URL}/apply-links`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(links)
+                });
+                showToast('Apply links saved successfully!');
+            } catch (error) {
+                console.error('Error saving links:', error);
+                showToast('Error saving links');
+            }
+        }
+
+        // ===== FORM BUILDER =====
+        let customFieldsData = [];
+        
+        async function loadCustomFields() {
+            try {
+                const response = await fetch(`${API_URL}/custom-fields`);
+                customFieldsData = await response.json();
+                renderCustomFields(customFieldsData);
+            } catch (error) {
+                console.error('Error loading custom fields:', error);
+            }
+        }
+
+        function renderCustomFields(fields) {
+            const container = document.getElementById('customFieldsList');
+            if (fields.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+            
+            const iconMap = {
+                'text': 'fa-font',
+                'email': 'fa-envelope',
+                'url': 'fa-link',
+                'phone': 'fa-phone',
+                'number': 'fa-hashtag',
+                'textarea': 'fa-align-left',
+                'select': 'fa-list'
+            };
+            
+            container.innerHTML = fields.map((f, i) => `
+                <div class="field-item">
+                    <i class="fas ${iconMap[f.type] || 'fa-font'}"></i>
+                    <span>${f.label}</span>
+                    <span class="field-type">${f.type}</span>
+                    ${f.required ? '<span class="field-badge">Required</span>' : ''}
+                    <div class="field-actions">
+                        <button class="edit-btn" onclick="editCustomField(${i})"><i class="fas fa-edit"></i></button>
+                        <button class="delete-btn" onclick="deleteCustomField(${i})"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function addCustomField() {
+            const label = prompt('Enter field label (e.g., "Phone Number", "GitHub Profile"):');
+            if (!label) return;
+            
+            const typeOptions = 'Select field type:\\n1. text\\n2. email\\n3. url\\n4. phone\\n5. number\\n6. textarea\\n7. select (dropdown)';
+            const typeInput = prompt(typeOptions, 'text');
+            const typeMap = {'1': 'text', '2': 'email', '3': 'url', '4': 'phone', '5': 'number', '6': 'textarea', '7': 'select'};
+            const type = typeMap[typeInput] || typeInput || 'text';
+            
+            const placeholder = prompt('Enter placeholder text:', 'Enter ' + label.toLowerCase());
+            const required = confirm('Is this field required?');
+            
+            let options = [];
+            if (type === 'select') {
+                const optionsStr = prompt('Enter dropdown options (comma separated):', 'Option 1, Option 2, Option 3');
+                if (optionsStr) {
+                    options = optionsStr.split(',').map(o => o.trim());
+                }
+            }
+            
+            customFieldsData.push({
+                id: 'custom_' + Date.now(),
+                label,
+                type,
+                placeholder,
+                required,
+                options
+            });
+            
+            try {
+                await fetch(`${API_URL}/custom-fields`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(customFieldsData)
+                });
+                renderCustomFields(customFieldsData);
+                showToast('Custom field added successfully!');
+            } catch (error) {
+                console.error('Error adding field:', error);
+            }
+        }
+
+        async function editCustomField(index) {
+            const f = customFieldsData[index];
+            
+            const label = prompt('Enter field label:', f.label);
+            if (!label) return;
+            
+            const typeOptions = 'Select field type:\\n1. text\\n2. email\\n3. url\\n4. phone\\n5. number\\n6. textarea\\n7. select (dropdown)';
+            const typeInput = prompt(typeOptions, f.type);
+            const typeMap = {'1': 'text', '2': 'email', '3': 'url', '4': 'phone', '5': 'number', '6': 'textarea', '7': 'select'};
+            const type = typeMap[typeInput] || typeInput || f.type;
+            
+            const placeholder = prompt('Enter placeholder:', f.placeholder);
+            const required = confirm('Is this field required?');
+            
+            let options = f.options || [];
+            if (type === 'select') {
+                const optionsStr = prompt('Enter dropdown options (comma separated):', options.join(', '));
+                if (optionsStr) {
+                    options = optionsStr.split(',').map(o => o.trim());
+                }
+            }
+            
+            customFieldsData[index] = { ...f, label, type, placeholder, required, options };
+            
+            try {
+                await fetch(`${API_URL}/custom-fields`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(customFieldsData)
+                });
+                renderCustomFields(customFieldsData);
+                showToast('Custom field updated successfully!');
+            } catch (error) {
+                console.error('Error updating field:', error);
+            }
+        }
+
+        async function deleteCustomField(index) {
+            if (!confirm('Are you sure you want to delete this field?')) return;
+            
+            customFieldsData.splice(index, 1);
+            
+            try {
+                await fetch(`${API_URL}/custom-fields`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(customFieldsData)
+                });
+                renderCustomFields(customFieldsData);
+                showToast('Custom field deleted!');
+            } catch (error) {
+                console.error('Error deleting field:', error);
+            }
+        }
+
+        // ===== PROJECTS =====
+        let projectsData = [];
+        
+        async function loadProjects() {
+            try {
+                const response = await fetch(`${API_URL}/projects`);
+                projectsData = await response.json();
+                renderProjects(projectsData);
+            } catch (error) {
+                console.error('Error loading projects:', error);
+            }
+        }
+
+        function renderProjects(projects) {
+            const container = document.getElementById('projectsList');
+            if (projects.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">No projects added yet. Add your first project!</p>';
+                return;
+            }
+            container.innerHTML = projects.map((p, i) => `
+                <div class="testimonial-item">
+                    <img src="${p.logo || 'https://via.placeholder.com/48'}" alt="${p.name}" style="border-radius: 8px;">
+                    <div class="testimonial-item-content">
+                        <h4>${p.name}</h4>
+                        <p>${p.organization || 'Open Source'}</p>
+                        <div class="quote" style="font-style: normal;">${(p.description || '').substring(0, 100)}...</div>
+                    </div>
+                    <div class="testimonial-item-actions">
+                        <button class="edit-btn" onclick="editProject(${i})"><i class="fas fa-edit"></i></button>
+                        <button class="delete-btn" onclick="deleteProject(${i})"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function addProject() {
+            const name = prompt('Enter project name:');
+            if (!name) return;
+            const organization = prompt('Enter organization name:');
+            const description = prompt('Enter project description:');
+            if (!description) return;
+            const tags = prompt('Enter tags (comma separated, e.g., React, JavaScript, Web):');
+            const github = prompt('Enter GitHub URL:');
+            const website = prompt('Enter website URL (optional):');
+            const logo = prompt('Enter logo URL:', 'https://via.placeholder.com/60');
+            const stars = prompt('Enter star count:', '0');
+            const forks = prompt('Enter fork count:', '0');
+            const contributors = prompt('Enter contributor count:', '0');
+            
+            const project = { 
+                id: 'proj_' + Date.now(),
+                name, 
+                organization, 
+                description, 
+                tags: tags ? tags.split(',').map(t => t.trim()) : [],
+                github,
+                website,
+                logo,
+                stars: parseInt(stars) || 0,
+                forks: parseInt(forks) || 0,
+                contributors: parseInt(contributors) || 0
+            };
+            
+            projectsData.push(project);
+            
+            try {
+                await fetch(`${API_URL}/projects`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(projectsData)
+                });
+                renderProjects(projectsData);
+                showToast('Project added successfully!');
+            } catch (error) {
+                console.error('Error adding project:', error);
+            }
+        }
+
+        async function editProject(index) {
+            const p = projectsData[index];
+            
+            const name = prompt('Enter project name:', p.name);
+            if (!name) return;
+            const organization = prompt('Enter organization:', p.organization);
+            const description = prompt('Enter description:', p.description);
+            const tags = prompt('Enter tags (comma separated):', (p.tags || []).join(', '));
+            const github = prompt('Enter GitHub URL:', p.github);
+            const website = prompt('Enter website URL:', p.website);
+            const logo = prompt('Enter logo URL:', p.logo);
+            const stars = prompt('Enter star count:', p.stars);
+            const forks = prompt('Enter fork count:', p.forks);
+            const contributors = prompt('Enter contributor count:', p.contributors);
+            
+            projectsData[index] = { 
+                ...p,
+                name, 
+                organization, 
+                description, 
+                tags: tags ? tags.split(',').map(t => t.trim()) : [],
+                github,
+                website,
+                logo,
+                stars: parseInt(stars) || 0,
+                forks: parseInt(forks) || 0,
+                contributors: parseInt(contributors) || 0
+            };
+            
+            try {
+                await fetch(`${API_URL}/projects`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(projectsData)
+                });
+                renderProjects(projectsData);
+                showToast('Project updated successfully!');
+            } catch (error) {
+                console.error('Error updating project:', error);
+            }
+        }
+
+        async function deleteProject(index) {
+            if (!confirm('Are you sure you want to delete this project?')) return;
+            
+            projectsData.splice(index, 1);
+            
+            try {
+                await fetch(`${API_URL}/projects`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(projectsData)
+                });
+                renderProjects(projectsData);
+                showToast('Project deleted!');
+            } catch (error) {
+                console.error('Error deleting project:', error);
+            }
+        }
+
+        // ===== MENTORS =====
+        let mentorsData = [];
+        
+        async function loadMentors() {
+            try {
+                const response = await fetch(`${API_URL}/mentors`);
+                mentorsData = await response.json();
+                renderMentors(mentorsData);
+            } catch (error) {
+                console.error('Error loading mentors:', error);
+            }
+        }
+
+        function renderMentors(mentors) {
+            const container = document.getElementById('mentorsList');
+            if (mentors.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">No mentors added yet. Add your first mentor!</p>';
+                return;
+            }
+            container.innerHTML = mentors.map((m, i) => `
+                <div class="testimonial-item">
+                    <img src="${m.avatar || 'https://via.placeholder.com/48'}" alt="${m.name}" style="border-radius: 50%;">
+                    <div class="testimonial-item-content">
+                        <h4>${m.name}</h4>
+                        <p>${m.role || 'Mentor'} ${m.company ? '• ' + m.company : ''}</p>
+                        <div class="quote" style="font-style: normal;">${(m.bio || 'No bio').substring(0, 80)}...</div>
+                    </div>
+                    <div class="testimonial-item-actions">
+                        <button class="edit-btn" onclick="editMentor(${i})"><i class="fas fa-edit"></i></button>
+                        <button class="delete-btn" onclick="deleteMentor(${i})"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function addMentor() {
+            const name = prompt('Enter mentor name:');
+            if (!name) return;
+            const role = prompt('Enter role (e.g., Senior Developer, Tech Lead):');
+            const company = prompt('Enter company name:');
+            const bio = prompt('Enter short bio:');
+            const skills = prompt('Enter skills (comma separated, e.g., React, Node.js, Python):');
+            const avatar = prompt('Enter avatar URL:', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop');
+            const github = prompt('Enter GitHub URL (optional):');
+            const linkedin = prompt('Enter LinkedIn URL (optional):');
+            const twitter = prompt('Enter Twitter URL (optional):');
+            
+            const mentor = { 
+                id: 'mentor_' + Date.now(),
+                name, 
+                role, 
+                company, 
+                bio,
+                skills: skills ? skills.split(',').map(s => s.trim()) : [],
+                avatar,
+                github,
+                linkedin,
+                twitter
+            };
+            
+            mentorsData.push(mentor);
+            
+            try {
+                await fetch(`${API_URL}/mentors`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(mentorsData)
+                });
+                renderMentors(mentorsData);
+                showToast('Mentor added successfully!');
+            } catch (error) {
+                console.error('Error adding mentor:', error);
+            }
+        }
+
+        async function editMentor(index) {
+            const m = mentorsData[index];
+            
+            const name = prompt('Enter mentor name:', m.name);
+            if (!name) return;
+            const role = prompt('Enter role:', m.role);
+            const company = prompt('Enter company:', m.company);
+            const bio = prompt('Enter bio:', m.bio);
+            const skills = prompt('Enter skills (comma separated):', (m.skills || []).join(', '));
+            const avatar = prompt('Enter avatar URL:', m.avatar);
+            const github = prompt('Enter GitHub URL:', m.github);
+            const linkedin = prompt('Enter LinkedIn URL:', m.linkedin);
+            const twitter = prompt('Enter Twitter URL:', m.twitter);
+            
+            mentorsData[index] = { 
+                ...m,
+                name, 
+                role, 
+                company, 
+                bio,
+                skills: skills ? skills.split(',').map(s => s.trim()) : [],
+                avatar,
+                github,
+                linkedin,
+                twitter
+            };
+            
+            try {
+                await fetch(`${API_URL}/mentors`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(mentorsData)
+                });
+                renderMentors(mentorsData);
+                showToast('Mentor updated successfully!');
+            } catch (error) {
+                console.error('Error updating mentor:', error);
+            }
+        }
+
+        async function deleteMentor(index) {
+            if (!confirm('Are you sure you want to delete this mentor?')) return;
+            
+            mentorsData.splice(index, 1);
+            
+            try {
+                await fetch(`${API_URL}/mentors`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(mentorsData)
+                });
+                renderMentors(mentorsData);
+                showToast('Mentor deleted!');
+            } catch (error) {
+                console.error('Error deleting mentor:', error);
+            }
+        }
+
+        // ===== TESTIMONIALS =====
+        let testimonialsData = [];
+        
+        async function loadTestimonials() {
+            try {
+                const response = await fetch(`${API_URL}/testimonials`);
+                testimonialsData = await response.json();
+                renderTestimonials(testimonialsData);
+            } catch (error) {
+                console.error('Error loading testimonials:', error);
+            }
+        }
+
+        function renderTestimonials(testimonials) {
+            const container = document.getElementById('testimonialsList');
+            if (testimonials.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">No testimonials added yet.</p>';
+                return;
+            }
+            container.innerHTML = testimonials.map((t, i) => `
+                <div class="testimonial-item">
+                    <img src="${t.image || 'https://via.placeholder.com/48'}" alt="${t.name}">
+                    <div class="testimonial-item-content">
+                        <h4>${t.name}</h4>
+                        <p>${t.role}</p>
+                        <div class="quote">"${(t.quote || '').substring(0, 100)}..."</div>
+                    </div>
+                    <div class="testimonial-item-actions">
+                        <button class="edit-btn" onclick="editTestimonial(${i})"><i class="fas fa-edit"></i></button>
+                        <button class="delete-btn" onclick="deleteTestimonial(${i})"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function addTestimonial() {
+            const name = prompt('Enter name:');
+            if (!name) return;
+            const role = prompt('Enter role (e.g., Contributor • Season 4):');
+            const quote = prompt('Enter testimonial quote:');
+            if (!quote) return;
+            const image = prompt('Enter image URL:', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop');
+            const achievement = prompt('Enter achievement badge (optional):');
+            
+            const testimonial = {
+                id: 'test_' + Date.now(),
+                name,
+                role,
+                quote,
+                image,
+                achievement
+            };
+            
+            testimonialsData.push(testimonial);
+            
+            try {
+                await fetch(`${API_URL}/testimonials`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(testimonialsData)
+                });
+                renderTestimonials(testimonialsData);
+                showToast('Testimonial added successfully!');
+            } catch (error) {
+                console.error('Error adding testimonial:', error);
+            }
+        }
+
+        async function editTestimonial(index) {
+            const t = testimonialsData[index];
+            
+            const name = prompt('Enter name:', t.name);
+            if (!name) return;
+            const role = prompt('Enter role:', t.role);
+            const quote = prompt('Enter quote:', t.quote);
+            const image = prompt('Enter image URL:', t.image);
+            const achievement = prompt('Enter achievement badge:', t.achievement);
+            
+            testimonialsData[index] = { ...t, name, role, quote, image, achievement };
+            
+            try {
+                await fetch(`${API_URL}/testimonials`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(testimonialsData)
+                });
+                renderTestimonials(testimonialsData);
+                showToast('Testimonial updated successfully!');
+            } catch (error) {
+                console.error('Error updating testimonial:', error);
+            }
+        }
+
+        async function deleteTestimonial(index) {
+            if (!confirm('Delete this testimonial?')) return;
+            
+            testimonialsData.splice(index, 1);
+            
+            try {
+                await fetch(`${API_URL}/testimonials`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(testimonialsData)
+                });
+                renderTestimonials(testimonialsData);
+                showToast('Testimonial deleted!');
+            } catch (error) {
+                console.error('Error deleting testimonial:', error);
+            }
+        }
+
+        // ===== FAQ =====
+        let faqsData = [];
+        
+        async function loadFAQs() {
+            try {
+                const response = await fetch(`${API_URL}/faqs`);
+                faqsData = await response.json();
+                renderFAQs(faqsData);
+            } catch (error) {
+                console.error('Error loading FAQs:', error);
+            }
+        }
+
+        function renderFAQs(faqs) {
+            const container = document.getElementById('faqsList');
+            if (faqs.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">No FAQs added yet.</p>';
+                return;
+            }
+            container.innerHTML = faqs.map((f, i) => `
+                <div class="testimonial-item">
+                    <i class="fas fa-question-circle" style="font-size: 24px; color: var(--primary);"></i>
+                    <div class="testimonial-item-content">
+                        <h4>${f.question}</h4>
+                        <div class="quote" style="font-style: normal;">${(f.answer || '').substring(0, 100)}...</div>
+                    </div>
+                    <div class="testimonial-item-actions">
+                        <button class="edit-btn" onclick="editFAQ(${i})"><i class="fas fa-edit"></i></button>
+                        <button class="delete-btn" onclick="deleteFAQ(${i})"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function addFAQ() {
+            const question = prompt('Enter question:');
+            if (!question) return;
+            const answer = prompt('Enter answer:');
+            if (!answer) return;
+            
+            const faq = {
+                id: 'faq_' + Date.now(),
+                question,
+                answer
+            };
+            
+            faqsData.push(faq);
+            
+            try {
+                await fetch(`${API_URL}/faqs`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(faqsData)
+                });
+                renderFAQs(faqsData);
+                showToast('FAQ added successfully!');
+            } catch (error) {
+                console.error('Error adding FAQ:', error);
+            }
+        }
+
+        async function editFAQ(index) {
+            const f = faqsData[index];
+            
+            const question = prompt('Enter question:', f.question);
+            if (!question) return;
+            const answer = prompt('Enter answer:', f.answer);
+            
+            faqsData[index] = { ...f, question, answer };
+            
+            try {
+                await fetch(`${API_URL}/faqs`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(faqsData)
+                });
+                renderFAQs(faqsData);
+                showToast('FAQ updated successfully!');
+            } catch (error) {
+                console.error('Error updating FAQ:', error);
+            }
+        }
+
+        async function deleteFAQ(index) {
+            if (!confirm('Delete this FAQ?')) return;
+            
+            faqsData.splice(index, 1);
+            
+            try {
+                await fetch(`${API_URL}/faqs`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(faqsData)
+                });
+                renderFAQs(faqsData);
+                showToast('FAQ deleted!');
+            } catch (error) {
+                console.error('Error deleting FAQ:', error);
+            }
+        }
+
+        // ===== REGISTRATIONS =====
+        let registrationsData = [];
+        
+        async function loadRegistrations() {
+            try {
+                const response = await fetch(`${API_URL}/registrations`);
+                registrationsData = await response.json();
+                
+                const tbody = document.getElementById('registrationsBody');
+                
+                if (registrationsData.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="5">
+                                <div class="empty-state">
+                                    <i class="fas fa-inbox"></i>
+                                    <p>No registrations yet</p>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                } else {
+                    tbody.innerHTML = registrationsData.map(r => `
+                        <tr>
+                            <td>${r.name}</td>
+                            <td>${r.email}</td>
+                            <td><span class="role-badge ${r.role}">${(r.role || '').replace('-', ' ')}</span></td>
+                            <td><a href="${r.github || '#'}" target="_blank">${r.github ? 'View' : '-'}</a></td>
+                            <td>${r.timestamp ? new Date(r.timestamp).toLocaleDateString() : '-'}</td>
+                        </tr>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Error loading registrations:', error);
+            }
+        }
+
+        // ===== CSV DOWNLOAD FUNCTIONS =====
+        function escapeCSV(value) {
+            if (value === null || value === undefined) return '';
+            const str = String(value);
+            if (str.includes(',') || str.includes('"') || str.includes('\\n')) {
+                return '"' + str.replace(/"/g, '""') + '"';
+            }
+            return str;
+        }
+
+        function downloadCSV(data, filename, headers) {
+            if (data.length === 0) {
+                showToast('No data to download!');
+                return;
+            }
+
+            const csvRows = [];
+            csvRows.push(headers.join(','));
+
+            data.forEach(item => {
+                const row = headers.map(header => escapeCSV(item[header]));
+                csvRows.push(row.join(','));
+            });
+
+            const csvContent = csvRows.join('\\n');
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', filename);
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            showToast('CSV downloaded successfully!');
+        }
+
+        function downloadRegistrationsCSV() {
+            const headers = ['name', 'email', 'role', 'github', 'linkedin', 'experience', 'timestamp'];
+            const filename = 'ssoc_registrations_' + new Date().toISOString().split('T')[0] + '.csv';
+            downloadCSV(registrationsData, filename, headers);
+        }
+
+        function downloadProjectsCSV() {
+            const processedProjects = projectsData.map(p => ({
+                ...p,
+                tags: Array.isArray(p.tags) ? p.tags.join('; ') : p.tags
+            }));
+            const headers = ['name', 'organization', 'description', 'tags', 'github', 'website', 'logo', 'stars', 'forks', 'contributors'];
+            const filename = 'ssoc_projects_' + new Date().toISOString().split('T')[0] + '.csv';
+            downloadCSV(processedProjects, filename, headers);
+        }
+
+        function downloadMentorsCSV() {
+            const processedMentors = mentorsData.map(m => ({
+                ...m,
+                skills: Array.isArray(m.skills) ? m.skills.join('; ') : m.skills
+            }));
+            const headers = ['name', 'role', 'company', 'bio', 'skills', 'avatar', 'github', 'linkedin', 'twitter'];
+            const filename = 'ssoc_mentors_' + new Date().toISOString().split('T')[0] + '.csv';
+            downloadCSV(processedMentors, filename, headers);
+        }
+
+        // ===== TOAST =====
+        function showToast(message) {
+            toastMessage.textContent = message;
+            toast.classList.add('active');
+            setTimeout(() => toast.classList.remove('active'), 4000);
+        }
+
+        // ===== MENTORS =====
+        function loadMentors() {
+            const mentors = JSON.parse(localStorage.getItem('ssoc_mentors') || '[]');
+            renderMentors(mentors);
+        }
+
+        function renderMentors(mentors) {
+            const container = document.getElementById('mentorsList');
+            if (mentors.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">No mentors added yet. Add your first mentor!</p>';
+                return;
+            }
+            container.innerHTML = mentors.map((m, i) => `
+                <div class="testimonial-item">
+                    <img src="${m.avatar || 'https://via.placeholder.com/48'}" alt="${m.name}" style="border-radius: 50%;">
+                    <div class="testimonial-item-content">
+                        <h4>${m.name}</h4>
+                        <p>${m.role || 'Mentor'} ${m.company ? '• ' + m.company : ''}</p>
+                        <div class="quote" style="font-style: normal;">${m.bio?.substring(0, 80) || 'No bio'}...</div>
+                    </div>
+                    <div class="testimonial-item-actions">
+                        <button class="edit-btn" onclick="editMentor(${i})"><i class="fas fa-edit"></i></button>
+                        <button class="delete-btn" onclick="deleteMentor(${i})"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addMentor() {
+            const name = prompt('Enter mentor name:');
+            if (!name) return;
+            const role = prompt('Enter role (e.g., Senior Developer, Tech Lead):');
+            const company = prompt('Enter company name:');
+            const bio = prompt('Enter short bio:');
+            const skills = prompt('Enter skills (comma separated, e.g., React, Node.js, Python):');
+            const avatar = prompt('Enter avatar URL:', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop');
+            const github = prompt('Enter GitHub URL (optional):');
+            const linkedin = prompt('Enter LinkedIn URL (optional):');
+            const twitter = prompt('Enter Twitter URL (optional):');
+            
+            const mentors = JSON.parse(localStorage.getItem('ssoc_mentors') || '[]');
+            mentors.push({ 
+                name, 
+                role, 
+                company, 
+                bio,
+                skills: skills ? skills.split(',').map(s => s.trim()) : [],
+                avatar,
+                github,
+                linkedin,
+                twitter
+            });
+            localStorage.setItem('ssoc_mentors', JSON.stringify(mentors));
+            renderMentors(mentors);
+            showToast('Mentor added successfully!');
+        }
+
+        function editMentor(index) {
+            const mentors = JSON.parse(localStorage.getItem('ssoc_mentors') || '[]');
+            const m = mentors[index];
+            
+            const name = prompt('Enter mentor name:', m.name);
+            if (!name) return;
+            const role = prompt('Enter role:', m.role);
+            const company = prompt('Enter company:', m.company);
+            const bio = prompt('Enter bio:', m.bio);
+            const skills = prompt('Enter skills (comma separated):', (m.skills || []).join(', '));
+            const avatar = prompt('Enter avatar URL:', m.avatar);
+            const github = prompt('Enter GitHub URL:', m.github);
+            const linkedin = prompt('Enter LinkedIn URL:', m.linkedin);
+            const twitter = prompt('Enter Twitter URL:', m.twitter);
+            
+            mentors[index] = { 
+                name, 
+                role, 
+                company, 
+                bio,
+                skills: skills ? skills.split(',').map(s => s.trim()) : [],
+                avatar,
+                github,
+                linkedin,
+                twitter
+            };
+            localStorage.setItem('ssoc_mentors', JSON.stringify(mentors));
+            renderMentors(mentors);
+            showToast('Mentor updated successfully!');
+        }
+
+        function deleteMentor(index) {
+            if (!confirm('Are you sure you want to delete this mentor?')) return;
+            
+            const mentors = JSON.parse(localStorage.getItem('ssoc_mentors') || '[]');
+            mentors.splice(index, 1);
+            localStorage.setItem('ssoc_mentors', JSON.stringify(mentors));
+            renderMentors(mentors);
+            showToast('Mentor deleted!');
+        }
+
+        // ===== TESTIMONIALS =====
+        function loadTestimonials() {
+            const testimonials = JSON.parse(localStorage.getItem('ssoc_testimonials') || '[]');
+            
+            if (testimonials.length === 0) {
+                // Load default testimonials
+                const defaults = [
+                    { name: 'Priya Sharma', role: 'Contributor • Season 4', quote: 'SSoC was a life-changing experience!', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop' },
+                    { name: 'Rahul Verma', role: 'Mentor • Season 3 & 4', quote: 'Being a mentor at SSoC has been incredibly rewarding.', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop' },
+                    { name: 'Ananya Patel', role: 'Project Admin • Season 4', quote: 'We brought our project to SSoC and received amazing contributions!', image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop' },
+                ];
+                localStorage.setItem('ssoc_testimonials', JSON.stringify(defaults));
+                renderTestimonials(defaults);
+            } else {
+                renderTestimonials(testimonials);
+            }
+        }
+
+        function renderTestimonials(testimonials) {
+            const container = document.getElementById('testimonialList');
+            container.innerHTML = testimonials.map((t, i) => `
+                <div class="testimonial-item">
+                    <img src="${t.image}" alt="${t.name}">
+                    <div class="testimonial-item-content">
+                        <h4>${t.name}</h4>
+                        <p>${t.role}</p>
+                        <div class="quote">"${t.quote}"</div>
+                    </div>
+                    <div class="testimonial-item-actions">
+                        <button class="edit-btn" onclick="editTestimonial(${i})"><i class="fas fa-edit"></i></button>
+                        <button class="delete-btn" onclick="deleteTestimonial(${i})"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addTestimonial() {
+            const name = prompt('Enter name:');
+            if (!name) return;
+            const role = prompt('Enter role (e.g., Contributor • Season 4):');
+            if (!role) return;
+            const quote = prompt('Enter testimonial quote:');
+            if (!quote) return;
+            const image = prompt('Enter image URL:', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop');
+            
+            const testimonials = JSON.parse(localStorage.getItem('ssoc_testimonials') || '[]');
+            testimonials.push({ name, role, quote, image });
+            localStorage.setItem('ssoc_testimonials', JSON.stringify(testimonials));
+            renderTestimonials(testimonials);
+            showToast('Testimonial added successfully!');
+        }
+
+        function editTestimonial(index) {
+            const testimonials = JSON.parse(localStorage.getItem('ssoc_testimonials') || '[]');
+            const t = testimonials[index];
+            
+            const name = prompt('Enter name:', t.name);
+            if (!name) return;
+            const role = prompt('Enter role:', t.role);
+            if (!role) return;
+            const quote = prompt('Enter quote:', t.quote);
+            if (!quote) return;
+            const image = prompt('Enter image URL:', t.image);
+            
+            testimonials[index] = { name, role, quote, image };
+            localStorage.setItem('ssoc_testimonials', JSON.stringify(testimonials));
+            renderTestimonials(testimonials);
+            showToast('Testimonial updated successfully!');
+        }
+
+        function deleteTestimonial(index) {
+            if (!confirm('Are you sure you want to delete this testimonial?')) return;
+            
+            const testimonials = JSON.parse(localStorage.getItem('ssoc_testimonials') || '[]');
+            testimonials.splice(index, 1);
+            localStorage.setItem('ssoc_testimonials', JSON.stringify(testimonials));
+            renderTestimonials(testimonials);
+            showToast('Testimonial deleted!');
+        }
+
+        // ===== FAQ =====
+        function loadFAQs() {
+            const faqs = JSON.parse(localStorage.getItem('ssoc_faqs') || '[]');
+            
+            if (faqs.length === 0) {
+                const defaults = [
+                    { question: 'What is Social Summer of Code (SSoC)?', answer: 'SSoC is a 2-month long open source program.' },
+                    { question: 'Who can participate in SSoC?', answer: 'Anyone can participate!' },
+                    { question: 'Is SSoC free to participate?', answer: 'Yes, SSoC is completely free!' },
+                ];
+                localStorage.setItem('ssoc_faqs', JSON.stringify(defaults));
+                renderFAQs(defaults);
+            } else {
+                renderFAQs(faqs);
+            }
+        }
+
+        function renderFAQs(faqs) {
+            const container = document.getElementById('faqList');
+            container.innerHTML = faqs.map((f, i) => `
+                <div class="testimonial-item" style="flex-direction: column; align-items: stretch;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                        <strong style="flex: 1;">${f.question}</strong>
+                        <div class="testimonial-item-actions">
+                            <button class="edit-btn" onclick="editFAQ(${i})"><i class="fas fa-edit"></i></button>
+                            <button class="delete-btn" onclick="deleteFAQ(${i})"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 13px; margin: 0;">${f.answer}</p>
+                </div>
+            `).join('');
+        }
+
+        function addFAQ() {
+            const question = prompt('Enter question:');
+            if (!question) return;
+            const answer = prompt('Enter answer:');
+            if (!answer) return;
+            
+            const faqs = JSON.parse(localStorage.getItem('ssoc_faqs') || '[]');
+            faqs.push({ question, answer });
+            localStorage.setItem('ssoc_faqs', JSON.stringify(faqs));
+            renderFAQs(faqs);
+            showToast('FAQ added successfully!');
+        }
+
+        function editFAQ(index) {
+            const faqs = JSON.parse(localStorage.getItem('ssoc_faqs') || '[]');
+            const f = faqs[index];
+            
+            const question = prompt('Enter question:', f.question);
+            if (!question) return;
+            const answer = prompt('Enter answer:', f.answer);
+            if (!answer) return;
+            
+            faqs[index] = { question, answer };
+            localStorage.setItem('ssoc_faqs', JSON.stringify(faqs));
+            renderFAQs(faqs);
+            showToast('FAQ updated successfully!');
+        }
+
+        function deleteFAQ(index) {
+            if (!confirm('Are you sure you want to delete this FAQ?')) return;
+            
+            const faqs = JSON.parse(localStorage.getItem('ssoc_faqs') || '[]');
+            faqs.splice(index, 1);
+            localStorage.setItem('ssoc_faqs', JSON.stringify(faqs));
+            renderFAQs(faqs);
+            showToast('FAQ deleted!');
+        }
+
+        // ===== REGISTRATIONS =====
+        function loadRegistrations() {
+            const registrations = JSON.parse(localStorage.getItem('ssoc_registrations') || '[]');
+            const tbody = document.getElementById('registrationsBody');
+            
+            if (registrations.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5">
+                            <div class="empty-state">
+                                <i class="fas fa-inbox"></i>
+                                <p>No registrations yet</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            } else {
+                tbody.innerHTML = registrations.map(r => `
+                    <tr>
+                        <td>${r.name}</td>
+                        <td>${r.email}</td>
+                        <td><span class="role-badge ${r.role}">${r.role.replace('-', ' ')}</span></td>
+                        <td><a href="${r.github}" target="_blank">${r.github ? 'View' : '-'}</a></td>
+                        <td>${new Date(r.timestamp).toLocaleDateString()}</td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        // ===== CSV DOWNLOAD FUNCTIONS =====
+        function escapeCSV(value) {
+            if (value === null || value === undefined) return '';
+            const str = String(value);
+            if (str.includes(',') || str.includes('"') || str.includes('\n')) {
+                return '"' + str.replace(/"/g, '""') + '"';
+            }
+            return str;
+        }
+
+        function downloadCSV(data, filename, headers) {
+            if (data.length === 0) {
+                showToast('No data to download!');
+                return;
+            }
+
+            const csvRows = [];
+            csvRows.push(headers.join(','));
+
+            data.forEach(item => {
+                const row = headers.map(header => escapeCSV(item[header]));
+                csvRows.push(row.join(','));
+            });
+
+            const csvContent = csvRows.join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', filename);
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            showToast('CSV downloaded successfully!');
+        }
+
+        function downloadRegistrationsCSV() {
+            const registrations = JSON.parse(localStorage.getItem('ssoc_registrations') || '[]');
+            const headers = ['name', 'email', 'role', 'github', 'linkedin', 'experience', 'timestamp'];
+            const filename = 'ssoc_registrations_' + new Date().toISOString().split('T')[0] + '.csv';
+            downloadCSV(registrations, filename, headers);
+        }
+
+        function downloadProjectsCSV() {
+            const projects = JSON.parse(localStorage.getItem('ssoc_projects') || '[]');
+            // Flatten tags array to string
+            const processedProjects = projects.map(p => ({
+                ...p,
+                tags: Array.isArray(p.tags) ? p.tags.join('; ') : p.tags
+            }));
+            const headers = ['name', 'organization', 'description', 'tags', 'github', 'website', 'logo', 'stars', 'forks', 'contributors'];
+            const filename = 'ssoc_projects_' + new Date().toISOString().split('T')[0] + '.csv';
+            downloadCSV(processedProjects, filename, headers);
+        }
+
+        function downloadMentorsCSV() {
+            const mentors = JSON.parse(localStorage.getItem('ssoc_mentors') || '[]');
+            // Flatten skills array to string
+            const processedMentors = mentors.map(m => ({
+                ...m,
+                skills: Array.isArray(m.skills) ? m.skills.join('; ') : m.skills
+            }));
+            const headers = ['name', 'role', 'company', 'bio', 'skills', 'avatar', 'github', 'linkedin', 'twitter'];
+            const filename = 'ssoc_mentors_' + new Date().toISOString().split('T')[0] + '.csv';
+            downloadCSV(processedMentors, filename, headers);
+        }
+
+        // ===== TOAST =====
+        function showToast(message) {
+            toastMessage.textContent = message + ' Refresh the main site to see changes.';
+            toast.classList.add('active');
+            setTimeout(() => toast.classList.remove('active'), 4000);
+        }
+
+        // ===== MOBILE MENU =====
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+                sidebarOverlay.classList.toggle('active');
+            });
+        }
+
+        if (sidebarOverlay) {
+            sidebarOverlay.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+                sidebarOverlay.classList.remove('active');
+            });
+        }
+
+        // Close sidebar when clicking a nav link (mobile)
+        document.querySelectorAll('.sidebar-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.classList.remove('active');
+                }
+            });
+        });
+
+        // ===== INIT =====
+        checkAuth();
+    </script>
+</body>
+</html>

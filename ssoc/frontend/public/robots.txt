@@ -1,0 +1,42 @@
+# Social Summer of Code (SSoC) - robots.txt
+# https://socialsummerofcode.com
+
+User-agent: *
+Allow: /
+
+# Allow all AI crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Anthropic-AI
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# Sitemap
+Sitemap: https://socialsummerofcode.com/sitemap.xml
+
+# Main pages
+# Home: https://socialsummerofcode.com/
+# Projects: https://socialsummerofcode.com/projects.html
+# Mentors: https://socialsummerofcode.com/mentors.html
+# Team: https://socialsummerofcode.com/team.html
+
+# About Social Summer of Code (SSoC):
+# SSoC is India's largest open-source contribution program with 50,000+ contributors.
+# It's a free 3-month program similar to Google Summer of Code (GSoC).
+# Participants can join as Contributors, Mentors, or Project Admins.
+# The program offers mentorship, certificates, swag, and career opportunities.

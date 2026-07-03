@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>Projects | Social Summer of Code Season 5</title>
+    <meta name="title" content="Projects | Social Summer of Code Season 5">
+    <meta name="description" content="Explore amazing open-source projects participating in SSoC Season 5. Find your perfect project and start contributing to real-world applications.">
+    <meta name="keywords" content="SSoC projects, open source projects, coding projects, GitHub projects, contribute to open source, beginner friendly projects">
+    <meta name="author" content="Social Summer of Code">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png">
+    <link rel="apple-touch-icon" href="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://socialsummerofcode.com/projects">
+    <meta property="og:title" content="Projects | Social Summer of Code Season 5">
+    <meta property="og:description" content="Explore amazing open-source projects participating in SSoC Season 5. Find your perfect project and start contributing!">
+    <meta property="og:image" content="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Projects | Social Summer of Code Season 5">
+    <meta name="twitter:description" content="Explore amazing open-source projects participating in SSoC Season 5. Find your perfect project and start contributing!">
+    <meta name="twitter:image" content="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#d35dab">
+    
+    <!-- Fonts and Styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=15">
+    <style>
+        .page-hero {
+            background: linear-gradient(135deg, #fdf2f8 0%, #faf5ff 50%, #f0f9ff 100%);
+            padding: 120px 0 60px;
+            text-align: center;
+        }
+        .page-hero h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 48px;
+            color: #2d1f3d;
+            margin-bottom: 16px;
+        }
+        .page-hero p {
+            font-size: 18px;
+            color: #6b5a7d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .projects-section {
+            padding: 60px 0;
+            background: #faf5ff;
+            min-height: 400px;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .project-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 16px rgba(211, 93, 171, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 32px rgba(211, 93, 171, 0.15);
+        }
+        .project-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .project-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: cover;
+            background: #f0f0f0;
+        }
+        .project-info h3 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 20px;
+            color: #2d1f3d;
+            margin-bottom: 4px;
+        }
+        .project-info span {
+            font-size: 14px;
+            color: #6b5a7d;
+        }
+        .project-description {
+            font-size: 14px;
+            color: #6b5a7d;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .project-tag {
+            background: rgba(211, 93, 171, 0.1);
+            color: #d35dab;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .project-stats {
+            display: flex;
+            gap: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #f0e8f5;
+        }
+        .project-stat {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: #6b5a7d;
+        }
+        .project-stat i {
+            color: #d35dab;
+        }
+        .project-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: #d35dab;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        .project-link:hover {
+            background: #b84593;
+        }
+        .project-link.secondary {
+            background: transparent;
+            border: 1px solid #d35dab;
+            color: #d35dab;
+        }
+        .project-link.secondary:hover {
+            background: rgba(211, 93, 171, 0.1);
+        }
+        .coming-soon {
+            text-align: center;
+            padding: 80px 20px;
+        }
+        .coming-soon-icon {
+            width: 120px;
+            height: 120px;
+            background: rgba(211, 93, 171, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+        .coming-soon-icon i {
+            font-size: 48px;
+            color: #d35dab;
+        }
+        .coming-soon h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 32px;
+            color: #2d1f3d;
+            margin-bottom: 12px;
+        }
+        .coming-soon p {
+            font-size: 16px;
+            color: #6b5a7d;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        @media (max-width: 768px) {
+            .page-hero h1 { font-size: 32px; }
+            .projects-grid { grid-template-columns: 1fr; }
+            
+            /* Mobile navbar */
+            .nav-links, .nav-cta { display: none !important; }
+            .mobile-menu-btn { display: block !important; }
+            
+            .mobile-menu {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 20px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+                display: none;
+                flex-direction: column;
+                gap: 8px;
+                z-index: 999;
+            }
+            
+            .mobile-menu.active {
+                display: flex;
+            }
+            
+            .mobile-menu a {
+                padding: 12px 16px;
+                color: #2d1f3d;
+                text-decoration: none;
+                font-weight: 500;
+                border-radius: 8px;
+            }
+            
+            .mobile-menu a:hover,
+            .mobile-menu a.active {
+                background: rgba(211, 93, 171, 0.1);
+                color: #d35dab;
+            }
+            
+            .mobile-menu .mobile-cta {
+                background: #d35dab;
+                color: white;
+                text-align: center;
+                margin-top: 8px;
+            }
+        }
+        /* Ultra-wide optimization */
+        @media (min-width: 2560px) {
+            .page-hero { padding: 160px 0 80px; }
+            .page-hero h1 { font-size: 64px; }
+            .page-hero p { font-size: 22px; max-width: 800px; }
+            .projects-section { padding: 80px 0; }
+            .projects-grid { 
+                max-width: 2000px; 
+                grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+                gap: 36px;
+            }
+            .project-card { padding: 32px; }
+            .project-info h3 { font-size: 24px; }
+            .project-description { font-size: 16px; }
+            .project-logo { width: 80px; height: 80px; }
+            .coming-soon h2 { font-size: 42px; }
+            .coming-soon p { font-size: 20px; max-width: 500px; }
+            .coming-soon-icon { width: 160px; height: 160px; }
+            .coming-soon-icon i { font-size: 64px; }
+        }
+        @media (min-width: 3200px) {
+            .page-hero { padding: 200px 0 100px; }
+            .page-hero h1 { font-size: 80px; }
+            .page-hero p { font-size: 26px; }
+            .projects-grid { 
+                max-width: 2400px;
+                grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+                gap: 48px;
+            }
+            .project-card { padding: 40px; }
+            .project-info h3 { font-size: 28px; }
+            .project-description { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png" alt="SSoC Logo">
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="projects.html" class="active">Projects</a>
+                <a href="mentors.html">Mentors</a>
+                <a href="team.html">Team</a>
+                <a href="index.html#timeline">Timeline</a>
+                <a href="index.html#faq">FAQ</a>
+            </div>
+            <a href="index.html#register" class="nav-cta">Register Now</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="mentors.html">Mentors</a>
+        <a href="team.html">Team</a>
+        <a href="index.html#timeline">Timeline</a>
+        <a href="index.html#faq">FAQ</a>
+        <a href="index.html#register" class="mobile-cta">Register Now</a>
+    </div>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1><i class="fas fa-folder-open" style="color: #d35dab; margin-right: 12px;"></i>Our Projects</h1>
+            <p>Explore amazing open-source projects participating in SSoC Season 5. Find your perfect project and start contributing!</p>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects-section">
+        <div class="projects-grid" id="projectsGrid">
+            <!-- Projects will be loaded here -->
+        </div>
+        <div class="coming-soon" id="comingSoon" style="display: none;">
+            <div class="coming-soon-icon">
+                <i class="fas fa-rocket"></i>
+            </div>
+            <h2>Projects Coming Soon!</h2>
+            <p>We're finalizing our amazing project lineup for Season 5. Check back soon to see all participating projects!</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-bottom">
+            <div class="container">
+                <p>© 2025 Social Summer of Code. All rights reserved.</p>
+                <p>Made with <i class="fas fa-heart"></i> by the SSoC Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // API Base URL
+        const API_URL = window.location.origin + '/api';
+        
+        // Load projects from API
+        async function loadProjects() {
+            const grid = document.getElementById('projectsGrid');
+            const comingSoon = document.getElementById('comingSoon');
+            
+            try {
+                const response = await fetch(`${API_URL}/data`);
+                const data = await response.json();
+                const projects = data.projects || [];
+                
+                if (projects.length === 0) {
+                    grid.style.display = 'none';
+                    comingSoon.style.display = 'block';
+                    return;
+                }
+                
+                grid.style.display = 'grid';
+                comingSoon.style.display = 'none';
+                
+                grid.innerHTML = projects.map(p => `
+                    <div class="project-card" data-testid="project-card">
+                        <div class="project-header">
+                            <div class="project-info">
+                                <h3>${p.name}</h3>
+                                <span>${p.organization || 'Open Source'}</span>
+                            </div>
+                        </div>
+                        <p class="project-description">${p.description}</p>
+                        <div class="project-tags">
+                            ${(p.tags || []).map(tag => `<span class="project-tag">${tag}</span>`).join('')}
+                        </div>
+                        <div class="project-links">
+                            ${p.github ? `<a href="${p.github}" target="_blank" class="project-link"><i class="fab fa-github"></i> GitHub</a>` : ''}
+                            ${p.website ? `<a href="${p.website}" target="_blank" class="project-link secondary"><i class="fas fa-globe"></i> Website</a>` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading projects from API:', error);
+                grid.style.display = 'none';
+                comingSoon.style.display = 'block';
+            }
+        }
+        
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+            this.querySelector('i').classList.toggle('fa-bars');
+            this.querySelector('i').classList.toggle('fa-times');
+        });
+        
+        // Load on page ready
+        document.addEventListener('DOMContentLoaded', loadProjects);
+    </script>
+</body>
+</html>

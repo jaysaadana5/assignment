@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advocate Leaderboard | Social Summer of Code Season 5</title>
+    <meta name="description" content="See which Campus Advocates are leading the charge at SSoC Season 5. Live leaderboard tracking tasks, points, and community impact.">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/png" href="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=16">
+    <style>
+        .lb-hero {
+            background: linear-gradient(135deg, #1a0e2e 0%, #2d1547 40%, #3d1259 70%, #4a1060 100%);
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .lb-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(211,93,171,0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 30%, rgba(139,92,246,0.1) 0%, transparent 40%);
+            animation: heroShimmer 8s ease-in-out infinite alternate;
+        }
+        @keyframes heroShimmer {
+            0% { transform: translateX(-5%) translateY(-2%); }
+            100% { transform: translateX(5%) translateY(2%); }
+        }
+        .lb-hero .container { position: relative; z-index: 1; }
+        .lb-hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            border-radius: 999px;
+            background: rgba(211,93,171,0.15);
+            border: 1px solid rgba(211,93,171,0.3);
+            color: #e88fd0;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            backdrop-filter: blur(8px);
+        }
+        .lb-hero h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: clamp(36px, 5vw, 56px);
+            color: #fff;
+            margin-bottom: 16px;
+            line-height: 1.15;
+        }
+        .lb-hero h1 span { color: #d35dab; }
+        .lb-hero p {
+            font-size: 18px;
+            color: rgba(255,255,255,0.6);
+            max-width: 560px;
+            margin: 0 auto 36px;
+        }
+        .lb-stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .lb-stat {
+            text-align: center;
+        }
+        .lb-stat-num {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #fff;
+        }
+        .lb-stat-label {
+            font-size: 13px;
+            color: rgba(255,255,255,0.45);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* === PODIUM === */
+        .podium-section {
+            padding: 60px 0 40px;
+            background: var(--bg-primary);
+        }
+        .podium-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 20px;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 16px;
+            box-sizing: border-box;
+        }
+        .podium-card {
+            flex: 1;
+            min-width: 0;
+            max-width: 220px;
+            text-align: center;
+            border-radius: 20px;
+            padding: 28px 16px 20px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        .podium-card:hover { transform: translateY(-6px); }
+        .podium-card.gold {
+            background: linear-gradient(165deg, #fff9e6, #fff3cc);
+            border: 2px solid #f5d060;
+            order: 2;
+            padding-top: 36px;
+            box-shadow: 0 12px 40px rgba(245,208,96,0.25);
+        }
+        .podium-card.silver {
+            background: linear-gradient(165deg, #f5f6fa, #e8eaf0);
+            border: 2px solid #c0c5d0;
+            order: 1;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+        .podium-card.bronze {
+            background: linear-gradient(165deg, #fdf4ed, #fbe8d8);
+            border: 2px solid #d4956a;
+            order: 3;
+            box-shadow: 0 8px 30px rgba(212,149,106,0.2);
+        }
+        .podium-medal {
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 15px;
+            color: #fff;
+        }
+        .gold .podium-medal { background: linear-gradient(135deg, #f5d060, #e6b422); box-shadow: 0 4px 16px rgba(230,180,34,0.4); }
+        .silver .podium-medal { background: linear-gradient(135deg, #c0c5d0, #9ca3af); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .bronze .podium-medal { background: linear-gradient(135deg, #d4956a, #b87843); box-shadow: 0 4px 12px rgba(184,120,67,0.3); }
+        .podium-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 600;
+            font-family: 'Fredoka', sans-serif;
+            color: #fff;
+        }
+        .gold .podium-avatar { background: linear-gradient(135deg, #d35dab, #b84593); width: 80px; height: 80px; font-size: 32px; }
+        .silver .podium-avatar { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .bronze .podium-avatar { background: linear-gradient(135deg, #f07e4f, #e85d2a); }
+        .podium-name {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .podium-college {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .podium-score {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1;
+        }
+        .gold .podium-score { color: #c6950f; }
+        .silver .podium-score { color: #6b7280; }
+        .bronze .podium-score { color: #a16832; }
+        .podium-pts {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+        .podium-tasks {
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* === FULL TABLE === */
+        .table-section {
+            padding: 0 0 80px;
+            background: var(--bg-primary);
+        }
+        .table-section .container { max-width: 900px; }
+        .lb-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+        .lb-table thead th {
+            text-align: left;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            padding: 0 16px 12px;
+            font-weight: 600;
+        }
+        .lb-table thead th:last-child,
+        .lb-table thead th:nth-child(4) { text-align: center; }
+        .lb-row {
+            background: var(--bg-card);
+            border-radius: 14px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .lb-row:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow-md);
+        }
+        .lb-row td {
+            padding: 14px 16px;
+            vertical-align: middle;
+        }
+        .lb-row td:first-child { border-radius: 14px 0 0 14px; }
+        .lb-row td:last-child { border-radius: 0 14px 14px 0; }
+        .lb-rank {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text-muted);
+            width: 48px;
+            text-align: center;
+        }
+        .lb-rank.top-3 { color: var(--primary); }
+        .lb-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .lb-user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Fredoka', sans-serif;
+            color: #fff;
+            background: linear-gradient(135deg, #d35dab, #8b5cf6);
+            flex-shrink: 0;
+        }
+        .lb-user-info { overflow: hidden; }
+        .lb-user-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .lb-user-college {
+            font-size: 12px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .lb-tasks-done {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        .lb-score-cell {
+            text-align: center;
+        }
+        .lb-score-val {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--primary);
+        }
+
+        .lb-empty {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-muted);
+        }
+        .lb-empty i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: block;
+            opacity: 0.4;
+        }
+        .lb-empty h3 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 22px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        /* progress bar in table */
+        .lb-progress {
+            width: 60px;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--border-light);
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 6px;
+        }
+        .lb-progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: linear-gradient(90deg, var(--primary), #8b5cf6);
+            transition: width 0.6s ease;
+        }
+
+        /* mobile */
+        @media (max-width: 640px) {
+            .podium-wrap { 
+                gap: 8px; 
+                padding: 0 12px;
+            }
+            .podium-card { 
+                padding: 16px 8px 14px; 
+                border-radius: 14px;
+                min-width: 0;
+            }
+            .podium-avatar { width: 48px; height: 48px; font-size: 18px; }
+            .gold .podium-avatar { width: 56px; height: 56px; font-size: 20px; }
+            .podium-medal { width: 28px; height: 28px; font-size: 12px; top: -14px; }
+            .podium-name { 
+                font-size: 13px; 
+                white-space: normal; 
+                word-break: break-word;
+                line-height: 1.3;
+            }
+            .podium-college { 
+                font-size: 10px; 
+                white-space: normal;
+                word-break: break-word;
+                line-height: 1.3;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+            .podium-score { font-size: 20px; }
+            .podium-pts { font-size: 9px; }
+            .podium-tasks { font-size: 10px; }
+            .lb-hero h1 { font-size: 28px; }
+            .lb-hero p { font-size: 15px; padding: 0 16px; }
+            .lb-stats-row { gap: 24px; }
+            .lb-stat-num { font-size: 26px; }
+            .lb-stat-label { font-size: 11px; }
+            .lb-table thead { display: none; }
+            .lb-row { display: flex; flex-wrap: wrap; align-items: center; padding: 12px; gap: 8px; }
+            .lb-row td { padding: 4px 8px; border: none !important; border-radius: 0 !important; }
+            .lb-row td:first-child { width: 36px; }
+            .lb-row td:nth-child(2) { flex: 1; min-width: 0; }
+            .lb-row td:nth-child(3) { display: none; }
+            .lb-row td:last-child { margin-left: auto; }
+            .lb-user-name { white-space: normal; word-break: break-word; }
+            .lb-user-college { white-space: normal; word-break: break-word; }
+        }
+
+        /* loading skeleton */
+        .lb-skeleton {
+            background: linear-gradient(90deg, var(--border-light) 25%, #f3eef8 50%, var(--border-light) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 10px;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <img src="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png" alt="SSoC Logo">
+            </a>
+            <div class="nav-links">
+                <a href="/#about">About</a>
+                <a href="projects.html">Projects</a>
+                <a href="mentors.html">Mentors</a>
+                <a href="team.html">Team</a>
+                <a href="leaderboard.html" class="active">Campus Advocates Leaderboard</a>
+                <a href="/#faq">FAQ</a>
+            </div>
+            <a href="/#register" class="nav-cta">Register Now</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="/#about">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="mentors.html">Mentors</a>
+        <a href="team.html">Team</a>
+        <a href="leaderboard.html" class="active">Campus Advocates Leaderboard</a>
+        <a href="/#faq">FAQ</a>
+        <a href="/#register" class="mobile-cta">Register Now</a>
+    </div>
+
+    <!-- Hero -->
+    <section class="lb-hero" data-testid="leaderboard-hero">
+        <div class="container">
+            <div class="lb-hero-badge"><i class="fas fa-trophy"></i> Campus Advocates</div>
+            <h1>Advocate <span>Leaderboard</span></h1>
+            <p>Track who's making the biggest impact. Complete tasks, earn points, climb the ranks.</p>
+            <div class="lb-stats-row" id="lbStatsRow" data-testid="lb-stats-row">
+                <div class="lb-stat">
+                    <div class="lb-stat-num" id="lbTotalAdvocates">--</div>
+                    <div class="lb-stat-label">Advocates</div>
+                </div>
+                <div class="lb-stat">
+                    <div class="lb-stat-num" id="lbTotalTasks">--</div>
+                    <div class="lb-stat-label">Tasks</div>
+                </div>
+                <div class="lb-stat">
+                    <div class="lb-stat-num" id="lbTotalPoints">--</div>
+                    <div class="lb-stat-label">Points Earned</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Podium -->
+    <section class="podium-section" id="podiumSection" data-testid="podium-section">
+        <div class="container">
+            <div class="podium-wrap" id="podiumWrap">
+                <!-- Filled by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Full Table -->
+    <section class="table-section" data-testid="leaderboard-table-section">
+        <div class="container">
+            <table class="lb-table" id="lbTable">
+                <thead>
+                    <tr>
+                        <th style="width:48px">Rank</th>
+                        <th>Advocate</th>
+                        <th style="text-align:center">Tasks</th>
+                        <th style="text-align:center">Score</th>
+                    </tr>
+                </thead>
+                <tbody id="lbTableBody" data-testid="lb-table-body">
+                    <!-- Filled by JS -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 Social Summer of Code. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const API_URL = window.location.origin + '/api';
+        
+        // Start fetching data immediately (before DOM is fully ready)
+        const leaderboardPromise = fetch(`${API_URL}/leaderboard`).then(r => r.json()).catch(err => {
+            console.error('Leaderboard prefetch error:', err);
+            return null;
+        });
+
+        function getInitials(name) {
+            return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+        }
+
+        function buildPodium(lb) {
+            const wrap = document.getElementById('podiumWrap');
+            if (!lb || lb.length === 0) {
+                document.getElementById('podiumSection').style.display = 'none';
+                return;
+            }
+            const top3 = lb.slice(0, 3);
+            const classes = ['gold','silver','bronze'];
+            const medalLabels = ['1','2','3'];
+            // Order: silver(0) gold(1) bronze(2) — CSS order handles visual placement
+            let html = '';
+            top3.forEach((entry, i) => {
+                const cls = classes[i] || 'bronze';
+                const pct = entry.total_tasks > 0 ? Math.round((entry.tasks_completed / entry.total_tasks) * 100) : 0;
+                html += `
+                <div class="podium-card ${cls}" data-testid="podium-card-${i+1}">
+                    <div class="podium-medal">${medalLabels[i]}</div>
+                    <div class="podium-avatar">${getInitials(entry.name)}</div>
+                    <div class="podium-name" title="${entry.name}">${entry.name}</div>
+                    <div class="podium-college" title="${entry.college}">${entry.college}</div>
+                    <div class="podium-score">${entry.score}</div>
+                    <div class="podium-pts">points</div>
+                    <div class="podium-tasks">${entry.tasks_completed}/${entry.total_tasks} tasks</div>
+                </div>`;
+            });
+            wrap.innerHTML = html;
+        }
+
+        function buildTable(lb) {
+            const tbody = document.getElementById('lbTableBody');
+            if (!lb || lb.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4"><div class="lb-empty"><i class="fas fa-trophy"></i><h3>No scores yet</h3><p>Tasks haven't been assigned to advocates yet. Check back soon!</p></div></td></tr>`;
+                return;
+            }
+            tbody.innerHTML = lb.map(entry => {
+                const pct = entry.total_tasks > 0 ? Math.round((entry.tasks_completed / entry.total_tasks) * 100) : 0;
+                return `
+                <tr class="lb-row" data-testid="lb-row-${entry.rank}">
+                    <td><div class="lb-rank ${entry.rank <= 3 ? 'top-3' : ''}">${entry.rank <= 3 ? '<i class="fas fa-medal"></i>' : entry.rank}</div></td>
+                    <td>
+                        <div class="lb-user">
+                            <div class="lb-user-avatar">${getInitials(entry.name)}</div>
+                            <div class="lb-user-info">
+                                <div class="lb-user-name">${entry.name}</div>
+                                <div class="lb-user-college">${entry.college || entry.city}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="lb-tasks-done">
+                        ${entry.tasks_completed}/${entry.total_tasks}
+                        <div class="lb-progress"><div class="lb-progress-fill" style="width:${pct}%"></div></div>
+                    </td>
+                    <td class="lb-score-cell"><span class="lb-score-val">${entry.score}</span></td>
+                </tr>`;
+            }).join('');
+        }
+
+        async function loadLeaderboard() {
+            // Show skeleton
+            const tbody = document.getElementById('lbTableBody');
+            tbody.innerHTML = Array(5).fill('').map(() => `<tr><td colspan="4"><div class="lb-skeleton" style="height:52px;margin-bottom:4px"></div></td></tr>`).join('');
+
+            try {
+                // Use pre-fetched data if available, otherwise fetch fresh
+                const data = await leaderboardPromise || await fetch(`${API_URL}/leaderboard`).then(r => r.json());
+                const lb = data.leaderboard || [];
+                const totalPts = lb.reduce((s,e) => s + e.score, 0);
+
+                document.getElementById('lbTotalAdvocates').textContent = data.total_advocates || 0;
+                document.getElementById('lbTotalTasks').textContent = data.total_tasks || 0;
+                document.getElementById('lbTotalPoints').textContent = totalPts;
+
+                buildPodium(lb);
+                buildTable(lb);
+            } catch (err) {
+                console.error('Leaderboard load error:', err);
+                tbody.innerHTML = `<tr><td colspan="4"><div class="lb-empty"><i class="fas fa-exclamation-triangle"></i><h3>Could not load leaderboard</h3><p>Please try again later.</p></div></td></tr>`;
+            }
+        }
+
+        // Mobile menu
+        document.getElementById('mobileMenuBtn')?.addEventListener('click', () => {
+            document.getElementById('mobileMenu')?.classList.toggle('active');
+        });
+
+        // Navbar scroll
+        window.addEventListener('scroll', () => {
+            const nb = document.getElementById('navbar');
+            if (nb) nb.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        document.addEventListener('DOMContentLoaded', loadLeaderboard);
+    </script>
+</body>
+</html>

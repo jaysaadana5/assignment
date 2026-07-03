@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Contributor Onboarding · SSoC Season 5</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Unlisted: do not index, do not link from public nav -->
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" type="image/png" href="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,800;9..144,900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #f0eee9; font-family: 'Space Grotesk', system-ui, sans-serif; color: #1E1124; min-height: 100vh; }
+
+  .ob-nav {
+    background: #1E1124; padding: 16px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 50;
+  }
+  .ob-nav a.brand {
+    color: white; text-decoration: none; font-weight: 700; font-size: 18px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .ob-nav a.brand img { width: 32px; height: 32px; border-radius: 8px; }
+  .ob-nav .small {
+    color: rgba(255,255,255,0.55); font-size: 12px; letter-spacing: 0.15em;
+    text-transform: uppercase; font-weight: 600;
+  }
+
+  .hero {
+    text-align: center; padding: 60px 20px 24px; max-width: 760px; margin: 0 auto;
+  }
+  .hero .eyebrow {
+    display: inline-block; background: rgba(217,70,160,0.12); color: #D946A0;
+    font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 999px;
+    letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 50px); font-weight: 900; margin: 0 0 14px;
+    line-height: 1.05; letter-spacing: -0.02em;
+    font-family: 'Fraunces', serif;
+  }
+  .hero h1 span { color: #D946A0; font-style: italic; }
+  .hero p { color: #6b5b65; font-size: 16px; line-height: 1.65; margin: 0 auto; max-width: 560px; }
+
+  .form-shell {
+    max-width: 720px; margin: 16px auto 80px; padding: 0 20px;
+  }
+  .form-card {
+    background: white; border-radius: 22px; padding: 36px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+  }
+  .row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+  .row label {
+    font-size: 13px; font-weight: 700; color: #1E1124;
+    letter-spacing: 0.01em;
+  }
+  .row label .req { color: #D946A0; margin-left: 2px; }
+  .row .hint { color: #6b5b65; font-weight: 500; font-size: 12px; }
+  .row input, .row textarea, .row select {
+    width: 100%; padding: 12px 14px; border-radius: 12px;
+    border: 1.5px solid #eadcef; background: #fbf9fc;
+    color: #1E1124; font-family: inherit; font-size: 15px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .row input:focus, .row textarea:focus, .row select:focus {
+    outline: none; border-color: #D946A0;
+    box-shadow: 0 0 0 4px rgba(217,70,160,0.12);
+  }
+
+  .phone-row { display: grid; grid-template-columns: 110px 1fr; gap: 10px; }
+
+  .check-group { margin-top: 12px; }
+  .check-group h3 {
+    font-family: 'Fraunces', serif; font-size: 19px; font-weight: 800;
+    margin: 8px 0 4px;
+  }
+  .check-group p.sub {
+    color: #6b5b65; font-size: 13.5px; margin: 0 0 14px;
+  }
+  .check-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: #faf7f2; border: 1.5px solid #eee;
+    padding: 14px 16px; border-radius: 14px; margin-bottom: 10px;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .check-item:hover { border-color: #E86FBB; background: #fff5fb; }
+  .check-item input[type="checkbox"] {
+    width: 20px; height: 20px; accent-color: #D946A0; margin-top: 2px;
+    cursor: pointer; flex-shrink: 0;
+  }
+  .check-item .ctext { flex: 1; }
+  .check-item .ctitle { font-weight: 700; font-size: 14.5px; color: #1E1124; }
+  .check-item .cdesc { font-size: 13px; color: #6b5b65; margin-top: 3px; line-height: 1.5; }
+  .check-item .cdesc a { color: #D946A0; font-weight: 600; text-decoration: none; border-bottom: 1px dashed rgba(217,70,160,0.4); }
+  .check-item.checked { border-color: #D946A0; background: rgba(217,70,160,0.06); }
+
+  .actions { margin-top: 22px; display: flex; justify-content: flex-end; gap: 10px; }
+  .btn {
+    padding: 14px 26px; border-radius: 999px; font-weight: 700; font-size: 15px;
+    border: none; cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px; font-family: inherit;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #E86FBB, #D946A0); color: white;
+    box-shadow: 0 6px 20px rgba(217,70,160,0.4);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(217,70,160,0.5); }
+  .btn-primary:disabled { opacity: 0.7; cursor: wait; transform: none; }
+
+  .alert {
+    display: none; padding: 12px 16px; border-radius: 12px;
+    font-size: 14px; margin-bottom: 14px; line-height: 1.5;
+  }
+  .alert.show { display: block; }
+  .alert.error { background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; }
+  .alert.success { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+
+  .success-state {
+    display: none; text-align: center; padding: 40px 20px;
+  }
+  .success-state.show { display: block; }
+  .success-state .icon {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: linear-gradient(135deg, #E86FBB, #D946A0);
+    margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 36px;
+    box-shadow: 0 10px 28px rgba(217,70,160,0.4);
+  }
+  .success-state h2 {
+    font-family: 'Fraunces', serif; font-size: 28px; margin: 0 0 10px;
+  }
+  .success-state p { color: #6b5b65; font-size: 15.5px; line-height: 1.6; margin: 0 auto; max-width: 460px; }
+  .success-state .resubmit {
+    margin-top: 22px; color: #D946A0; background: none; border: none;
+    font-weight: 600; cursor: pointer; font-family: inherit; font-size: 14px;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    .form-card { padding: 24px 18px; }
+    .ob-nav { padding: 12px 16px; }
+    .phone-row { grid-template-columns: 90px 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="ob-nav" data-testid="onboarding-nav">
+  <a href="/" class="brand">
+    <img src="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png" alt="SSoC" />
+    SSoC Season 5
+  </a>
+  <span class="small">Contributor Onboarding</span>
+</nav>
+
+<section class="hero">
+  <span class="eyebrow"><i class="fas fa-clipboard-check"></i> &nbsp;Welcome aboard</span>
+  <h1>Complete your <span>onboarding</span></h1>
+  <p>Just a few quick steps to lock in your spot. Make sure you've completed the checklist below before submitting.</p>
+</section>
+
+<div class="form-shell">
+  <div class="form-card" id="formCard" data-testid="onboarding-form-card">
+
+    <div class="alert error" id="errorAlert" data-testid="error-alert"></div>
+
+    <form id="onboardingForm" autocomplete="on" novalidate>
+      <div class="row">
+        <label for="ob_name">Full Name <span class="req">*</span></label>
+        <input type="text" id="ob_name" name="name" data-testid="ob-name" required maxlength="120" placeholder="Your full name" autocomplete="name" />
+      </div>
+
+      <div class="row">
+        <label for="ob_email">Email <span class="req">*</span> <span class="hint">(the one you registered with)</span></label>
+        <input type="email" id="ob_email" name="email" data-testid="ob-email" required maxlength="200" placeholder="you@example.com" autocomplete="email" />
+      </div>
+
+      <div class="row">
+        <label>Contact Number <span class="req">*</span></label>
+        <div class="phone-row">
+          <select id="ob_cc" data-testid="ob-country-code" required>
+            <option value="+91" selected>+91 IN</option>
+            <option value="+1">+1 US</option>
+            <option value="+44">+44 UK</option>
+            <option value="+61">+61 AU</option>
+            <option value="+971">+971 AE</option>
+            <option value="+65">+65 SG</option>
+            <option value="+49">+49 DE</option>
+            <option value="+33">+33 FR</option>
+            <option value="+81">+81 JP</option>
+            <option value="+86">+86 CN</option>
+            <option value="+880">+880 BD</option>
+            <option value="+92">+92 PK</option>
+            <option value="+94">+94 LK</option>
+            <option value="+977">+977 NP</option>
+            <option value="+27">+27 ZA</option>
+            <option value="+55">+55 BR</option>
+            <option value="+7">+7 RU</option>
+            <option value="+82">+82 KR</option>
+            <option value="+62">+62 ID</option>
+            <option value="+60">+60 MY</option>
+            <option value="+66">+66 TH</option>
+            <option value="+90">+90 TR</option>
+            <option value="+20">+20 EG</option>
+            <option value="+234">+234 NG</option>
+            <option value="+254">+254 KE</option>
+          </select>
+          <input type="tel" id="ob_phone" name="phone" data-testid="ob-phone" required maxlength="20" inputmode="tel" placeholder="10-digit number" autocomplete="tel-national" />
+        </div>
+      </div>
+
+      <div class="check-group">
+        <h3>Onboarding Checklist</h3>
+        <p class="sub">Check each task once you've completed it. Be honest — we may spot-check.</p>
+
+        <label class="check-item" data-testid="check-badge">
+          <input type="checkbox" id="ob_badge" />
+          <span class="ctext">
+            <div class="ctitle">Generated my SSoC Badge</div>
+            <div class="cdesc">Created a personalized contributor badge from <a href="/badge.html" target="_blank" rel="noopener">badge.html</a> and saved/shared it.</div>
+          </span>
+        </label>
+
+        <label class="check-item" data-testid="check-producthunt">
+          <input type="checkbox" id="ob_ph" />
+          <span class="ctext">
+            <div class="ctitle">Created Product Hunt account &amp; upvoted a product</div>
+            <div class="cdesc">Signed up at <a href="https://www.producthunt.com" target="_blank" rel="noopener">producthunt.com</a> and gave at least one upvote to any product.</div>
+          </span>
+        </label>
+
+        <label class="check-item" data-testid="check-discord">
+          <input type="checkbox" id="ob_discord" />
+          <span class="ctext">
+            <div class="ctitle">Joined the SSoC Discord community</div>
+            <div class="cdesc">Got into the Discord server, introduced yourself in #introductions, and turned on notifications for announcements.</div>
+          </span>
+        </label>
+      </div>
+
+      <div class="row" style="margin-top: 16px;">
+        <label for="ob_notes">Anything else? <span class="hint">(optional)</span></label>
+        <textarea id="ob_notes" rows="3" maxlength="500" placeholder="Anything you'd like the SSoC team to know..."></textarea>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn btn-primary" id="ob_submit" data-testid="ob-submit">
+          <i class="fas fa-paper-plane"></i> Submit Onboarding
+        </button>
+      </div>
+    </form>
+
+    <div class="success-state" id="successState" data-testid="onboarding-success">
+      <div class="icon"><i class="fas fa-check"></i></div>
+      <h2>You're onboarded! <span style="font-style:italic;color:#D946A0;">Welcome to SSoC Season 5.</span></h2>
+      <p>Thanks for completing the onboarding. Our team has your details and will be in touch with next steps soon.</p>
+      <button class="resubmit" type="button" onclick="resetForm()" data-testid="ob-resubmit">Submit another response</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const API_URL = window.location.origin + '/api';
+  const form = document.getElementById('onboardingForm');
+  const errorAlert = document.getElementById('errorAlert');
+  const submitBtn = document.getElementById('ob_submit');
+  const successState = document.getElementById('successState');
+
+  // Visual toggle for checked state
+  document.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
+    const item = cb.closest('.check-item');
+    cb.addEventListener('change', () => item.classList.toggle('checked', cb.checked));
+  });
+
+  function showError(msg) {
+    errorAlert.textContent = msg;
+    errorAlert.classList.add('show');
+    errorAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  function clearError() {
+    errorAlert.classList.remove('show');
+    errorAlert.textContent = '';
+  }
+  window.resetForm = function() {
+    form.reset();
+    document.querySelectorAll('.check-item').forEach(el => el.classList.remove('checked'));
+    successState.classList.remove('show');
+    form.style.display = '';
+    clearError();
+  };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearError();
+
+    const name = document.getElementById('ob_name').value.trim();
+    const email = document.getElementById('ob_email').value.trim().toLowerCase();
+    const cc = document.getElementById('ob_cc').value;
+    const phone = document.getElementById('ob_phone').value.trim();
+
+    if (!name) return showError('Please enter your name.');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return showError('Please enter a valid email address.');
+    if (!/^[0-9 \-]{4,20}$/.test(phone)) return showError('Please enter a valid contact number (digits only).');
+
+    const payload = {
+      name,
+      email,
+      countryCode: cc,
+      phone,
+      badgeGenerated: document.getElementById('ob_badge').checked,
+      productHuntDone: document.getElementById('ob_ph').checked,
+      discordJoined: document.getElementById('ob_discord').checked,
+      notes: document.getElementById('ob_notes').value.trim()
+    };
+
+    submitBtn.disabled = true;
+    const originalHTML = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+    try {
+      const res = await fetch(`${API_URL}/onboarding/submit`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data.success === false) {
+        throw new Error(data.detail || data.message || ('HTTP ' + res.status));
+      }
+      form.style.display = 'none';
+      successState.classList.add('show');
+      successState.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (err) {
+      console.error('Onboarding submit failed:', err);
+      showError('Could not submit: ' + (err.message || 'unknown error'));
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalHTML;
+    }
+  });
+</script>
+
+</body>
+</html>

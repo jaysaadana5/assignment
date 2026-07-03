@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Raids · SSoC Season 5</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" type="image/png" href="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,800;9..144,900&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #f0eee9; font-family: 'Space Grotesk', system-ui, sans-serif; color: #1E1124; min-height: 100vh; }
+
+  .r-nav {
+    background: #1E1124; padding: 16px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 50;
+  }
+  .r-nav a.brand {
+    color: white; text-decoration: none; font-weight: 700; font-size: 18px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .r-nav a.brand img { width: 32px; height: 32px; border-radius: 8px; }
+  .r-nav .small {
+    color: rgba(255,255,255,0.55); font-size: 12px; letter-spacing: 0.15em;
+    text-transform: uppercase; font-weight: 600;
+  }
+
+  .hero {
+    text-align: center; padding: 60px 20px 24px; max-width: 800px; margin: 0 auto;
+  }
+  .hero .eyebrow {
+    display: inline-block; background: rgba(217,70,160,0.12); color: #D946A0;
+    font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 999px;
+    letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: clamp(34px, 5vw, 54px); font-weight: 900; margin: 0 0 14px;
+    line-height: 1.05; letter-spacing: -0.02em;
+    font-family: 'Fraunces', serif;
+  }
+  .hero h1 span { color: #D946A0; font-style: italic; }
+  .hero p { color: #6b5b65; font-size: 16.5px; line-height: 1.65; margin: 0 auto; max-width: 600px; }
+
+  .stats-row {
+    display: flex; justify-content: center; gap: 12px; margin-top: 22px; flex-wrap: wrap;
+  }
+  .stat-pill {
+    background: white; border-radius: 14px; padding: 10px 18px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    font-size: 13.5px; font-weight: 600; color: #1E1124;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .stat-pill .n { font-size: 19px; font-weight: 900; color: #D946A0; font-family: 'Fraunces', serif; }
+  .stat-pill i { color: #D946A0; }
+
+  /* Identity bar */
+  .ident-bar {
+    background: white; max-width: 880px; margin: 28px auto 0; padding: 18px 22px;
+    border-radius: 18px; box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    display: grid; grid-template-columns: 1fr 1fr auto; gap: 14px;
+    align-items: end;
+  }
+  .ident-bar .field { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+  .ident-bar label {
+    font-size: 12px; font-weight: 700; color: #1E1124;
+    letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .ident-bar input {
+    width: 100%; padding: 11px 13px; border-radius: 10px;
+    border: 1.5px solid #eadcef; background: #fbf9fc;
+    font-family: inherit; font-size: 14.5px; color: #1E1124;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .ident-bar input:focus { outline: none; border-color: #D946A0; box-shadow: 0 0 0 3px rgba(217,70,160,0.12); }
+  .ident-bar .save-btn {
+    padding: 11px 20px; border: none; border-radius: 10px;
+    background: linear-gradient(135deg, #E86FBB, #D946A0); color: white;
+    font-weight: 700; font-size: 14px; cursor: pointer;
+    box-shadow: 0 4px 14px rgba(217,70,160,0.35);
+    transition: transform 0.15s;
+    font-family: inherit;
+    height: 42px;
+  }
+  .ident-bar .save-btn:hover { transform: translateY(-1px); }
+  .ident-bar .save-btn.saved { background: #16a34a; box-shadow: 0 4px 14px rgba(22,163,74,0.35); }
+  .ident-bar .save-btn.saved::after { content: ' ✓'; }
+  .ident-note { font-size: 12px; color: #6b5b65; margin-top: 6px; text-align: center; grid-column: 1 / -1; }
+
+  /* Main grid */
+  .main-grid {
+    display: grid; grid-template-columns: 1fr 320px; gap: 24px;
+    max-width: 1180px; margin: 28px auto 80px; padding: 0 24px;
+  }
+
+  /* Raid cards */
+  .raid-list { display: flex; flex-direction: column; gap: 14px; }
+  .raid {
+    background: white; border-radius: 18px; padding: 22px;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .raid:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(0,0,0,0.08); }
+  .raid.is-daily { border-left: 4px solid #f59e0b; }
+  .raid.done { background: linear-gradient(135deg, #fff5fb, #ffffff); border: 1.5px solid #f3c4e1; }
+  .raid.is-daily.done { border-left: 4px solid #f59e0b; }
+  .daily-pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b); color: white;
+    font-size: 10px; font-weight: 800; letter-spacing: 0.08em;
+    padding: 4px 9px; border-radius: 999px; margin-right: 8px;
+    vertical-align: middle;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  .daily-pill i { font-size: 11px; }
+  .done-today-pill {
+    background: #fef3c7; color: #92400e;
+    font-weight: 700; padding: 4px 10px; border-radius: 999px;
+    font-size: 12px; display: inline-flex; align-items: center; gap: 5px;
+  }
+  .done-today-pill i { color: #f59e0b; }
+  .raid.done::before {
+    content: 'COMPLETED'; position: absolute; top: 18px; right: 18px;
+    background: #16a34a; color: white; font-size: 10px; font-weight: 800;
+    padding: 4px 10px; border-radius: 999px; letter-spacing: 0.1em;
+  }
+  .raid.inactive { opacity: 0.65; }
+  .raid h3 {
+    font-family: 'Fraunces', serif; font-size: 21px; font-weight: 800;
+    margin: 0 0 8px; padding-right: 100px; line-height: 1.25;
+  }
+  .raid .desc { color: #4a3c52; font-size: 14.5px; line-height: 1.6; margin: 0 0 14px; white-space: pre-wrap; word-wrap: break-word; overflow-wrap: anywhere; }
+  .raid .desc-link {
+    color: #D946A0; font-weight: 600; text-decoration: none;
+    border-bottom: 1px dashed rgba(217,70,160,0.4);
+    word-break: break-all;
+  }
+  .raid .desc-link:hover { border-bottom-style: solid; }
+  .raid-meta {
+    display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 14px;
+    font-size: 13px; color: #6b5b65; align-items: center;
+  }
+  .raid-meta span { display: inline-flex; align-items: center; gap: 6px; }
+  .raid-meta i { color: #D946A0; }
+  .raid-meta .points { background: rgba(217,70,160,0.1); color: #D946A0; padding: 4px 10px; border-radius: 999px; font-weight: 700; }
+  .raid-meta .done-count { background: #f0fdf4; color: #16a34a; padding: 4px 10px; border-radius: 999px; font-weight: 700; }
+  .raid-meta .deadline-bad { color: #b45309; }
+
+  .raid-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .raid a.link-btn {
+    text-decoration: none; padding: 10px 18px; border-radius: 999px;
+    background: #1E1124; color: white; font-weight: 700; font-size: 13.5px;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: transform 0.15s, background 0.15s;
+  }
+  .raid a.link-btn:hover { background: #382245; transform: translateY(-1px); }
+  .raid .complete-btn {
+    border: none; padding: 10px 18px; border-radius: 999px;
+    background: linear-gradient(135deg, #E86FBB, #D946A0); color: white;
+    font-weight: 700; font-size: 13.5px; cursor: pointer;
+    box-shadow: 0 4px 14px rgba(217,70,160,0.35);
+    transition: transform 0.15s;
+    display: inline-flex; align-items: center; gap: 8px; font-family: inherit;
+  }
+  .raid .complete-btn:hover { transform: translateY(-1px); }
+  .raid .complete-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  .empty {
+    text-align: center; padding: 60px 20px; color: #6b5b65;
+    background: white; border-radius: 18px;
+  }
+  .empty i { font-size: 38px; color: #D946A0; opacity: 0.6; margin-bottom: 12px; }
+  .empty h3 { font-family: 'Fraunces', serif; font-size: 22px; margin: 0 0 6px; }
+
+  /* Leaderboard */
+  .leaderboard {
+    background: white; border-radius: 18px; padding: 22px;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.05);
+    position: sticky; top: 88px; align-self: start;
+  }
+  .leaderboard h3 {
+    font-family: 'Fraunces', serif; font-size: 19px; font-weight: 800;
+    margin: 0 0 14px; display: flex; align-items: center; gap: 10px;
+  }
+  .leaderboard h3 i { color: #f59e0b; }
+  .lb-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 4px; border-bottom: 1px solid #f1ecf5;
+  }
+  .lb-row:last-child { border-bottom: none; }
+  .lb-rank {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #f3f0f7; color: #6b5b65;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 13px; flex-shrink: 0;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .lb-row.top-1 .lb-rank { background: linear-gradient(135deg, #fde047, #f59e0b); color: white; }
+  .lb-row.top-2 .lb-rank { background: linear-gradient(135deg, #d1d5db, #9ca3af); color: white; }
+  .lb-row.top-3 .lb-rank { background: linear-gradient(135deg, #fda4af, #b45309); color: white; }
+  .lb-name { flex: 1; min-width: 0; }
+  .lb-name .n { font-weight: 700; font-size: 14px; color: #1E1124;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .lb-name .e { font-size: 11.5px; color: #6b5b65;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .lb-points {
+    background: rgba(217,70,160,0.1); color: #D946A0;
+    font-weight: 800; font-size: 12.5px; padding: 4px 10px; border-radius: 999px;
+    white-space: nowrap;
+  }
+  .lb-empty { text-align: center; color: #94a3b8; font-size: 13px; padding: 14px 0; }
+  .lb-note { font-size: 11.5px; color: #6b5b65; letter-spacing: 0.06em; text-transform: uppercase;
+    text-align: center; padding: 4px 0 10px; margin-bottom: 4px;
+    border-bottom: 1px solid #f1ecf5; font-weight: 600; }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(30,17,36,0.65);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    z-index: 100; display: flex; align-items: center; justify-content: center;
+    padding: 24px; opacity: 0; pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  .modal-overlay.active { opacity: 1; pointer-events: auto; }
+  .modal {
+    background: white; width: min(520px, 100%); border-radius: 18px;
+    padding: 28px; box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+    transform: translateY(16px) scale(0.98);
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .modal-overlay.active .modal { transform: translateY(0) scale(1); }
+  .modal h3 {
+    font-family: 'Fraunces', serif; font-size: 22px; margin: 0 0 6px; line-height: 1.2;
+  }
+  .modal .sub { color: #6b5b65; font-size: 14px; margin: 0 0 18px; }
+  .modal label {
+    display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; color: #1E1124;
+  }
+  .modal input {
+    width: 100%; padding: 12px 14px; border-radius: 10px;
+    border: 1.5px solid #eadcef; background: #fbf9fc;
+    font-family: inherit; font-size: 14.5px;
+  }
+  .modal input:focus { outline: none; border-color: #D946A0; box-shadow: 0 0 0 3px rgba(217,70,160,0.12); }
+  .modal-err {
+    display: none; background: #fef2f2; border: 1px solid #fecaca;
+    color: #b91c1c; padding: 10px 14px; border-radius: 10px;
+    font-size: 13px; margin-top: 10px;
+  }
+  .modal-err.show { display: block; }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px; }
+  .modal-actions button {
+    padding: 11px 22px; border-radius: 999px; font-weight: 700; font-size: 14px;
+    border: none; cursor: pointer; font-family: inherit;
+  }
+  .ghost { background: #f3f0f7; color: #6b5b65; }
+  .ghost:hover { background: #e9e2f0; }
+  .primary { background: linear-gradient(135deg, #E86FBB, #D946A0); color: white; box-shadow: 0 4px 14px rgba(217,70,160,0.35); }
+  .primary:hover { transform: translateY(-1px); }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: #1E1124; color: white; padding: 12px 22px; border-radius: 999px;
+    font-weight: 600; font-size: 14px; opacity: 0; pointer-events: none;
+    box-shadow: 0 10px 32px rgba(0,0,0,0.3); z-index: 200;
+    transition: all 0.25s ease;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.error { background: #b91c1c; }
+
+  @media (max-width: 920px) {
+    .main-grid { grid-template-columns: 1fr; gap: 18px; padding: 0 16px; }
+    .leaderboard { position: static; }
+    .ident-bar { max-width: calc(100% - 32px); margin-left: 16px; margin-right: 16px; }
+  }
+  @media (max-width: 640px) {
+    .r-nav { padding: 10px 14px; }
+    .r-nav a.brand { font-size: 15px; }
+    .r-nav a.brand img { width: 28px; height: 28px; }
+    .r-nav .small { font-size: 10px; letter-spacing: 0.1em; }
+    .hero { padding: 32px 16px 12px; }
+    .hero h1 { font-size: clamp(26px, 8vw, 34px); }
+    .hero p { font-size: 14.5px; }
+    .stats-row { gap: 8px; }
+    .stat-pill { padding: 7px 12px; font-size: 12px; }
+    .stat-pill .n { font-size: 15px; }
+    .ident-bar {
+      grid-template-columns: 1fr; padding: 14px; gap: 10px;
+      margin-top: 20px;
+    }
+    .ident-bar .save-btn { width: 100%; }
+    .ident-note { font-size: 11.5px; margin-top: 2px; }
+    .main-grid { margin-top: 20px; margin-bottom: 50px; }
+    .raid { padding: 16px; border-radius: 14px; }
+    .raid h3 { padding-right: 0; font-size: 18px; }
+    .raid .desc { font-size: 13.5px; }
+    .raid.done::before {
+      position: static; display: inline-block; margin-bottom: 8px;
+      font-size: 9px; padding: 3px 8px;
+    }
+    .raid-meta { gap: 8px; font-size: 12px; }
+    .raid-meta .points, .raid-meta .done-count { padding: 3px 8px; font-size: 11.5px; }
+    .raid-actions { flex-direction: column; gap: 8px; }
+    .raid a.link-btn,
+    .raid .complete-btn { width: 100%; justify-content: center; padding: 11px 16px; font-size: 13px; }
+    .leaderboard { padding: 16px; border-radius: 14px; }
+    .leaderboard h3 { font-size: 17px; }
+    .lb-name .n { font-size: 13px; }
+    .lb-name .e { font-size: 11px; }
+    .lb-points { font-size: 11.5px; padding: 3px 8px; }
+    .modal-overlay { padding: 16px; }
+    .modal { padding: 22px 18px; border-radius: 14px; }
+    .modal h3 { font-size: 18px; }
+    .modal-actions { flex-direction: column-reverse; }
+    .modal-actions button { width: 100%; padding: 12px 18px; }
+    .toast { left: 16px; right: 16px; bottom: 18px; transform: translateY(20px); text-align: center; }
+    .toast.show { transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<nav class="r-nav">
+  <a href="/" class="brand">
+    <img src="https://customer-assets.emergentagent.com/job_ssoc-dashboard/artifacts/yytfczyf_4D3059B5-BAFD-4670-9409-4B2B37CF038C.png" alt="SSoC" />
+    SSoC Season 5
+  </a>
+  <span class="small">Contributor Raids</span>
+</nav>
+
+<section class="hero">
+  <span class="eyebrow"><i class="fas fa-bolt"></i> &nbsp;Mission control</span>
+  <h1>Run <span>raids</span>, earn points</h1>
+  <p>Quick community missions. Complete them, submit proof, climb the leaderboard. New raids drop here regularly — strike fast.</p>
+  <div class="stats-row" id="statsRow"></div>
+</section>
+
+<div class="ident-bar" data-testid="raids-identity-bar">
+  <div class="field">
+    <label for="ident_name">Your name</label>
+    <input type="text" id="ident_name" data-testid="ident-name" placeholder="Jane Contributor" autocomplete="name" maxlength="120" />
+  </div>
+  <div class="field">
+    <label for="ident_email">Your registered email</label>
+    <input type="email" id="ident_email" data-testid="ident-email" placeholder="you@example.com" autocomplete="email" maxlength="200" />
+  </div>
+  <button class="save-btn" id="identSave" data-testid="ident-save" type="button">Save</button>
+  <div class="ident-note">Used to credit your raid completions. We never email you without consent.</div>
+</div>
+
+<div class="main-grid">
+  <div class="raid-list" id="raidList" data-testid="raid-list">
+    <!-- raids inserted here -->
+  </div>
+
+  <aside class="leaderboard" data-testid="raids-leaderboard">
+    <h3><i class="fas fa-trophy"></i> Top Raiders</h3>
+    <div id="lbList"></div>
+  </aside>
+</div>
+
+<!-- Submit Proof modal -->
+<div class="modal-overlay" id="proofModal" data-testid="proof-modal" onclick="if(event.target===this)closeProof()">
+  <div class="modal">
+    <h3 id="proofTitle">Submit proof</h3>
+    <p class="sub" id="proofSub">Drop a link as proof — tweet URL, screenshot URL, profile URL, anything verifiable.</p>
+    <label for="proofUrl">Proof URL <span style="color:#D946A0;">*</span></label>
+    <input type="url" id="proofUrl" data-testid="proof-url" placeholder="https://..." />
+    <div class="modal-err" id="proofErr" data-testid="proof-error"></div>
+    <div class="modal-actions">
+      <button class="ghost" type="button" onclick="closeProof()" data-testid="proof-cancel">Cancel</button>
+      <button class="primary" type="button" onclick="submitProof()" id="proofSubmitBtn" data-testid="proof-submit">
+        <i class="fas fa-paper-plane"></i> Submit proof
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" data-testid="raids-toast"></div>
+
+<script>
+  const API = window.location.origin + '/api';
+  const LS_KEY = 'ssoc_raider_identity';
+
+  let raids = [];
+  let myCompletions = new Set();          // raidIds the user has done (one-time)
+  let myDailyDoneToday = new Set();       // raidIds the user did *today* (daily)
+  let currentRaidId = null;
+  let currentRaidIsDaily = false;
+  let stats = { totalRaids: 0, activeRaids: 0, totalCompletions: 0, completionsByRaid: {}, leaderboard: [] };
+
+  // Calendar day in user's local timezone (YYYY-MM-DD)
+  function todayLocal() {
+    const d = new Date();
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  }
+
+  // --- Identity persistence (localStorage) ---
+  function loadIdentity() {
+    try { return JSON.parse(localStorage.getItem(LS_KEY) || '{}'); }
+    catch { return {}; }
+  }
+  function saveIdentity() {
+    const id = {
+      name: document.getElementById('ident_name').value.trim(),
+      email: document.getElementById('ident_email').value.trim().toLowerCase()
+    };
+    if (!id.name || !id.email) { showToast('Enter your name & email first', true); return; }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(id.email)) { showToast('Invalid email', true); return; }
+    localStorage.setItem(LS_KEY, JSON.stringify(id));
+    const btn = document.getElementById('identSave');
+    btn.textContent = 'Saved';
+    btn.classList.add('saved');
+    setTimeout(() => { btn.textContent = 'Save'; btn.classList.remove('saved'); }, 1800);
+    showToast('Identity saved');
+    refreshMyCompletions();
+  }
+  function getIdentity() {
+    return {
+      name: document.getElementById('ident_name').value.trim(),
+      email: document.getElementById('ident_email').value.trim().toLowerCase()
+    };
+  }
+  document.getElementById('identSave').addEventListener('click', saveIdentity);
+
+  (function initIdentity() {
+    const saved = loadIdentity();
+    if (saved.name) document.getElementById('ident_name').value = saved.name;
+    if (saved.email) document.getElementById('ident_email').value = saved.email;
+  })();
+
+  // --- Toast ---
+  function showToast(msg, error) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.toggle('error', !!error);
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  // --- Render ---
+  function fmtDeadline(iso) {
+    if (!iso) return null;
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return iso;
+    const now = new Date();
+    const diff = d - now;
+    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+    const label = d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+    const expired = diff < 0;
+    return { label, days, expired };
+  }
+
+  function renderStats() {
+    const row = document.getElementById('statsRow');
+    const raiderCount = typeof stats.uniqueRaiders === 'number' ? stats.uniqueRaiders : stats.leaderboard.length;
+    row.innerHTML = `
+      <span class="stat-pill"><i class="fas fa-bolt"></i><span class="n">${stats.activeRaids}</span> active raids</span>
+      <span class="stat-pill"><i class="fas fa-users"></i><span class="n">${stats.totalCompletions}</span> completions</span>
+      <span class="stat-pill"><i class="fas fa-user-check"></i><span class="n">${raiderCount}</span> raiders</span>
+    `;
+  }
+
+  function renderLeaderboard() {
+    const lb = document.getElementById('lbList');
+    if (!stats.leaderboard.length) {
+      lb.innerHTML = '<div class="lb-empty">Be the first to complete a raid — your name will appear here.</div>';
+      return;
+    }
+    const total = typeof stats.uniqueRaiders === 'number' ? stats.uniqueRaiders : stats.leaderboard.length;
+    const shown = stats.leaderboard.length;
+    const headerNote = total > shown
+      ? `<div class="lb-note">Top ${shown} of ${total} raiders</div>`
+      : '';
+    lb.innerHTML = headerNote + stats.leaderboard.map((u, i) => {
+      const initials = (u.name || u.email || '?').trim()[0].toUpperCase();
+      const rank = i + 1;
+      const topClass = rank <= 3 ? ` top-${rank}` : '';
+      return `<div class="lb-row${topClass}" data-testid="lb-row">
+        <div class="lb-rank">${rank}</div>
+        <div class="lb-name">
+          <div class="n">${escapeHtml(u.name || initials)}</div>
+          <div class="e">${escapeHtml(u.email)}</div>
+        </div>
+        <div class="lb-points">${u.points} pts</div>
+      </div>`;
+    }).join('');
+  }
+
+  function escapeHtml(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  // Escape first, then turn http(s)://... URLs in the (now-safe) string into anchor tags.
+  function linkifyDesc(text) {
+    if (!text) return '';
+    const safe = escapeHtml(text);
+    // Match http/https URLs up to whitespace or common trailing punctuation
+    const urlRe = /\bhttps?:\/\/[^\s<>"']+/g;
+    return safe.replace(urlRe, (m) => {
+      // Strip trailing punctuation that's usually sentence-ending, not part of URL
+      let trail = '';
+      while (/[.,;:!?)\]}]$/.test(m)) {
+        trail = m.slice(-1) + trail;
+        m = m.slice(0, -1);
+      }
+      return `<a href="${m}" target="_blank" rel="noopener noreferrer" class="desc-link">${m}</a>${trail}`;
+    });
+  }
+
+  function renderRaids() {
+    const list = document.getElementById('raidList');
+    if (!raids.length) {
+      list.innerHTML = `<div class="empty">
+        <i class="fas fa-bullhorn"></i>
+        <h3>No raids yet</h3>
+        <p>New community missions will appear here. Check back soon!</p>
+      </div>`;
+      return;
+    }
+    list.innerHTML = raids.map(r => {
+      const isDaily = !!r.isDaily;
+      // For daily raids, "done" means "done today"; for one-time, "done ever"
+      const done = isDaily ? myDailyDoneToday.has(r.id) : myCompletions.has(r.id);
+      const inactive = !r.isActive;
+      const count = stats.completionsByRaid[r.id] || 0;
+      const dl = fmtDeadline(r.deadline);
+      const deadlineHTML = dl
+        ? `<span ${dl.expired ? 'class="deadline-bad"' : ''}>
+            <i class="fas fa-clock"></i>
+            ${dl.expired ? 'Deadline passed' : `${dl.label} (${dl.days}d left)`}
+          </span>` : '';
+      const completionLabel = isDaily
+        ? `${count} total submission${count === 1 ? '' : 's'}`
+        : `${count} ${count === 1 ? 'completion' : 'completions'}`;
+      const safeTitle = escapeHtml((r.title || '').replace(/'/g, "\\'"));
+      const buttonLabel = isDaily
+        ? (done ? 'Update today\'s proof' : 'I did this today')
+        : (done ? 'Update proof' : 'I did this');
+      return `<article class="raid${done ? ' done' : ''}${inactive ? ' inactive' : ''}${isDaily ? ' is-daily' : ''}" data-testid="raid-card" data-raid-id="${r.id}">
+        <h3>
+          ${isDaily ? '<span class="daily-pill" data-testid="daily-pill"><i class="fas fa-sun"></i> DAILY</span>' : ''}
+          ${escapeHtml(r.title)}
+        </h3>
+        ${r.description ? `<p class="desc">${linkifyDesc(r.description)}</p>` : ''}
+        <div class="raid-meta">
+          <span class="points"><i class="fas fa-star"></i> ${r.points || 0} pts${isDaily ? ' / day' : ''}</span>
+          <span class="done-count"><i class="fas fa-check-circle"></i> ${completionLabel}</span>
+          ${isDaily && done ? '<span class="done-today-pill"><i class="fas fa-check"></i> Done today &middot; back tomorrow</span>' : ''}
+          ${deadlineHTML}
+        </div>
+        <div class="raid-actions">
+          ${r.link ? `<a class="link-btn" href="${escapeHtml(r.link)}" target="_blank" rel="noopener" data-testid="raid-open-link"><i class="fas fa-external-link-alt"></i> Open task</a>` : ''}
+          <button class="complete-btn" data-testid="raid-complete-btn"
+            onclick="openProof('${r.id}', '${safeTitle}', ${isDaily})"
+            ${inactive ? 'disabled' : ''}>
+            <i class="fas ${done ? 'fa-pen' : 'fa-check'}"></i>
+            ${buttonLabel}
+          </button>
+        </div>
+      </article>`;
+    }).join('');
+  }
+
+  async function loadRaids() {
+    const [raidsRes, statsRes] = await Promise.all([
+      fetch(`${API}/raids?active_only=false`).then(r => r.json()),
+      fetch(`${API}/raids/stats`).then(r => r.json())
+    ]);
+    raids = (raidsRes || []).filter(r => r.isActive);
+    // Show inactive at the bottom (they may still be "done" by user)
+    const inactive = (raidsRes || []).filter(r => !r.isActive);
+    raids = raids.concat(inactive);
+    stats = statsRes || stats;
+    renderStats();
+    renderLeaderboard();
+    renderRaids();
+    refreshMyCompletions();
+  }
+
+  async function refreshMyCompletions() {
+    const id = getIdentity();
+    if (!id.email) {
+      myCompletions = new Set();
+      myDailyDoneToday = new Set();
+      renderRaids();
+      return;
+    }
+    try {
+      const all = await fetch(`${API}/raids/completions`).then(r => r.json());
+      const today = todayLocal();
+      const dailyIds = new Set(raids.filter(r => r.isDaily).map(r => r.id));
+      myCompletions = new Set();
+      myDailyDoneToday = new Set();
+      for (const c of all) {
+        if ((c.email || '').toLowerCase() !== id.email) continue;
+        if (dailyIds.has(c.raidId)) {
+          if (c.completionDay === today) myDailyDoneToday.add(c.raidId);
+        } else {
+          myCompletions.add(c.raidId);
+        }
+      }
+      renderRaids();
+    } catch (e) {
+      console.warn('Could not refresh completions:', e);
+    }
+  }
+
+  // --- Proof modal ---
+  window.openProof = function(raidId, title, isDaily) {
+    const id = getIdentity();
+    if (!id.name || !id.email) {
+      showToast('Save your name & email at the top first', true);
+      document.getElementById('ident_name').focus();
+      return;
+    }
+    currentRaidId = raidId;
+    currentRaidIsDaily = !!isDaily;
+    document.getElementById('proofTitle').textContent = title || 'Submit proof';
+    const sub = document.getElementById('proofSub');
+    sub.textContent = isDaily
+      ? 'Daily task — submit fresh proof for today. You can come back tomorrow to earn again.'
+      : 'Drop a link as proof — tweet URL, screenshot URL, profile URL, anything verifiable.';
+    document.getElementById('proofUrl').value = '';
+    document.getElementById('proofErr').classList.remove('show');
+    document.getElementById('proofModal').classList.add('active');
+    setTimeout(() => document.getElementById('proofUrl').focus(), 60);
+  };
+  window.closeProof = function() {
+    document.getElementById('proofModal').classList.remove('active');
+    currentRaidId = null;
+  };
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && document.getElementById('proofModal').classList.contains('active')) closeProof();
+  });
+
+  window.submitProof = async function() {
+    const url = document.getElementById('proofUrl').value.trim();
+    const err = document.getElementById('proofErr');
+    const btn = document.getElementById('proofSubmitBtn');
+    err.classList.remove('show'); err.textContent = '';
+
+    if (!/^https?:\/\//.test(url)) {
+      err.textContent = 'Please paste a valid http/https URL as proof.';
+      err.classList.add('show');
+      return;
+    }
+    const id = getIdentity();
+    if (!id.email || !id.name) {
+      err.textContent = 'Save your name & email at the top first.';
+      err.classList.add('show');
+      return;
+    }
+    const originalHTML = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+    try {
+      const res = await fetch(`${API}/raids/${encodeURIComponent(currentRaidId)}/complete`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          raidId: currentRaidId,
+          name: id.name,
+          email: id.email,
+          proofUrl: url,
+          completionDay: todayLocal()
+        })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data.success === false) throw new Error(data.detail || data.message || ('HTTP ' + res.status));
+      const completedRaidId = currentRaidId;
+      const wasDaily = currentRaidIsDaily;
+      closeProof();
+      showToast(wasDaily ? 'Daily task done! See you tomorrow 🌅' : 'Raid complete! 🎉');
+      // Refresh stats + my completions for accurate "done today"
+      const statsRes = await fetch(`${API}/raids/stats`).then(r => r.json()).catch(() => stats);
+      stats = statsRes || stats;
+      if (wasDaily) myDailyDoneToday.add(completedRaidId);
+      else myCompletions.add(completedRaidId);
+      renderStats(); renderLeaderboard(); renderRaids();
+    } catch (e) {
+      err.textContent = 'Could not submit: ' + (e.message || 'unknown error');
+      err.classList.add('show');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = originalHTML;
+    }
+  };
+
+  loadRaids();
+</script>
+
+</body>
+</html>
