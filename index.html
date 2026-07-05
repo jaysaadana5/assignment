@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jay Saadana — Data Analyst & Data Scientist</title>
+<meta name="description" content="Portfolio of Jay Saadana — data analyst and data scientist. Exploratory data analysis, insight generation, and data storytelling.">
+<style>
+  :root{
+    --bg:#0b1020;
+    --bg-soft:#111832;
+    --card:#151d3b;
+    --card-2:#1a2347;
+    --border:#26305a;
+    --text:#e8ecf7;
+    --muted:#9aa6c8;
+    --brand:#6ea8fe;
+    --brand-2:#8b7bff;
+    --accent:#39d3bb;
+    --shadow:0 10px 40px rgba(0,0,0,.35);
+    --radius:18px;
+  }
+  @media (prefers-color-scheme: light){
+    :root{
+      --bg:#f5f7fc;
+      --bg-soft:#ffffff;
+      --card:#ffffff;
+      --card-2:#f0f3fb;
+      --border:#e2e8f5;
+      --text:#141a2e;
+      --muted:#586084;
+      --brand:#2f6bff;
+      --brand-2:#7a5cff;
+      --accent:#0fb9a0;
+      --shadow:0 12px 40px rgba(30,45,90,.12);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  section{padding:88px 0}
+
+  /* Nav */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(12px);
+    background:color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-weight:800;letter-spacing:.3px;font-size:1.05rem}
+  .logo span{background:linear-gradient(90deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .nav-links{display:flex;gap:26px}
+  .nav-links a{color:var(--muted);font-size:.94rem;font-weight:500}
+  .nav-links a:hover{color:var(--text);text-decoration:none}
+  .menu-btn{display:none;background:none;border:0;color:var(--text);font-size:1.5rem;cursor:pointer}
+  @media(max-width:720px){
+    .nav-links{display:none}
+    .nav-links.open{display:flex;position:absolute;top:64px;left:0;right:0;flex-direction:column;background:var(--bg-soft);padding:16px 24px;border-bottom:1px solid var(--border);gap:16px}
+    .menu-btn{display:block}
+  }
+
+  /* Hero */
+  .hero{padding:96px 0 72px;position:relative;overflow:hidden}
+  .hero::before{
+    content:"";position:absolute;inset:-40% 20% auto auto;width:560px;height:560px;
+    background:radial-gradient(closest-side,rgba(110,168,254,.28),transparent);
+    filter:blur(10px);z-index:-1;
+  }
+  .hero::after{
+    content:"";position:absolute;inset:auto auto -30% -10%;width:520px;height:520px;
+    background:radial-gradient(closest-side,rgba(139,123,255,.22),transparent);
+    z-index:-1;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:.82rem;font-weight:600;letter-spacing:.4px;text-transform:uppercase;
+    color:var(--accent);border:1px solid var(--border);border-radius:999px;
+    padding:6px 14px;background:var(--card);margin-bottom:22px;
+  }
+  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 25%,transparent)}
+  .hero h1{font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.08;margin:0 0 18px;font-weight:800;letter-spacing:-.5px}
+  .hero h1 .grad{background:linear-gradient(90deg,var(--brand),var(--brand-2) 60%,var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.lead{font-size:1.18rem;color:var(--muted);max-width:640px;margin:0 0 34px}
+  .cta{display:flex;gap:14px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:12px 22px;border-radius:12px;font-weight:600;font-size:.98rem;
+    border:1px solid transparent;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease;
+  }
+  .btn:hover{transform:translateY(-2px);text-decoration:none}
+  .btn-primary{background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#fff;box-shadow:var(--shadow)}
+  .btn-ghost{background:var(--card);color:var(--text);border-color:var(--border)}
+
+  .stats{display:flex;gap:40px;margin-top:52px;flex-wrap:wrap}
+  .stat .num{font-size:1.9rem;font-weight:800;background:linear-gradient(90deg,var(--brand),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .lbl{font-size:.85rem;color:var(--muted)}
+
+  /* Section titles */
+  .sec-head{margin-bottom:44px}
+  .sec-head .kicker{color:var(--brand);font-weight:700;letter-spacing:.5px;text-transform:uppercase;font-size:.8rem}
+  .sec-head h2{font-size:clamp(1.7rem,4vw,2.4rem);margin:8px 0 0;font-weight:800;letter-spacing:-.4px}
+
+  /* About */
+  .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:start}
+  @media(max-width:820px){.about-grid{grid-template-columns:1fr}}
+  .about p{color:var(--muted);font-size:1.05rem;margin:0 0 16px}
+  .about p strong{color:var(--text)}
+  .facts{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow)}
+  .facts h3{margin:0 0 16px;font-size:1.05rem}
+  .fact{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px dashed var(--border);font-size:.95rem}
+  .fact:last-child{border-bottom:0}
+  .fact .k{color:var(--muted)}
+  .fact .v{font-weight:600;text-align:right}
+
+  /* Skills */
+  .skill-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:820px){.skill-grid{grid-template-columns:1fr}}
+  .skill-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:transform .18s ease,border-color .18s ease}
+  .skill-card:hover{transform:translateY(-4px);border-color:var(--brand)}
+  .skill-card .ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:1.35rem;margin-bottom:14px;background:linear-gradient(135deg,color-mix(in srgb,var(--brand) 22%,transparent),color-mix(in srgb,var(--brand-2) 22%,transparent))}
+  .skill-card h3{margin:0 0 8px;font-size:1.1rem}
+  .skill-card p{margin:0;color:var(--muted);font-size:.92rem}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .chip{font-size:.78rem;padding:5px 11px;border-radius:999px;background:var(--card-2);border:1px solid var(--border);color:var(--muted)}
+
+  /* Projects */
+  .project{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+    padding:0;overflow:hidden;box-shadow:var(--shadow);
+  }
+  .project-top{padding:30px 32px;background:linear-gradient(135deg,color-mix(in srgb,var(--brand) 14%,var(--card)),var(--card))}
+  .project-tag{font-size:.78rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--accent)}
+  .project h3{margin:8px 0 10px;font-size:1.5rem;letter-spacing:-.3px}
+  .project .summary{color:var(--muted);margin:0;max-width:760px}
+  .project-body{padding:8px 32px 30px}
+  .findings{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:22px 0 26px}
+  @media(max-width:820px){.findings{grid-template-columns:1fr}}
+  .finding{border:1px solid var(--border);border-radius:14px;padding:18px;background:var(--card-2)}
+  .finding .h{font-weight:700;font-size:.95rem;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  .finding .h .b{width:10px;height:10px;border-radius:3px;background:linear-gradient(135deg,var(--brand),var(--brand-2))}
+  .finding p{margin:0;color:var(--muted);font-size:.88rem}
+  .tech{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .project-links{display:flex;gap:12px;flex-wrap:wrap}
+  .link-btn{display:inline-flex;align-items:center;gap:7px;font-size:.9rem;font-weight:600;padding:9px 16px;border-radius:10px;border:1px solid var(--border);background:var(--card-2);color:var(--text)}
+  .link-btn:hover{border-color:var(--brand);text-decoration:none}
+  .link-btn.primary{background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#fff;border-color:transparent}
+
+  /* Contact */
+  .contact{text-align:center}
+  .contact .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:48px 32px;box-shadow:var(--shadow);max-width:640px;margin:0 auto}
+  .contact h2{font-size:clamp(1.7rem,4vw,2.3rem);margin:0 0 12px}
+  .contact p{color:var(--muted);margin:0 0 26px}
+  .socials{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+  footer{border-top:1px solid var(--border);padding:28px 0;color:var(--muted);font-size:.88rem}
+  .foot-inner{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <div class="logo">Jay <span>Saadana</span></div>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="dot"></span> Available for data roles</div>
+    <h1 class="reveal">Turning messy data into<br><span class="grad">decisions that move the needle</span></h1>
+    <p class="lead reveal">I'm Jay Saadana — a data analyst focused on exploratory analysis, insight generation, and clear data storytelling. I dig through raw, imperfect datasets and surface the patterns that drive smarter operational and business decisions.</p>
+    <div class="cta reveal">
+      <a class="btn btn-primary" href="#projects">View my work →</a>
+      <a class="btn btn-ghost" href="mailto:jaysaadana@gmail.com">Get in touch</a>
+    </div>
+    <div class="stats reveal">
+      <div class="stat"><div class="num">1M+</div><div class="lbl">Trip records analysed</div></div>
+      <div class="stat"><div class="num">15+</div><div class="lbl">EDA visualisations</div></div>
+      <div class="stat"><div class="num">3</div><div class="lbl">Strategy pillars delivered</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="about reveal">
+      <div class="sec-head"><div class="kicker">About</div><h2>Data-driven, detail-obsessed</h2></div>
+      <p>I love the messy middle of data work — the part where a dataset arrives full of nulls, mislabelled columns, and outliers, and it's my job to clean, question, and reshape it until a story emerges.</p>
+      <p>My approach is <strong>rigorous but pragmatic</strong>: careful data preparation and cleaning first, then structured exploratory analysis, and finally recommendations that a stakeholder can actually act on. I care as much about <strong>communicating the "so what"</strong> as I do about the analysis itself.</p>
+      <p>Recently I completed a deep-dive EDA on NYC Yellow Taxi operations — from raw trip records to concrete routing, positioning, and pricing recommendations. It's featured below.</p>
+    </div>
+    <aside class="facts reveal">
+      <h3>At a glance</h3>
+      <div class="fact"><span class="k">Focus</span><span class="v">EDA · Insight generation</span></div>
+      <div class="fact"><span class="k">Core stack</span><span class="v">Python · Pandas · Matplotlib</span></div>
+      <div class="fact"><span class="k">Strengths</span><span class="v">Data cleaning · Storytelling</span></div>
+      <div class="fact"><span class="k">Domains</span><span class="v">Operations · Mobility</span></div>
+      <div class="fact"><span class="k">Email</span><span class="v"><a href="mailto:jaysaadana@gmail.com">jaysaadana@gmail.com</a></span></div>
+    </aside>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" style="background:var(--bg-soft);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="kicker">Skills</div><h2>What I bring to the table</h2></div>
+    <div class="skill-grid">
+      <div class="skill-card reveal">
+        <div class="ico">🧹</div>
+        <h3>Data Preparation & Cleaning</h3>
+        <p>Fixing columns, handling missing values, and treating outliers so downstream analysis rests on solid, trustworthy data.</p>
+        <div class="chips"><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">Data wrangling</span><span class="chip">Validation</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="ico">📊</div>
+        <h3>Exploratory Data Analysis</h3>
+        <p>Temporal, geospatial, and correlation analysis to uncover the patterns hiding inside large operational datasets.</p>
+        <div class="chips"><span class="chip">Matplotlib</span><span class="chip">Seaborn</span><span class="chip">GeoPandas</span><span class="chip">Statistics</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="ico">💡</div>
+        <h3>Insight & Storytelling</h3>
+        <p>Translating findings into clear, prioritised recommendations and reports that stakeholders can act on with confidence.</p>
+        <div class="chips"><span class="chip">Reporting</span><span class="chip">Data viz</span><span class="chip">Jupyter</span><span class="chip">Communication</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="kicker">Featured Project</div><h2>Selected work</h2></div>
+    <article class="project reveal">
+      <div class="project-top">
+        <span class="project-tag">Exploratory Data Analysis · Urban Mobility</span>
+        <h3>Optimising NYC Yellow Taxi Operations</h3>
+        <p class="summary">An end-to-end EDA on NYC Yellow Taxi trip records — cleaning and validating raw data, then analysing temporal demand, zone-level activity, and fare structure to produce actionable routing, positioning, and pricing strategy.</p>
+      </div>
+      <div class="project-body">
+        <div class="findings">
+          <div class="finding">
+            <div class="h"><span class="b"></span>Routing & Dispatch</div>
+            <p>Demand peaks 15:00–20:00 with a morning commuter hump. Recommended dynamic dispatch to high-pickup zones and rerouting away from congested Midtown corridors at rush hour.</p>
+          </div>
+          <div class="finding">
+            <div class="h"><span class="b"></span>Zone Positioning</div>
+            <p>Choropleth and pickup/dropoff-ratio analysis surfaced "taxi graveyard" sink zones and airport hotspots (JFK, LaGuardia) — driving rebalancing and staging recommendations.</p>
+          </div>
+          <div class="finding">
+            <div class="h"><span class="b"></span>Pricing Strategy</div>
+            <p>Fare-per-mile falls with distance; late-night trips attract above-average tips. Surcharge patterns by zone and hour revealed clear tariff-optimisation opportunities.</p>
+          </div>
+        </div>
+        <div class="tech">
+          <span class="chip">Python</span><span class="chip">Pandas</span><span class="chip">Matplotlib</span><span class="chip">GeoPandas</span><span class="chip">Choropleth mapping</span><span class="chip">Jupyter</span><span class="chip">ReportLab</span>
+        </div>
+        <div class="project-links">
+          <a class="link-btn primary" href="EDA_NYC_Taxi_Analysis_Jay_Saadana_nb.html">📓 View notebook (HTML)</a>
+          <a class="link-btn" href="EDA_NYC_Taxi_Analysis_Jay_Saadana.pdf">📄 Read the report (PDF)</a>
+          <a class="link-btn" href="EDA_NYC_Taxi_Analysis_Jay_Saadana.ipynb">⬇️ Notebook (.ipynb)</a>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact" style="background:var(--bg-soft);border-top:1px solid var(--border)">
+  <div class="wrap">
+    <div class="card reveal">
+      <div class="kicker" style="color:var(--brand);font-weight:700;letter-spacing:.5px;text-transform:uppercase;font-size:.8rem">Contact</div>
+      <h2>Let's build something with data</h2>
+      <p>Have a dataset that needs untangling, or a role you think I'd fit? I'd love to hear from you.</p>
+      <div class="socials">
+        <a class="btn btn-primary" href="mailto:jaysaadana@gmail.com">✉️ jaysaadana@gmail.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <span>© <span id="yr"></span> Jay Saadana</span>
+    <span>Built with data, curiosity & clean HTML.</span>
+  </div>
+</footer>
+
+<script>
+  // year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
